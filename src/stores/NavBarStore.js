@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { ReactComponent as DiaryIcon } from "../assets/navbar/diary_icon.svg";
 import { ReactComponent as HomeIcon } from "../assets/navbar/home_icon.svg";
 import { ReactComponent as MyPageIcon } from "../assets/navbar/mypage_icon.svg";
