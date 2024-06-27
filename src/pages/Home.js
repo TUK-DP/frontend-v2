@@ -8,12 +8,12 @@ import gameImg from "../assets/home/slider/game.png";
 import gymnasticsImg from "../assets/home/slider/gymnastics.png";
 import centerImg from "../assets/home/slider/center.png";
 import surveyImg from "../assets/home/slider/survey.png";
-import centerMap from "../assets/home/button/centerMap.png";
+import btn_centerMap from "../assets/home/button/btn_centerMap.png";
 import btn_survey from "../assets/home/button/btn_survey.png";
 import btn_diary from "../assets/home/button/btn_diary.png";
-import btn_gym from "../assets/home/button/btn_gym.png";
-import btn_rock from "../assets/home/button/btn_rock.png";
-import btn_color from "../assets/home/button/btn_color.png";
+import btn_gymnastics from "../assets/home/button/btn_gymnastics.png";
+import btn_rockScissorsPaper from "../assets/home/button/btn_rockScissorsPaper.png";
+import btn_colorMatch from "../assets/home/button/btn_colorMatch.png";
 
 export const HOME_PAGE_PATH = "/home";
 
@@ -21,15 +21,20 @@ const Home = () => {
   return (
     <div>
       <SimpleSlider />
-      <Btn_survey_diary />
-      <Btn_center />
-      <div className="w-[90%] mx-auto text-2xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
-      <Btn_gym />
-      <div className="w-[90%] mx-auto text-lg my-5">
-        <span className="text-orange-500">미니게임</span>
-        <span>을 통해 두뇌를 활성화 시키세요!</span>
+      <div className="px-5">
+        <div className="flex justify-between my-8">
+          <MainButton adverb={"간단한"} buttonName={"치매진단"} imgsrc={btn_survey} />
+          <MainButton adverb={"하루기록"} buttonName={"일기장"} imgsrc={btn_diary} />
+        </div>
+        <DementiaCenterButton />
+        <div className="text-2xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
+        <GymnasticsButton />
+        <div className="text-lg my-5">
+          <span className="text-orange-500">미니게임</span>
+          <span>을 통해 두뇌를 활성화 시키세요!</span>
+        </div>
+        <GameButtonList />
       </div>
-      <Btn_game />
     </div>
   );
 }
@@ -56,12 +61,13 @@ const SimpleSlider = () => {
     centerImg, 
     surveyImg
   ];
+
   return (
     <div>
       <Slider {...settings}>
         {images.map((image, index) => (
           <div key={index}>
-            <img src={image} alt={`slide-${index}`} />
+            <img src={image} />
           </div>
         ))}
       </Slider>
@@ -69,49 +75,40 @@ const SimpleSlider = () => {
   );
 };
 
-//치매진단, 일기장 버튼 컴포넌트 
-const Btn_survey_diary = () => {
-  return(
-    <div className="flex w-[90%] mx-auto justify-between my-8">
-      <Btn str1={"간단한"} str2={"치매진단"} imgsrc={btn_survey} />
-      <Btn str1={"하루기록"} str2={"일기장"} imgsrc={btn_diary} />
-    </div>
-  );
-};
 
-//버튼 컴포넌트
-const Btn = ({str1, str2, imgsrc}) => {
+//메인버튼 컴포넌트
+const MainButton = ({adverb, buttonName, imgsrc}) => {
   return (
     <div className="w-[48%] h-[10rem] border-2 rounded-xl bg-[#f4f4f4] relative">
       <div className="absolute left-4 top-4">
-        <span className="text-[#5B5B5B] text-xl font-bold">{str1}</span>
+        <span className="text-[#5B5B5B] text-xl font-bold">{adverb}</span>
         <br/>
-        <span className="text-xl font-bold">{str2}</span>
+        <span className="text-xl font-bold">{buttonName}</span>
       </div>
       <img src={imgsrc} className="absolute bottom-2 right-2"/>
     </div>
   )
 }
 
-//센터 버튼 컴포넌트
-const Btn_center = () => {
+//치매센터 버튼 컴포넌트
+const DementiaCenterButton = () => {
   return(
-    <div className="w-[90%] mx-auto my-7 flex justify-between items-center border-2 p-5 rounded-xl">
+    <div className="my-7 flex justify-between items-center border-2 p-5 rounded-xl">
       <div>
         <span className="text-xl font-bold">가까운 치매센터 찾기 {'>'}</span>
         <br/>
         <span className="text-base">주변 치매센터를 확인해보세요</span>
       </div>
-      <img src={centerMap}/>
+      <img src={btn_centerMap}/>
     </div>
   );
 };
 
 //체조 버튼 컴포넌트 
-const Btn_gym = () => {
+const GymnasticsButton = () => {
   return (
-    <div className="w-[90%] mx-auto mb-6 flex justify-between border-2 rounded-xl p-5 bg-[#f4f4f4] text-xl">
-      <img src={btn_gym} />
+    <div className="mb-6 flex justify-between border-2 rounded-xl p-5 bg-[#f4f4f4] text-xl">
+      <img src={btn_gymnastics} />
       <div className="mr-8">
         <span className="text-orange-500">간단한 체조</span><span>를 통해</span>
         <br/>
@@ -121,23 +118,24 @@ const Btn_gym = () => {
   );
 };
 
-//미니게임 버튼 컴포넌트
-const Btn_game = () => {
+//미니게임 리스트 컴포넌트
+const GameButtonList = () => {
+  //게임 데이터
+  const games = [
+    { imgsrc: btn_rockScissorsPaper, name: "지는 가위바위보" },
+    { imgsrc: btn_colorMatch, name: "컬러매치" }
+  ];
+
   return (
     <div>
-      <Game imgsrc={btn_rock} name={"지는 가위바위보"} />
-      <Game imgsrc={btn_color} name={"컬러매치"} />
+      {games.map((game, index) => (
+        <div key={index} className="h-[4rem] flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg">
+          <img src={game.imgsrc} alt={game.name} width={"50px"} />
+          {game.name}
+          <span className="text-blue-600 font-bold">도전 {'>'}</span>
+        </div>
+      ))}
     </div>
   );
 };
 
-//게임 컴포넌트
-const Game = ({imgsrc, name}) => {
-  return (
-    <div className="w-[90%] h-[4rem] mx-auto flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg">
-      <img src={imgsrc} width={"50px"}/>
-      {name}
-      <span className="text-blue-600 font-bold">도전 {'>'}</span>
-    </div>
-  );
-};
