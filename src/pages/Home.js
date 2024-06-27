@@ -11,6 +11,7 @@ import surveyImg from "../assets/home/slider/survey.png";
 import centerMap from "../assets/home/button/centerMap.png";
 import btn_survey from "../assets/home/button/btn_survey.png";
 import btn_diary from "../assets/home/button/btn_diary.png";
+import btn_gym from "../assets/home/button/btn_gym.png";
 
 export const HOME_PAGE_PATH = "/home";
 
@@ -20,6 +21,8 @@ const Home = () => {
       <SimpleSlider />
       <Btn_survey_diary />
       <Btn_center />
+      <div className="w-[90%] mx-auto text-xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
+      <Btn_gym />
     </div>
   );
 }
@@ -93,6 +96,20 @@ const Btn_center = () => {
         <span className="text-base">주변 치매센터를 확인해보세요</span>
       </div>
       <img src={centerMap}/>
+    </div>
+  );
+};
+
+//체조 버튼 컴포넌트 
+const Btn_gym = () => {
+  return (
+    <div className="w-[90%] mx-auto mb-6 flex justify-between border-2 rounded-xl p-5 bg-[#f4f4f4] text-xl">
+      <img src={btn_gym} />
+      <div className="mr-8">
+        <span className="text-orange-500">간단한 체조</span><span>를 통해</span>
+        <br/>
+        <span>치매를 예방하세요 {'>'}</span>
+      </div>
     </div>
   );
 };
