@@ -5,7 +5,7 @@ import { TbCircleNumber2Filled } from "react-icons/tb";
 import { TbCircleNumber2 } from "react-icons/tb";
 import { TbCircleCheckFilled } from "react-icons/tb";
 
-const ProgressBar = ({ step }) => {
+const SigupStep = ({ step }) => {
   return (
     <div className={"w-full flex flex-row justify-center items-center py-5"}>
       {step === 1 && <Step1ProgressBar />}
@@ -14,7 +14,7 @@ const ProgressBar = ({ step }) => {
   );
 };
 
-export default ProgressBar;
+export default SigupStep;
 
 const Step1ProgressBar = () => {
   const INPUT_EMAIL = "이메일 입력";

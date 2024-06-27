@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import HeaderBar from "../components/HeaderBar";
-import ProgressBar from "../components/signup/ProgressBar";
+import SigupStep from "../components/signup/SignupStep";
 import InputEmail from "../components/signup/InputEmail";
 import InputInfo from "../components/signup/InputInfo";
 import PurpleButton from "../components/signup/PurpleButton";
@@ -12,7 +12,7 @@ const Signup = () => {
   return (
     <div className={"w-full h-full flex flex-col items-center justify-between"}>
       <HeaderBar />
-      <ProgressBar step={step} />
+      <SigupStep step={step} />
       <div className={"w-5/6 flex-1 flex flex-col justify-center items-center"}>
         {step === 1 && <InputEmail />}
         {step === 2 && <InputInfo />}
