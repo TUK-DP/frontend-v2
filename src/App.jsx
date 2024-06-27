@@ -7,15 +7,15 @@ import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MobileResponsiveLayout />}>
+    <MobileResponsiveLayout>
+      <BrowserRouter>
+        <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={"/"} element={<TestApp />} />
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </MobileResponsiveLayout>
   );
 }
 
