@@ -11,6 +11,11 @@ module.exports = {
         sliderBgExercise: "#FF7D7D",
         sliderBgCenter: "#356DD9",
       },
+      spacing: {
+        minWidth: "360px",
+        maxWidth: "1280px",
+        navBarHeight: "90px",
+      },
     },
   },
   plugins: [],
