@@ -4,7 +4,7 @@ import { NavBar } from "../components/navbar/NavBar";
 
 function NavigationBarLayout(props) {
   return (
-    <div id={"NavigationBarLayout"}>
+    <div id={"NavigationBarLayout"} className={"pb-navBarHeight"}>
       <Outlet />
       <NavBar />
     </div>
