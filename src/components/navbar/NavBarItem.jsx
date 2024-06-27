@@ -1,10 +1,10 @@
-export const NavBarItem = ({
-  value,
-  name,
-  icon: Icon,
-  isSelected,
-  onClick,
-}) => {
+import { useNavBarStore } from "../../stores/NavBarStore";
+
+export const NavBarItem = ({ value, name, icon: Icon }) => {
+  const { selectedMenu, onClick } = useNavBarStore((state) => state);
+
+  const isSelected = selectedMenu.value === value;
+
   return (
     <div
       onClick={() => onClick(value)}
