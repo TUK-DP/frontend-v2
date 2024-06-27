@@ -8,6 +8,7 @@ import gameImg from "../assets/home/slider/game.png";
 import gymnasticsImg from "../assets/home/slider/gymnastics.png";
 import centerImg from "../assets/home/slider/center.png";
 import surveyImg from "../assets/home/slider/survey.png";
+import centerMap from "../assets/home/button/centerMap.png";
 
 export const HOME_PAGE_PATH = "/home";
 
@@ -15,6 +16,7 @@ const Home = () => {
   return (
     <div>
       <SimpleSlider />
+      <Btn_center />
     </div>
   );
 }
@@ -50,6 +52,19 @@ const SimpleSlider = () => {
           </div>
         ))}
       </Slider>
+    </div>
+  );
+};
+
+const Btn_center = () => {
+  return(
+    <div className="w-[90%] mx-auto my-7 flex justify-between items-center border-2 p-4 rounded-xl">
+      <div>
+        <span className="text-xl font-bold">가까운 치매센터 찾기 {'>'}</span>
+        <br/>
+        <span className="text-base">주변 치매센터를 확인해보세요</span>
+      </div>
+      <img src={centerMap}/>
     </div>
   );
 };
