@@ -8,7 +8,7 @@ export const NavBar = () => {
     <nav
       id={"NavBar"}
       className={
-        "fixed bottom-0 w-full h-navBarHeight flex justify-around transition-all duration-500 bg-white" +
+        "fixed bottom-0 w-full h-navBarHeight flex justify-around transition-all duration-500 bg-white max-w-maxWidth" +
         " " +
         (isScrollDowning ? "translate-y-full" : "translate-y-0")
       }
