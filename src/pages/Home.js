@@ -12,6 +12,8 @@ import centerMap from "../assets/home/button/centerMap.png";
 import btn_survey from "../assets/home/button/btn_survey.png";
 import btn_diary from "../assets/home/button/btn_diary.png";
 import btn_gym from "../assets/home/button/btn_gym.png";
+import btn_rock from "../assets/home/button/btn_rock.png";
+import btn_color from "../assets/home/button/btn_color.png";
 
 export const HOME_PAGE_PATH = "/home";
 
@@ -21,8 +23,13 @@ const Home = () => {
       <SimpleSlider />
       <Btn_survey_diary />
       <Btn_center />
-      <div className="w-[90%] mx-auto text-xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
+      <div className="w-[90%] mx-auto text-2xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
       <Btn_gym />
+      <div className="w-[90%] mx-auto text-lg my-5">
+        <span className="text-orange-500">미니게임</span>
+        <span>을 통해 두뇌를 활성화 시키세요!</span>
+      </div>
+      <Btn_game />
     </div>
   );
 }
@@ -110,6 +117,27 @@ const Btn_gym = () => {
         <br/>
         <span>치매를 예방하세요 {'>'}</span>
       </div>
+    </div>
+  );
+};
+
+//미니게임 버튼 컴포넌트
+const Btn_game = () => {
+  return (
+    <div>
+      <Game imgsrc={btn_rock} name={"지는 가위바위보"} />
+      <Game imgsrc={btn_color} name={"컬러매치"} />
+    </div>
+  );
+};
+
+//게임 컴포넌트
+const Game = ({imgsrc, name}) => {
+  return (
+    <div className="w-[90%] h-[4rem] mx-auto flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg">
+      <img src={imgsrc} width={"50px"}/>
+      {name}
+      <span className="text-blue-600 font-bold">도전 {'>'}</span>
     </div>
   );
 };
