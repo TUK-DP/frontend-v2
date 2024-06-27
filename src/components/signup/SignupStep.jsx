@@ -1,10 +1,11 @@
 import React from "react";
-import { TbCircleNumber1 } from "react-icons/tb";
 import { TbCircleNumber1Filled } from "react-icons/tb";
 import { TbCircleNumber2Filled } from "react-icons/tb";
 import { TbCircleNumber2 } from "react-icons/tb";
 import { TbCircleCheckFilled } from "react-icons/tb";
 
+const INPUT_EMAIL = "이메일 입력";
+const INPUT_INFO = "정보 입력";
 const SigupStep = ({ step }) => {
   return (
     <div className={"w-full flex flex-row justify-center items-center py-5"}>
@@ -17,8 +18,6 @@ const SigupStep = ({ step }) => {
 export default SigupStep;
 
 const Step1ProgressBar = () => {
-  const INPUT_EMAIL = "이메일 입력";
-  const INPUT_INFO = "정보 입력";
   return (
     <>
       <TbCircleNumber1Filled size={30} color="#1777FF" />
@@ -31,8 +30,6 @@ const Step1ProgressBar = () => {
 };
 
 const Step2ProgressBar = () => {
-  const INPUT_EMAIL = "이메일 입력";
-  const INPUT_INFO = "정보 입력";
   return (
     <>
       <TbCircleCheckFilled size={30} color="#1777FF" />
