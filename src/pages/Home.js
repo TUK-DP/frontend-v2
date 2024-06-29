@@ -19,7 +19,7 @@ export const HOME_PAGE_PATH = "/home";
 
 const Home = () => {
   return (
-    <div>
+    <>
       <SimpleSlider />
       <div className="px-5">
         <div className="flex justify-between my-8">
@@ -35,7 +35,7 @@ const Home = () => {
         </div>
         <GameButtonList />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -54,8 +54,8 @@ const SimpleSlider = () => {
     slidesToScroll: 1,
   };
 
-  //이미지 데이터
-  const images = [
+  //슬라이더 데이터
+  const sliderDatas = [
     { imgsrc: slider_diary, sentence1: "일기를 회상하고", sentence2: "나만의 그림을 그려보세요!", color:"bg-[#6100C1]" },
     { imgsrc: slider_dementiacenter, sentence1: "치매센터가 어디있나요?", sentence2: "가까운 치매센터 찾기", color:"bg-[#356DD9]" },
     { imgsrc: slider_gymnastics, sentence1: "간단하게 따라할 수 있는", sentence2: "체조들을 만나보세요!", color:"bg-[#FF7D7D]" },
@@ -64,20 +64,18 @@ const SimpleSlider = () => {
   ];
 
   return (
-    <div>
       <Slider {...settings}>
-        {images.map((image, index) => (
-          <div key={index} className={`relative h-64 ${image.color}`}>
+        {sliderDatas.map((slider, index) => (
+          <div key={index} className={`relative h-64 ${slider.color}`}>
             <div className={`absolute top-6 sm:top-8 md:top-12 left-6 sm:left-8 md:left-12 text-2xl md:text-3xl font-bold ${index === 4 ? 'text-black' : 'text-white'}`} >
-              {image.sentence1}
+              {slider.sentence1}
               <br/>
-              {image.sentence2}
+              {slider.sentence2}
             </div>
-            <img src={image.imgsrc} className="absolute right-5 md:right-8 bottom-5 md:bottom-8"/>
+            <img src={slider.imgsrc} className="absolute right-5 md:right-8 bottom-5 md:bottom-8"/>
           </div>
         ))}
       </Slider>
-    </div>
   );
 };
 
@@ -133,7 +131,7 @@ const GameButtonList = () => {
   ];
 
   return (
-    <div>
+    <>
       {games.map((game, index) => (
         <div key={index} className="h-[4rem] flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg md:text-2xl">
           <img src={game.imgsrc} alt={game.name} width={"50px"} />
@@ -141,7 +139,7 @@ const GameButtonList = () => {
           <span className="text-blue-600 font-bold">도전 {'>'}</span>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
