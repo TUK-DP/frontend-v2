@@ -15,7 +15,7 @@ export default InputStep1;
 
 const InputEmail = () => {
   return (
-    <div className={"flex-1 flex flex-col justify-center"}>
+    <div className={"flex-1 flex flex-col justify-center mb-20"}>
       <div>이메일</div>
       <input
         type="text"
