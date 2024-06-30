@@ -1,6 +1,6 @@
 import React from "react";
-import btn_survey from "../assets/home/button/btn_survey.png";
-import btn_diary from "../assets/home/button/btn_diary.png";
+import btn_survey from "../../assets/home/button/btn_survey.png";
+import btn_diary from "../../assets/home/button/btn_diary.png";
 
 const MainDementiaPreventionSection = () => {
   return (

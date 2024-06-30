@@ -1,7 +1,7 @@
 import React from "react";
-import btn_gymnastics from "../assets/home/button/btn_gymnastics.png";
-import btn_rockScissorsPaper from "../assets/home/button/btn_rockScissorsPaper.png";
-import btn_colorMatch from "../assets/home/button/btn_colorMatch.png";
+import btn_gymnastics from "../../assets/home/button/btn_gymnastics.png";
+import btn_rockScissorsPaper from "../../assets/home/button/btn_rockScissorsPaper.png";
+import btn_colorMatch from "../../assets/home/button/btn_colorMatch.png";
 
 const SubDementiaPreventionSection = () => {
   return (

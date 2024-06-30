@@ -2,12 +2,12 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../styles/sliderStyles.css";
-import slider_diary from "../assets/home/slider/slider_diary.png";
-import slider_game from "../assets/home/slider/slider_game.png";
-import slider_gymnastics from "../assets/home/slider/slider_gymnastics.png";
-import slider_dementiacenter from "../assets/home/slider/slider_dementiacenter.png";
-import slider_survey from "../assets/home/slider/slider_survey.png";
+import "../../styles/sliderStyles.css";
+import slider_diary from "../../assets/home/slider/slider_diary.png";
+import slider_game from "../../assets/home/slider/slider_game.png";
+import slider_gymnastics from "../../assets/home/slider/slider_gymnastics.png";
+import slider_dementiacenter from "../../assets/home/slider/slider_dementiacenter.png";
+import slider_survey from "../../assets/home/slider/slider_survey.png";
 
 // 슬라이더 컴포넌트
 const FeatureSlider = () => {
