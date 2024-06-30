@@ -9,18 +9,18 @@ import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MobileResponsiveLayout />}>
-          <Route exact element={<NavigationBarLayout />}>
-            <Route exact path={"/"} element={<TestApp />} />
+ <MobileResponsiveLayout>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<NavigationBarLayout />}>
+            <Route path="/" element={<TestApp />} />
           </Route>
-          <Route exact path={SIGNUP_PAGE_PATH} element={<Signup />} />
-          <Route exact path={SIGNIN_PAGE_PATH} element={<Signin />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+          <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
+          <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
+        </Routes>
+      </BrowserRouter>
+    </MobileResponsiveLayout>
+  );  
 }
 
 export default App;

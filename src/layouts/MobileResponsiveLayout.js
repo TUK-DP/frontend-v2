@@ -1,12 +1,10 @@
-import { Outlet } from "react-router-dom";
-
-export const MobileResponsiveLayout = (props) => {
+export const MobileResponsiveLayout = ({ children }) => {
   return (
     <div
       id={"MobileResponsiveLayout"}
-      className={"relative h-full mx-auto min-w-minWidth max-w-maxWidth"}
+      className={"h-full mx-auto min-w-minWidth max-w-maxWidth"}
     >
-      <Outlet />
+      {children}
     </div>
   );
 };
