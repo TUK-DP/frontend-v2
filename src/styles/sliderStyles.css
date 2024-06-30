@@ -1,0 +1,13 @@
+.slick-dots {
+  bottom: 10px; /* 이미지 하단에서 10px 위로 조정 */
+}
+
+.slick-dots li button:before { /*선택되지 않은 슬라이더 dots 투명도, 색 조정*/
+  opacity: 0.45;
+  color: white;
+}
+
+.slick-dots li.slick-active button:before { /*선택된 슬라이더 dots 투명도, 색 조정*/
+  opacity: 0.95;
+  color: white;
+}
