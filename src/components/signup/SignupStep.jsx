@@ -9,33 +9,28 @@ const INPUT_INFO = "정보 입력";
 const SigupStep = ({ step }) => {
   return (
     <div className={"w-full flex flex-row justify-center items-center py-5"}>
-      {step === 1 && <Step1ProgressBar />}
-      {step === 2 && <Step2ProgressBar />}
+      <StepProgressBar step={step} />
     </div>
   );
 };
 
 export default SigupStep;
 
-const Step1ProgressBar = () => {
+const StepProgressBar = ({ step }) => {
   return (
     <>
-      <TbCircleNumber1Filled size={30} color="#1777FF" />
+      {step == 1 ? (
+        <TbCircleNumber1Filled size={30} color="#1777FF" />
+      ) : (
+        <TbCircleCheckFilled size={30} color="#1777FF" />
+      )}
       <div className={"pl-2"}>{INPUT_EMAIL}</div>
       <div className={"w-16"}></div>
-      <TbCircleNumber2 size={30} color="#1777FF" />
-      <div className={"pl-2"}>{INPUT_INFO}</div>
-    </>
-  );
-};
-
-const Step2ProgressBar = () => {
-  return (
-    <>
-      <TbCircleCheckFilled size={30} color="#1777FF" />
-      <div className={"pl-2"}>{INPUT_EMAIL}</div>
-      <div className={"w-16"}></div>
-      <TbCircleNumber2Filled size={30} color="#1777FF" />
+      {step == 1 ? (
+        <TbCircleNumber2 size={30} color="#1777FF" />
+      ) : (
+        <TbCircleNumber2Filled size={30} color="#1777FF" />
+      )}
       <div className={"pl-2"}>{INPUT_INFO}</div>
     </>
   );
