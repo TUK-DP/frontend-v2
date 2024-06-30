@@ -4,7 +4,7 @@ import MainDementiaPreventionSection from "../components/home/MainDementiaPreven
 import SubDementiaPreventionSection from "../components/home/SubDementiaPreventionSection";
 import btn_centerMap from "../assets/home/button/btn_centerMap.png";
 
-export const HOME_PAGE_PATH = "/home";
+export const HOME_PAGE_PATH = "/";
 
 const Home = () => {
   return (
