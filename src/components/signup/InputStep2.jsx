@@ -4,14 +4,16 @@ import PurpleButton from "./PurpleButton";
 const ERROR_MESSAGE = "* 올바르지 않는 이메일 형식입니다.";
 const InputStep2 = () => {
   return (
-    <div className={"flex flex-col w-full h-full justify-center mb-20"}>
-      <div className={"flex flex-col flex-1 justify-center mb-10"}>
-        <InputName />
-        <InputBirth />
-        <InputPassword />
-        <InputCheckPassword />
+    <div className={"h-full flex justify-center min-w-full"}>
+      <div className={"flex flex-col  h-full justify-center pb-20 w-5/6"}>
+        <div className={"flex flex-col flex-1 justify-center mb-10"}>
+          <InputName />
+          <InputBirth />
+          <InputPassword />
+          <InputCheckPassword />
+        </div>
+        <PurpleButton text="완료" />
       </div>
-      <PurpleButton text="완료" />
     </div>
   );
 };

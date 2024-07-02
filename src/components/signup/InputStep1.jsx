@@ -4,9 +4,11 @@ import PurpleButton from "./PurpleButton";
 const ERROR_MESSAGE = "* 올바르지 않는 이메일 형식입니다.";
 const InputStep1 = ({ handleClickNextStep }) => {
   return (
-    <div className={"flex flex-col w-full h-full justify-center mb-20"}>
-      <InputEmail />
-      <PurpleButton text="다음" handleClickButton={handleClickNextStep} />
+    <div className={"flex h-full justify-center min-w-full "}>
+      <div className="w-5/6 h-full flex flex-col justify-center items-center pb-20">
+        <InputEmail />
+        <PurpleButton text="다음" handleClickButton={handleClickNextStep} />
+      </div>
     </div>
   );
 };
@@ -15,7 +17,7 @@ export default InputStep1;
 
 const InputEmail = () => {
   return (
-    <div className={"flex-1 flex flex-col justify-center mb-20"}>
+    <div className={"flex flex-col justify-center mb-20 w-full flex-1"}>
       <div>이메일</div>
       <input
         type="text"
