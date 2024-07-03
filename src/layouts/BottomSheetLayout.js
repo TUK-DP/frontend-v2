@@ -104,7 +104,7 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
         onTouchEnd={handleMouseUpOrLeave}
 
         style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
-        className={"fixed z-10 left-0 right-0 top-0 bottom-0 h-full overflow-hidden" +
+        className={"fixed z-10 w-full top-0 bottom-0 h-full overflow-hidden max-w-maxWidth" +
           " " +
           (isClicking ? "" : "transition-all duration-500")}>
         {children}
