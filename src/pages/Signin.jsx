@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLogo from "../assets/AppLogo.png";
 import PurpleButton from "../components/signup/PurpleButton";
 import { useNavigate } from "react-router-dom";
 import { SIGNUP_PAGE_PATH } from "./Signup";
+import ErrorMessage from "../components/signup/ErrorMessage";
 
 export const SIGNIN_PAGE_PATH = "/signin";
-const ERROR_MESSAGE = "* 올바르지 않는 이메일 형식입니다.";
+const ERROR_MESSAGE = {
+  EMPTY_ERROR: "필수 입력 항목입니다.",
+  INVALID_EMAIL: "올바르지 않는 이메일 형식입니다.",
+  INVALID_PASSWORD: "비밀번호는 6자 이상이어야 합니다.",
+};
 
+const handleClickLoginButton = () => {};
 const Signin = () => {
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
@@ -26,6 +32,17 @@ const Signin = () => {
 export default Signin;
 
 const InputEmail = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (email === "") {
+      setErrorMessage(ERROR_MESSAGE.EMPTY_ERROR);
+    } else if (!emailRegex.test(email)) {
+      setErrorMessage(ERROR_MESSAGE.INVALID_EMAIL);
+    } else {
+      setErrorMessage("");
+    }
+  };
   return (
     <div className={"flex flex-col justify-center mb-4"}>
       <div>이메일</div>
@@ -35,13 +52,25 @@ const InputEmail = () => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
         }
         placeholder="이메일을 입력해주세요"
+        onChange={(e) => validateEmail(e.target.value)}
       />
-      <div className={"text-[#FF0000] ml-2"}>{ERROR_MESSAGE}</div>
+      <ErrorMessage errorMessage={errorMessage} />
     </div>
   );
 };
 
 const InputPassword = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const validatePassword = (password) => {
+    if (password === "") {
+      setErrorMessage(ERROR_MESSAGE.EMPTY_ERROR);
+    } else if (password.length < 6) {
+      setErrorMessage(ERROR_MESSAGE.INVALID_PASSWORD);
+    } else {
+      setErrorMessage("");
+    }
+  };
+
   return (
     <div className={"flex flex-col justify-center mb-4"}>
       <div>비밀번호</div>
@@ -51,8 +80,9 @@ const InputPassword = () => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
         }
         placeholder="비밀번호를 입력해주세요"
+        onChange={(e) => validatePassword(e.target.value)}
       />
-      <div className={"text-[#FF0000] ml-2"}>{ERROR_MESSAGE}</div>
+      <ErrorMessage errorMessage={errorMessage} />
     </div>
   );
 };
