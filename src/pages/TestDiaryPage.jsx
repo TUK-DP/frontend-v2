@@ -132,11 +132,14 @@ const BottomSheet = ({ position, setPosition, offset = 150 }) => {
         ref={bottomSheet}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
-        style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
-        // style={isClicking ? movingContainerStyle : containerStyle}
-        // style={{ top: (isClicking ? movingPosition : position) }}
+
+        onTouchStart={(e) => handleMouseDown(e.touches[0])}
+        onTouchMove={(e) => handleMouseMove(e.touches[0])}
+        onTouchEnd={handleMouseUpOrLeave}
+
+        style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
         className={"fixed z-10 left-0 right-0 h-full overflow-hidden" +
           " " +
           (isClicking ? "" : "transition-all duration-500")}>
