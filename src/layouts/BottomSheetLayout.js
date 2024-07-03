@@ -50,9 +50,9 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
       return;
     }
     const diffY = whenMouseDown.current.clientY - e.clientY;
-    // top 에서 위로 움직였다면 return
-    if (position === TOP_POSITION && diffY > 0) return;
-    setMovingContainerTop(whenMouseDown.current.containerTop - diffY);
+    // top 에서 위로 움직였다면 무시
+    let nextTop = whenMouseDown.current.containerTop - diffY;
+    setMovingContainerTop(nextTop <= 0 ? 0 : nextTop);
   };
 
   const handleMouseUpOrLeave = () => {
