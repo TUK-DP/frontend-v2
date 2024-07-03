@@ -1,48 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
-export const TEST_DIARY_PAGE_PATH = "/test/diary";
+export const TOP_POSITION = "top_position";
+export const MIDDLE_POSITION = "middle_position";
+export const BOTTOM_POSITION = "bottom_position";
 
-export const TestDiaryPage = () => {
-  return <TestCalender />;
-};
-
-const TestCalender = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState(TOP_POSITION);
-
-
-  const onClick = () => {
-    console.log(isOpen);
-    setIsOpen(pre => !pre);
-  };
-
-  return (
-    <>
-      <div onClick={() => {
-        console.log("top");
-        setPosition(TOP_POSITION);
-      }}>{"<"}</div>
-      <div onClick={() => {
-        console.log("middle");
-        setPosition(MIDDLE_POSITION);
-      }}>{"0"}</div>
-      <div onClick={() => {
-        console.log("bottom");
-        setPosition(BOTTOM_POSITION);
-      }}>{">"}</div>
-      <div className={"w-full h-[300px] bg-blue-600"} onClick={onClick}>
-        this is calender please click me
-      </div>
-      <BottomSheet position={position} setPosition={setPosition} />
-    </>
-  );
-};
-
-const TOP_POSITION = "top_position";
-const MIDDLE_POSITION = "middle_position";
-const BOTTOM_POSITION = "bottom_position";
-
-const BottomSheet = ({ position, setPosition, offset = 150 }) => {
+export const BottomSheetLayout = ({ position, setPosition, offset = 150, children }) => {
   const middleLimitComp = useRef(null);
   const bottomSheet = useRef(null);
   const [middleTop, setMiddleTop] = useState(0); // useEffect 에서 초기화
@@ -88,6 +50,8 @@ const BottomSheet = ({ position, setPosition, offset = 150 }) => {
       return;
     }
     const diffY = whenMouseDown.current.clientY - e.clientY;
+    // top 에서 위로 움직였다면 return
+    if (position === TOP_POSITION && diffY > 0) return;
     setMovingContainerTop(whenMouseDown.current.containerTop - diffY);
   };
 
@@ -140,12 +104,10 @@ const BottomSheet = ({ position, setPosition, offset = 150 }) => {
         onTouchEnd={handleMouseUpOrLeave}
 
         style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
-        className={"fixed z-10 left-0 right-0 h-full overflow-hidden" +
+        className={"fixed z-10 left-0 right-0 top-0 bottom-0 h-full overflow-hidden" +
           " " +
           (isClicking ? "" : "transition-all duration-500")}>
-        <div className={"w-full bg-primary-600 h-full"}>
-          this is BottomSheet
-        </div>
+        {children}
       </div>
     </>
   );

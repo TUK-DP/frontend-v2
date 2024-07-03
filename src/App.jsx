@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
 import { TestApp } from "./pages/TestApp";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
-import { TEST_DIARY_PAGE_PATH, TestDiaryPage } from "./pages/TestDiaryPage";
+import { TEST_BOTTOM_SHEET_PAGE_PATH, TestBottomSheetTutorialPage } from "./pages/TestBottomSheetTutorialPage";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={"/"} element={<TestApp />} />
-            <Route exact path={TEST_DIARY_PAGE_PATH} element={<TestDiaryPage />} />
+            <Route exact path={TEST_BOTTOM_SHEET_PAGE_PATH} element={<TestBottomSheetTutorialPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
