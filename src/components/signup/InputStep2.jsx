@@ -38,10 +38,10 @@ const InputStep2 = () => {
   };
 
   return (
-    <div className={"h-full flex justify-center min-w-full"}>
+    <div className={"h-full flex justify-center min-w-full overflow-y-scroll"}>
       <div
         className={
-          "flex flex-col h-full justify-center items-center pb-20 w-5/6"
+          "flex flex-col h-full justify-center items-center pb-20 w-5/6 "
         }
       >
         <div className={"flex flex-col flex-1 justify-center mb-10 w-full"}>
@@ -81,7 +81,7 @@ const InputName = () => {
       <input
         type="text"
         className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
+          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="이름을 입력해주세요"
         onChange={(e) => validateName(e.target.value)}
@@ -106,7 +106,7 @@ const InputBirth = () => {
       <input
         type="date"
         className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
+          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="생년월일을 입력해주세요"
         onChange={(e) => validateBirth(e.target.value)}
@@ -124,7 +124,7 @@ const InputPassword = ({ password, onPasswordChange, errorMessage }) => {
         type="password"
         value={password}
         className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
+          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="비밀번호를 입력해주세요"
         onChange={(e) => onPasswordChange(e.target.value)}
@@ -146,7 +146,7 @@ const InputCheckPassword = ({
         type="password"
         value={checkPassword}
         className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
+          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="비밀번호를 입력해주세요"
         onChange={(e) => onCheckPasswordChange(e.target.value)}

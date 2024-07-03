@@ -55,18 +55,16 @@ const Signup = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between">
+    <div className="w-full h-full flex flex-col items-center justify-start overflow-x-hidden">
       <HeaderBar />
       <SignupStep step={step} />
-      <div className="overflow-hidden w-full">
-        <div
-          className="flex flex-row w-full h-full transition-transform duration-500 ease"
-          style={{ transform: `translateX(${(step - 1) * -100}%)` }}
-          ref={sliderContainer}
-        >
-          <InputStep1 handleClickNextStep={handleClickNextStep} />
-          <InputStep2 />
-        </div>
+      <div
+        className="flex flex-row w-full h-full transition-transform duration-500 ease flex-shrink-0"
+        style={{ transform: `translateX(${(step - 1) * -100}%)` }}
+        ref={sliderContainer}
+      >
+        <InputStep1 handleClickNextStep={handleClickNextStep} />
+        <InputStep2 />
       </div>
     </div>
   );

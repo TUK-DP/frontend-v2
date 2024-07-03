@@ -39,7 +39,7 @@ const InputEmail = () => {
       <input
         type="text"
         className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none"
+          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="이메일을 입력해주세요"
         onChange={(e) => validateEmail(e.target.value)}
