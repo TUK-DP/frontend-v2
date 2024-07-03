@@ -2,9 +2,9 @@ import "./index.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
-import { TestApp } from "./pages/TestApp";
+import { TestApp } from "./pages/test/TestApp";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
-import { TEST_BOTTOM_SHEET_PAGE_PATH, TestBottomSheetTutorialPage } from "./pages/TestBottomSheetTutorialPage";
+import { TEST_BOTTOM_SHEET_PAGE_PATH, TestBottomSheetTutorialPage } from "./pages/test/TestBottomSheetTutorialPage";
 
 function App() {
   return (
