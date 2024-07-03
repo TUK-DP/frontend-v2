@@ -8,7 +8,7 @@ export const TestDiaryPage = () => {
 
 const TestCalender = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState(BOTTOM_POSITION);
+  const [position, setPosition] = useState(TOP_POSITION);
 
 
   const onClick = () => {
@@ -33,7 +33,7 @@ const TestCalender = () => {
       <div className={"w-full h-[300px] bg-blue-600"} onClick={onClick}>
         this is calender please click me
       </div>
-      <BottomSheet position={position} />
+      <BottomSheet position={position} setPosition={setPosition} />
     </>
   );
 };
@@ -42,79 +42,86 @@ const TOP_POSITION = "top_position";
 const MIDDLE_POSITION = "middle_position";
 const BOTTOM_POSITION = "bottom_position";
 
-const BottomSheet = ({ position, offset = 150 }) => {
+const BottomSheet = ({ position, setPosition, offset = 150 }) => {
   const middleLimitComp = useRef(null);
-  const container = useRef(null);
+  const bottomSheet = useRef(null);
+  const [middleTop, setMiddleTop] = useState(0); // useEffect 에서 초기화
 
-  const [styleMapper, setStyleMapper] = useState({
-    [TOP_POSITION]: { top: 0 },
-    [MIDDLE_POSITION]: { top: 0 }, // 초기화는 useEffect에서
-    [BOTTOM_POSITION]: { top: "100%" },
-  });
-
-  // MIDDLE_POSITION 초기화
+  // middleTop 을 초기화
   useEffect(() => {
-    const middleTop = middleLimitComp.current.getBoundingClientRect().bottom;
-    setStyleMapper(prev => ({
-        ...prev,
-        [MIDDLE_POSITION]: { top: middleTop },
-      }),
-    );
+    setMiddleTop(middleLimitComp.current.getBoundingClientRect().bottom);
   }, []);
 
-  // position이 바뀔 때마다 containerStyle을 변경
+  // position 에 따라 staticContainerTop 을 변경
   useEffect(() => {
-    setContainerStyle(styleMapper[position]);
+    switch (position) {
+      case TOP_POSITION:
+        setStaticContainerTop(0);
+        break;
+      case MIDDLE_POSITION:
+        setStaticContainerTop(middleTop);
+        break;
+      case BOTTOM_POSITION:
+        setStaticContainerTop("100%");
+        break;
+    }
   }, [position]);
 
+  const [isClicking, setIsClicking] = useState(false);
+  const [movingContainerTop, setMovingContainerTop] = useState(0);
+  const [staticContainerTop, setStaticContainerTop] = useState(0);
 
-  const [isClickStart, setIsClickStart] = useState(false);
-  const [containerStyle, setContainerStyle] = useState(styleMapper[position]);
-  const [movingContainerStyle, setMovingContainerStyle] = useState(styleMapper[position]);
-
-
-
-  const lastInteraction = useRef({
-    lastContainerTop: 0,
-    lastClickPointY: 0,
+  const whenMouseDown = useRef({
+    containerTop: 0,
+    clientY: 0,
   });
 
-
-  const onMouseDown = (e) => {
-    setIsClickStart(true);
-    let containerTop = container.current.getBoundingClientRect().top;
-    setMovingContainerStyle({ top: containerTop });
-    lastInteraction.current.lastContainerTop = containerTop;
-    lastInteraction.current.lastClickPointY = e.clientY;
+  const handleMouseDown = (e) => {
+    setIsClicking(true);
+    setMovingContainerTop(bottomSheet.current.getBoundingClientRect().top);
+    whenMouseDown.current.containerTop = bottomSheet.current.getBoundingClientRect().top;
+    whenMouseDown.current.clientY = e.clientY;
   };
 
-  const onMouseMove = (e) => {
-    if (isClickStart === false) {
+  const handleMouseMove = (e) => {
+    if (isClicking === false) {
       return;
     }
-    const diff = lastInteraction.current.lastClickPointY - e.clientY;
-    setMovingContainerStyle({ top: lastInteraction.current.lastContainerTop - diff });
+    const diffY = whenMouseDown.current.clientY - e.clientY;
+    setMovingContainerTop(whenMouseDown.current.containerTop - diffY);
   };
 
-  const onMouseUp = () => {
-    setIsClickStart(false);
-    const diff = movingContainerStyle.top - lastInteraction.current.lastContainerTop;
+  const handleMouseUpOrLeave = () => {
+    if (isClicking === false) return; // 클릭 중이 아니라면 무시
+    setIsClicking(false);
 
-    if (Math.abs(diff) < offset) {
-      setMovingContainerStyle(containerStyle);
+    // top 은 아래로 갈수록 커짐
+    // offset 보다 적게 움직였다면 원래 위치로 돌아감
+    if (Math.abs(staticContainerTop - movingContainerTop) <= offset) {
       return;
     }
 
-    if (diff > 0) {
-      if (containerStyle === styleMapper[TOP_POSITION] && movingContainerStyle.top < styleMapper[MIDDLE_POSITION].top + offset) {
-        setContainerStyle(styleMapper[MIDDLE_POSITION]);
-      } else {
-        setContainerStyle(styleMapper[BOTTOM_POSITION]);
+    // offset 보다 많이 움직였다면
+    // 아래로 움직였다면
+    if (movingContainerTop > staticContainerTop) {
+      // 만약 MIDDLE 에서 움직였다면 BOTTOM으로 이동
+      if (position === MIDDLE_POSITION) {
+        setPosition(BOTTOM_POSITION);
+        return;
+      }
+
+      // 만약 TOP에서 움직였다면 MIDDlE 으로 이동
+      setPosition(MIDDLE_POSITION);
+
+      // 만약 container 가 MIDDLE의 top 보다 offset 만큼 더 내려갔다면 BOTTOM으로 이동
+      if (movingContainerTop >= middleTop + offset) {
+        setPosition(BOTTOM_POSITION);
       }
     }
 
-    if (diff < 0) {
-      setContainerStyle(styleMapper[TOP_POSITION]);
+    // 위로 움직였다면
+    if (movingContainerTop < staticContainerTop) {
+      setPosition(TOP_POSITION);
     }
   };
 
@@ -122,16 +129,17 @@ const BottomSheet = ({ position, offset = 150 }) => {
     <>
       <div ref={middleLimitComp} />
       <div
-        ref={container}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        // onMouseLeave={onMouseUp}
-        style={isClickStart ? movingContainerStyle : containerStyle}
-        // style={{ top: (isClickStart ? movingPosition : position) }}
+        ref={bottomSheet}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        // style={isClicking ? movingContainerStyle : containerStyle}
+        // style={{ top: (isClicking ? movingPosition : position) }}
         className={"fixed z-10 left-0 right-0 h-full overflow-hidden" +
           " " +
-          (isClickStart ? "" : "transition-all duration-500")}>
+          (isClicking ? "" : "transition-all duration-500")}>
         <div className={"w-full bg-primary-600 h-full"}>
           this is BottomSheet
         </div>
