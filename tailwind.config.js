@@ -16,6 +16,11 @@ module.exports = {
         maxWidth: "1280px",
         navBarHeight: "90px",
       },
+      screens: {
+        mobile: { min: "240px", max: "640px" },
+        tablet: { min: "641px", max: "1280" },
+        pc: { min: "1280" },
+      },
     },
   },
   plugins: [],
