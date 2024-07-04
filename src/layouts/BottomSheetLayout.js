@@ -31,7 +31,7 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
 
   const [isClicking, setIsClicking] = useState(false);
   const [movingContainerTop, setMovingContainerTop] = useState(0);
-  const [staticContainerTop, setStaticContainerTop] = useState(0);
+  const [staticContainerTop, setStaticContainerTop] = useState("100%");
 
   const whenMouseDown = useRef({
     containerTop: 0,
