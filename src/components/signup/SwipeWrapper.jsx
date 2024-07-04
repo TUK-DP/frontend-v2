@@ -1,8 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-export const useSwipe = (initialIndex = 0, maxIndex) => {
+const SwipeWrapper = ({
+  maxIndex,
+  height,
+  children,
+  currentIndex,
+  setCurrentIndex,
+}) => {
   const SLIDE_LIMIT = 100;
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   const sliderContainer = useRef(null);
   const startX = useRef(0);
@@ -45,5 +50,15 @@ export const useSwipe = (initialIndex = 0, maxIndex) => {
     };
   }, []);
 
-  return { currentIndex, setCurrentIndex, sliderContainer };
+  return (
+    <div
+      className={`h-[${height}px] flex flex-row w-full transition-transform duration-500 ease flex-shrink-0`}
+      style={{ transform: `translateX(${currentIndex * -100}%)` }}
+      ref={sliderContainer}
+    >
+      {children}
+    </div>
+  );
 };
+
+export default SwipeWrapper;

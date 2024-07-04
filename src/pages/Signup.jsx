@@ -3,7 +3,7 @@ import HeaderBar from "../components/HeaderBar";
 import SignupStep from "../components/signup/SignupStep";
 import InputStep1 from "../components/signup/InputStep1";
 import InputStep2 from "../components/signup/InputStep2";
-import { useSwipe } from "../hooks/useSwipe";
+import SwipeWrapper from "../components/signup/SwipeWrapper";
 
 export const SIGNUP_PAGE_PATH = "/signup";
 const MAX_INDEX = 1;
@@ -11,14 +11,9 @@ const MAX_INDEX = 1;
 const UPPER_CONTAINER_HEIGHT = 142;
 
 const Signup = () => {
-  const { currentIndex, setCurrentIndex, sliderContainer } = useSwipe(
-    0,
-    MAX_INDEX
-  );
-  const handleClickNextStep = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, MAX_INDEX));
-  };
+  const handleClickNextStep = () => {};
   const [dynamicHeight, setDynamicHeight] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     setDynamicHeight(window.innerHeight - UPPER_CONTAINER_HEIGHT);
@@ -27,14 +22,15 @@ const Signup = () => {
     <div className="w-full h-full flex flex-col items-center justify-start overflow-x-hidden">
       <HeaderBar />
       <SignupStep step={currentIndex + 1} />
-      <div
-        className={`h-[${dynamicHeight}px] flex flex-row w-full transition-transform duration-500 ease flex-shrink-0`}
-        style={{ transform: `translateX(${currentIndex * -100}%)` }}
-        ref={sliderContainer}
+      <SwipeWrapper
+        maxIndex={MAX_INDEX}
+        height={dynamicHeight}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
       >
         <InputStep1 handleClickNextStep={handleClickNextStep} />
         <InputStep2 />
-      </div>
+      </SwipeWrapper>
     </div>
   );
 };
