@@ -11,13 +11,13 @@ const MAX_INDEX = 1;
 const UPPER_CONTAINER_HEIGHT = 142;
 
 const Signup = () => {
-  const handleClickNextStep = () => {};
   const [dynamicHeight, setDynamicHeight] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     setDynamicHeight(window.innerHeight - UPPER_CONTAINER_HEIGHT);
   }, []);
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-start overflow-x-hidden">
       <HeaderBar />
@@ -28,7 +28,7 @@ const Signup = () => {
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       >
-        <InputStep1 handleClickNextStep={handleClickNextStep} />
+        <InputStep1 setCurrentIndex={setCurrentIndex} />
         <InputStep2 />
       </SwipeWrapper>
     </div>
