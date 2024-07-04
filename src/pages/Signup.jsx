@@ -3,10 +3,12 @@ import HeaderBar from "../components/HeaderBar";
 import SignupStep from "../components/signup/SignupStep";
 import InputStep1 from "../components/signup/InputStep1";
 import InputStep2 from "../components/signup/InputStep2";
-import { useSwipe } from "../hooks/useSwipe"; // 훅을 임포트 합니다.
+import { useSwipe } from "../hooks/useSwipe";
 
 export const SIGNUP_PAGE_PATH = "/signup";
 const MAX_INDEX = 1;
+//헤더바와 스텝바의 높이를 더한 것
+const UPPER_CONTAINER_HEIGHT = 142;
 
 const Signup = () => {
   const { currentIndex, setCurrentIndex, sliderContainer } = useSwipe(
@@ -14,12 +16,12 @@ const Signup = () => {
     MAX_INDEX
   );
   const handleClickNextStep = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, MAX_INDEX)); // 최대 값을 넘지 않도록 설정
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, MAX_INDEX));
   };
   const [dynamicHeight, setDynamicHeight] = useState(0);
 
   useEffect(() => {
-    setDynamicHeight(window.innerHeight - 142);
+    setDynamicHeight(window.innerHeight - UPPER_CONTAINER_HEIGHT);
   }, []);
   return (
     <div className="w-full h-full flex flex-col items-center justify-start overflow-x-hidden">
