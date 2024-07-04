@@ -1,66 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderBar from "../components/HeaderBar";
 import SignupStep from "../components/signup/SignupStep";
 import InputStep1 from "../components/signup/InputStep1";
 import InputStep2 from "../components/signup/InputStep2";
+import { useSwipe } from "../hooks/useSwipe"; // 훅을 임포트 합니다.
 
 export const SIGNUP_PAGE_PATH = "/signup";
+const MAX_INDEX = 1;
 
 const Signup = () => {
-  const SLIDE_LIMIT = 100;
-  const [step, setStep] = useState(1);
-
+  const { currentIndex, setCurrentIndex, sliderContainer } = useSwipe(
+    0,
+    MAX_INDEX
+  );
   const handleClickNextStep = () => {
-    setStep(step + 1);
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, MAX_INDEX)); // 최대 값을 넘지 않도록 설정
   };
-
-  const sliderContainer = useRef(null);
-  const startX = useRef(0);
-  const isDragging = useRef(false);
-
-  const handleTouchStart = (event) => {
-    startX.current = event.touches[0].clientX;
-    isDragging.current = true;
-  };
-
-  const handleTouchMove = (event) => {
-    if (!isDragging.current) return;
-    const touchX = event.touches[0].clientX;
-    const moveX = startX.current - touchX;
-
-    if (moveX > SLIDE_LIMIT) {
-      setStep(2);
-      handleTouchEnd();
-    } else if (moveX < -SLIDE_LIMIT) {
-      setStep(1);
-      handleTouchEnd();
-    }
-  };
-
-  const handleTouchEnd = () => {
-    isDragging.current = false;
-  };
+  const [dynamicHeight, setDynamicHeight] = useState(0);
 
   useEffect(() => {
-    const slider = sliderContainer.current;
-    slider.addEventListener("touchstart", handleTouchStart);
-    slider.addEventListener("touchmove", handleTouchMove);
-    slider.addEventListener("touchend", handleTouchEnd);
-
-    return () => {
-      slider.removeEventListener("touchstart", handleTouchStart);
-      slider.removeEventListener("touchmove", handleTouchMove);
-      slider.removeEventListener("touchend", handleTouchEnd);
-    };
+    setDynamicHeight(window.innerHeight - 142);
   }, []);
-
   return (
     <div className="w-full h-full flex flex-col items-center justify-start overflow-x-hidden">
       <HeaderBar />
-      <SignupStep step={step} />
+      <SignupStep step={currentIndex + 1} />
       <div
-        className="flex flex-row w-full h-full transition-transform duration-500 ease flex-shrink-0"
-        style={{ transform: `translateX(${(step - 1) * -100}%)` }}
+        className={`h-[${dynamicHeight}px] flex flex-row w-full transition-transform duration-500 ease flex-shrink-0`}
+        style={{ transform: `translateX(${currentIndex * -100}%)` }}
         ref={sliderContainer}
       >
         <InputStep1 handleClickNextStep={handleClickNextStep} />
