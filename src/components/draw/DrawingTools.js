@@ -31,12 +31,20 @@ const ToolSlide = () => {
     navyPencil,
     purplePencil,
     pinkPencil,
+    redPencil,
+    orangePencil,
+    yellowPencil,
+    greenPencil,
+    bluePencil,
+    navyPencil,
+    purplePencil,
+    pinkPencil,
     rainbowPencil,
   ];
   return (
-    <div className="flex fixed bottom-0 overflow-x-scroll">
+    <div className="flex fixed bottom-0 overflow-x-scroll scrollbar-hide ">
       {toolDatas.map((tool) => (
-        <img src={tool} />
+        <img src={tool} style={{ width: "70px", margin: "5px" }} />
       ))}
     </div>
   );
