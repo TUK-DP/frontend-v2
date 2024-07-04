@@ -13,14 +13,14 @@ import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 const DrawingTools = () => {
   return (
     <>
-      <ToolSlide />
+      <DrawingToolBar />
     </>
   );
 };
 
 export default DrawingTools;
 
-const ToolSlide = () => {
+const DrawingToolBar = () => {
   const toolDatas = [
     eraser,
     redPencil,
