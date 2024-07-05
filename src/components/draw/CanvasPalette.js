@@ -3,11 +3,7 @@ import DrawingToolBar from "./DrawingToolBar";
 
 const CanvasPalette = () => {
   const [circleSize, setCircleSize] = useState(20); // 초기 원의 크기 설정
-
-  // range input 값이 변경될 때 호출되는 함수
-  const handleRangeChange = (event) => {
-    setCircleSize(parseInt(event.target.value));
-  };
+  const [selectedColor, setSelectedColor] = useState("transparent"); // 초기 색상 설정
 
   return (
     <div className="fixed bottom-[-7rem]">
@@ -17,20 +13,21 @@ const CanvasPalette = () => {
           min="20"
           max="50"
           value={circleSize}
-          onChange={handleRangeChange}
+          onChange={(event) => setCircleSize(parseInt(event.target.value))}
           className="mr-4 flex-1"
         />
         <div className="w-16 h-16 flex justify-center items-center">
           <div
-            className="bg-red-500 rounded-full"
+            className="rounded-full"
             style={{
               width: `${circleSize}px`,
               height: `${circleSize}px`,
+              backgroundColor: selectedColor,
             }}
           />
         </div>
       </div>
-      <DrawingToolBar />
+      <DrawingToolBar setSelectedColor={setSelectedColor} />
     </div>
   );
 };
