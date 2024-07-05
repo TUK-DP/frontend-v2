@@ -10,41 +10,48 @@ import purplePencil from "../../assets/drawingTools/colorPencil_purple.png";
 import pinkPencil from "../../assets/drawingTools/colorPencil_pink.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 
-const DrawingToolBar = () => {
+const DrawingToolBar = ({ setSelectedColor }) => {
   const [selectedTool, setSelectedTool] = useState(null);
 
   const toolDatas = [
-    eraser,
-    redPencil,
-    orangePencil,
-    yellowPencil,
-    greenPencil,
-    bluePencil,
-    navyPencil,
-    purplePencil,
-    pinkPencil,
-    redPencil,
-    orangePencil,
-    yellowPencil,
-    greenPencil,
-    bluePencil,
-    navyPencil,
-    purplePencil,
-    pinkPencil,
-    rainbowPencil,
+    { tool: eraser, color: "transparent" },
+    { tool: redPencil, color: "#FF0900" },
+    { tool: orangePencil, color: "#FF7700" },
+    { tool: yellowPencil, color: "#FFF200" },
+    { tool: greenPencil, color: "#88FF00" },
+    { tool: bluePencil, color: "#0051FF" },
+    { tool: navyPencil, color: "#0C00AD" },
+    { tool: purplePencil, color: "#9000FF" },
+    { tool: pinkPencil, color: "#FF00EA" },
+    { tool: redPencil, color: "#FF0900" },
+    { tool: orangePencil, color: "#FF7700" },
+    { tool: yellowPencil, color: "#FFF200" },
+    { tool: greenPencil, color: "#88FF00" },
+    { tool: bluePencil, color: "#0051FF" },
+    { tool: navyPencil, color: "#0C00AD" },
+    { tool: purplePencil, color: "#9000FF" },
+    { tool: pinkPencil, color: "#FF00EA" },
+    {
+      tool: rainbowPencil,
+    },
   ];
+
+  const handleToolSelect = (index) => {
+    setSelectedTool(index);
+    setSelectedColor(toolDatas[index].color);
+  };
 
   return (
     <div className="flex overflow-x-scroll scrollbar-hide w-full pt-14">
       {toolDatas.map((tool, index) => (
         <img
           key={index}
-          src={tool}
+          src={tool.tool}
           className={`transition-transform duration-500 ${
             selectedTool === index ? "-translate-y-12" : ""
           }`}
           style={{ width: "70px", margin: "5px" }}
-          onClick={() => setSelectedTool(index)}
+          onClick={() => handleToolSelect(index)}
         />
       ))}
     </div>
