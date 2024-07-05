@@ -12,9 +12,10 @@ import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 
 const DrawingTools = () => {
   return (
-    <>
+    <div className="fixed bottom-[-7rem]">
+      <input type="range" />
       <DrawingToolBar />
-    </>
+    </div>
   );
 };
 
@@ -45,7 +46,7 @@ const DrawingToolBar = () => {
   ];
 
   return (
-    <div className="flex fixed bottom-[-7rem] overflow-x-scroll scrollbar-hide w-full">
+    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-12">
       {toolDatas.map((tool, index) => (
         <img
           key={index}
