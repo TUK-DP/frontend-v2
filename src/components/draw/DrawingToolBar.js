@@ -53,13 +53,13 @@ const DrawingToolBar = ({ setSelectedColor }) => {
   };
 
   return (
-    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-14 relative">
+    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-10 relative">
       {toolDatas.map((tool, index) => (
         <img
           key={index}
           src={tool.tool}
           className={`transition-transform duration-500 ${
-            selectedTool === index ? "-translate-y-12" : ""
+            selectedTool === index ? "-translate-y-10" : ""
           }`}
           style={{ width: "70px", margin: "5px", cursor: "pointer" }}
           onClick={() => handleToolSelect(index)}
