@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import DrawingToolBar from "./DrawingToolBar";
 
 const CanvasPalette = () => {
-  const [selectedColor, setSelectedColor] = useState("transparent"); // 초기 색상 설정
+  const [selectedColor, setSelectedColor] = useState("transparent"); //초기 색상 설정
 
   return (
     <div className="fixed bottom-[-7rem]">
-      <BrushSizeControl
-        selectedColor={selectedColor}
-        setSelectedColor={setSelectedColor}
-      />
+      <BrushSizeControl selectedColor={selectedColor} />
       <DrawingToolBar setSelectedColor={setSelectedColor} />
     </div>
   );
@@ -18,7 +15,7 @@ const CanvasPalette = () => {
 export default CanvasPalette;
 
 const BrushSizeControl = ({ selectedColor }) => {
-  const [circleSize, setCircleSize] = useState(20); // 초기 원의 크기 설정
+  const [circleSize, setCircleSize] = useState(20); //초기 원의 크기 설정
   return (
     <div className="flex items-center mx-3">
       <input
