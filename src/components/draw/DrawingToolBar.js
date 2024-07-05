@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/css";
 import eraser from "../../assets/drawingTools/eraser.png";
 import redPencil from "../../assets/drawingTools/colorPencil_red.png";
 import orangePencil from "../../assets/drawingTools/colorPencil_orange.png";
@@ -9,9 +11,12 @@ import navyPencil from "../../assets/drawingTools/colorPencil_navy.png";
 import purplePencil from "../../assets/drawingTools/colorPencil_purple.png";
 import pinkPencil from "../../assets/drawingTools/colorPencil_pink.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
+import ColorPickerComp from "./ColorPickerComp";
 
 const DrawingToolBar = ({ setSelectedColor }) => {
   const [selectedTool, setSelectedTool] = useState(null);
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [color, setColor] = useColor("#FF0900");
 
   const toolDatas = [
     { tool: eraser, color: "transparent" },
@@ -36,13 +41,19 @@ const DrawingToolBar = ({ setSelectedColor }) => {
     },
   ];
 
+  //rainbowPencil 클릭 시 컬러피커 표시
   const handleToolSelect = (index) => {
     setSelectedTool(index);
-    setSelectedColor(toolDatas[index].color);
+    if (index === toolDatas.length - 1) {
+      setColorPickerOpen(true);
+    } else {
+      setSelectedColor(toolDatas[index].color);
+      setColorPickerOpen(false);
+    }
   };
 
   return (
-    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-14">
+    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-14 relative">
       {toolDatas.map((tool, index) => (
         <img
           key={index}
@@ -50,10 +61,18 @@ const DrawingToolBar = ({ setSelectedColor }) => {
           className={`transition-transform duration-500 ${
             selectedTool === index ? "-translate-y-12" : ""
           }`}
-          style={{ width: "70px", margin: "5px" }}
+          style={{ width: "70px", margin: "5px", cursor: "pointer" }}
           onClick={() => handleToolSelect(index)}
         />
       ))}
+      {colorPickerOpen && (
+        <ColorPickerComp
+          color={color}
+          setColor={setColor}
+          setSelectedColor={setSelectedColor}
+          setColorPickerOpen={setColorPickerOpen}
+        />
+      )}
     </div>
   );
 };
