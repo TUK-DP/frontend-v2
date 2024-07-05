@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import DrawingToolBar from "./DrawingToolBar";
+import { TbTriangleFilled } from "react-icons/tb";
 
 const CanvasPalette = () => {
   const [selectedColor, setSelectedColor] = useState("transparent"); //초기 색상 설정
 
   return (
     <div className="fixed bottom-[-7rem]">
+      <div className="bg-[#d9d9d9] flex justify-center items-center py-2 rounded-ss-2xl rounded-se-2xl">
+        <TbTriangleFilled />
+      </div>
       <BrushSizeControl selectedColor={selectedColor} />
       <DrawingToolBar setSelectedColor={setSelectedColor} />
     </div>
