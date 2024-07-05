@@ -1,7 +1,7 @@
 import React from "react";
 import DrawingToolBar from "./DrawingToolBar";
 
-const DrawingTools = () => {
+const CanvasPalette = () => {
   return (
     <div className="fixed bottom-[-7rem]">
       <input type="range" />
@@ -10,4 +10,4 @@ const DrawingTools = () => {
   );
 };
 
-export default DrawingTools;
+export default CanvasPalette;
