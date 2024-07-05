@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import eraser from "../../assets/drawingTools/eraser.png";
 import redPencil from "../../assets/drawingTools/colorPencil_red.png";
 import orangePencil from "../../assets/drawingTools/colorPencil_orange.png";
@@ -21,6 +21,8 @@ const DrawingTools = () => {
 export default DrawingTools;
 
 const DrawingToolBar = () => {
+  const [selectedTool, setSelectedTool] = useState(null);
+
   const toolDatas = [
     eraser,
     redPencil,
@@ -41,10 +43,19 @@ const DrawingToolBar = () => {
     pinkPencil,
     rainbowPencil,
   ];
+
   return (
-    <div className="flex fixed bottom-0 overflow-x-scroll scrollbar-hide ">
-      {toolDatas.map((tool) => (
-        <img src={tool} style={{ width: "70px", margin: "5px" }} />
+    <div className="flex fixed bottom-[-7rem] overflow-x-scroll scrollbar-hide w-full">
+      {toolDatas.map((tool, index) => (
+        <img
+          key={index}
+          src={tool}
+          className={`transition-transform duration-500 ${
+            selectedTool === index ? "-translate-y-12" : ""
+          }`}
+          style={{ width: "70px", margin: "5px" }}
+          onClick={() => setSelectedTool(index)}
+        />
       ))}
     </div>
   );
