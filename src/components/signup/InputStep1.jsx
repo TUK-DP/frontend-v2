@@ -4,10 +4,14 @@ import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "../Spinner";
 
-const ERROR_MESSAGE = {
-  EMPTY_ERROR: "필수 입력 항목입니다.",
-  INVALID_EMAIL: "올바르지 않는 이메일 형식입니다.",
-};
+const validate = [
+  { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
+  {
+    name: "isEmail",
+    regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+    errorMessage: "올바르지 않는 이메일 형식입니다.",
+  },
+];
 
 const InputStep1 = ({ setCurrentIndex }) => {
   const [isEmailError, setIsEmailError] = useState(true);
@@ -42,18 +46,18 @@ export default InputStep1;
 const InputEmail = ({ setIsEmailError }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (email === "") {
-      setErrorMessage(ERROR_MESSAGE.EMPTY_ERROR);
-      setIsEmailError(true);
-    } else if (!emailRegex.test(email)) {
-      setErrorMessage(ERROR_MESSAGE.INVALID_EMAIL);
-      setIsEmailError(true);
-    } else {
-      setErrorMessage("");
-      setIsEmailError(false);
+    for (let i = 0; i < validate.length; i++) {
+      const { regex, errorMessage } = validate[i];
+      if (!regex.test(email)) {
+        setErrorMessage(errorMessage);
+        setIsEmailError(true);
+        return;
+      }
     }
+    setErrorMessage("");
+    setIsEmailError(false);
   };
+
   return (
     <div className={"flex flex-col justify-center mb-20 w-full flex-1"}>
       <div>이메일</div>
