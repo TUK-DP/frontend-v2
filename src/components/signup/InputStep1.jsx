@@ -1,18 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
-import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "../Spinner";
-import SigupStep from "./SignupStep";
-
-const validate = [
-  { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
-  {
-    name: "isEmail",
-    regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-    errorMessage: "올바르지 않는 이메일 형식입니다.",
-  },
-];
+import {
+  EMAIL_FORMAT,
+  isValidate,
+  NOT_EMPTY,
+} from "../../utils/validator/input";
 
 const InputStep1 = () => {
   const [isEmailError, setIsEmailError] = useState(true);
@@ -46,17 +40,14 @@ export default InputStep1;
 
 const InputEmail = ({ setIsEmailError }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const validateEmail = (email) => {
-    for (let i = 0; i < validate.length; i++) {
-      const { regex, errorMessage } = validate[i];
-      if (!regex.test(email)) {
-        setErrorMessage(errorMessage);
-        setIsEmailError(true);
-        return;
-      }
-    }
-    setErrorMessage("");
-    setIsEmailError(false);
+  const handleChangeInputEmail = (e) => {
+    const email = e.target.value;
+    const { isValid, errorMessage } = isValidate({
+      value: email,
+      should: [NOT_EMPTY, EMAIL_FORMAT],
+    });
+    setIsEmailError(!isValid);
+    setErrorMessage(errorMessage);
   };
 
   return (
@@ -68,7 +59,7 @@ const InputEmail = ({ setIsEmailError }) => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="이메일을 입력해주세요"
-        onChange={(e) => validateEmail(e.target.value)}
+        onChange={handleChangeInputEmail}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
