@@ -2,19 +2,23 @@ import React, { useState, useRef, useEffect } from "react";
 import BrushSizeControl from "./BrushSizeControl";
 import DrawingToolBar from "./DrawingToolBar";
 import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
+import ColorPickerComp from "./ColorPickerComp";
+import { useColor } from "react-color-palette";
+import "react-color-palette/css";
 
 const CanvasPalette = () => {
-  const [selectedColor, setSelectedColor] = useState("transparent"); // 초기 색상 설정
-  const paletteRef = useRef(null); // useRef로 팔레트의 DOM 요소를 저장할 변수 생성
+  const [selectedColor, setSelectedColor] = useState("transparent"); //초기 색상 설정
   const [isOpen, setIsOpen] = useState(true);
-  const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이를 상태로 관리
+  const paletteRef = useRef(null);
+  const [paletteHeight, setPaletteHeight] = useState(0); //팔레트의 높이
+  const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [color, setColor] = useColor("hex", "#FF0900");
 
-  // useEffect를 이용하여 팔레트의 높이를 측정하고 상태에 저장
   useEffect(() => {
     if (paletteRef.current) {
       setPaletteHeight(paletteRef.current.clientHeight);
     }
-  }, [paletteRef.current]); // 팔레트 ref가 변경될 때마다 실행
+  }, [paletteRef.current]);
 
   const togglePalette = () => {
     setIsOpen((prevOpen) => !prevOpen);
@@ -33,9 +37,21 @@ const CanvasPalette = () => {
         <PaletteToggle isOpen={isOpen} togglePalette={togglePalette} />
         <div ref={paletteRef} className={`palette ${isOpen ? "open" : ""}`}>
           <BrushSizeControl selectedColor={selectedColor} />
-          <DrawingToolBar setSelectedColor={setSelectedColor} />
+          <DrawingToolBar
+            setSelectedColor={setSelectedColor}
+            setColorPickerOpen={setColorPickerOpen}
+            setColor={setColor}
+          />
         </div>
       </div>
+      {colorPickerOpen && (
+        <ColorPickerComp
+          color={color}
+          setColor={setColor}
+          setSelectedColor={setSelectedColor}
+          setColorPickerOpen={setColorPickerOpen}
+        />
+      )}
     </div>
   );
 };
