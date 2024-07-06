@@ -10,17 +10,30 @@ import {
   NOT_EMPTY,
   PASSWORD_FORMAT,
 } from "../utils/validator/input";
+import { useInput } from "../hooks/useInput";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
+export const SIGN_IN_FORM_EMAIL_KEY = "email";
+export const SIGN_IN_FORM_PASSWORD_KEY = "password";
+
 const Signin = () => {
+  const {
+    form: signInForm,
+    handleChangeInput,
+    setForm: setSignInForm,
+  } = useInput({
+    [SIGN_IN_FORM_EMAIL_KEY]: "",
+    [SIGN_IN_FORM_PASSWORD_KEY]: "",
+  });
+
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
       <div className={"w-5/6 h-full flex flex-col justify-center items-center"}>
         <img src={AppLogo} className={"pt-24 w-3/4"} />
         <div className={"flex-1 flex flex-col justify-center w-full"}>
-          <InputEmail />
-          <InputPassword />
+          <InputEmail handleChangeInput={handleChangeInput} />
+          <InputPassword handleChangeInput={handleChangeInput} />
         </div>
         <PurpleButton text="로그인" />
       </div>
@@ -31,9 +44,10 @@ const Signin = () => {
 
 export default Signin;
 
-const InputEmail = () => {
+const InputEmail = ({ handleChangeInput = (e) => e }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleChangeInputEmail = (e) => {
+    handleChangeInput(e);
     const email = e.target.value;
 
     const { errorMessage } = isValidate({
@@ -47,6 +61,7 @@ const InputEmail = () => {
     <div className={"flex flex-col justify-center mb-4"}>
       <div>이메일</div>
       <input
+        name={SIGN_IN_FORM_EMAIL_KEY}
         type="text"
         className={
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
@@ -59,10 +74,12 @@ const InputEmail = () => {
   );
 };
 
-const InputPassword = () => {
+const InputPassword = ({ handleChangeInput = (e) => e }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChangeInputPassword = (e) => {
+    handleChangeInput(e);
+
     const password = e.target.value;
     const { errorMessage } = isValidate({
       value: password,
@@ -76,6 +93,7 @@ const InputPassword = () => {
     <div className={"flex flex-col justify-center mb-4"}>
       <div>비밀번호</div>
       <input
+        name={SIGN_IN_FORM_PASSWORD_KEY}
         type="password"
         className={
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"

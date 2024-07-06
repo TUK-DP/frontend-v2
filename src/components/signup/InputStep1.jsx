@@ -8,7 +8,7 @@ import {
   NOT_EMPTY,
 } from "../../utils/validator/input";
 
-const InputStep1 = () => {
+const InputStep1 = ({ setCurrentIndex, handleChangeInput }) => {
   const [isEmailError, setIsEmailError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,8 +25,10 @@ const InputStep1 = () => {
   return (
     <div className={"flex h-full justify-center "}>
       <div className="w-5/6 h-full flex flex-col justify-center items-center pb-20">
-        <SigupStep step="1" />
-        <InputEmail setIsEmailError={setIsEmailError} />
+        <InputEmail
+          setIsEmailError={setIsEmailError}
+          handleChangeInput={handleChangeInput}
+        />
         <PurpleButton
           text={isLoading ? <Spinner /> : "중복확인"}
           handleClickButton={handleClickNextButton}
@@ -38,9 +40,10 @@ const InputStep1 = () => {
 
 export default InputStep1;
 
-const InputEmail = ({ setIsEmailError }) => {
+const InputEmail = ({ setIsEmailError, handleChangeInput }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleChangeInputEmail = (e) => {
+    handleChangeInput(e);
     const email = e.target.value;
     const { isValid, errorMessage } = isValidate({
       value: email,

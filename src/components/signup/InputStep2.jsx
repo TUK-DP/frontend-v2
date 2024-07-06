@@ -8,12 +8,15 @@ import {
   NOT_EMPTY,
   PASSWORD_FORMAT,
 } from "../../utils/validator/input";
+import {
+  SIGN_UP_FORM_BIRTH_KEY,
+  SIGN_UP_FORM_NAME_KEY,
+  SIGN_UP_FORM_PASSWORD_KEY,
+} from "../../pages/Signup";
 
-const InputStep2 = () => {
+const InputStep2 = ({ signUpForm, handleChangeInput }) => {
   // 버튼 활성화 여부를 위한 변수
   const [isErrorExist, setIsErrorExist] = useState(false);
-  const [password, setPassword] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
 
   return (
     <div className={"h-full flex justify-center min-w-full overflow-y-scroll"}>
@@ -22,19 +25,22 @@ const InputStep2 = () => {
           "flex flex-col h-full justify-center items-center pb-20 w-5/6 "
         }
       >
-        <SignupStep step="2" />
-
-        <div className={"flex flex-col flex-1 justify-center py-10 w-full"}>
-          <InputName setIsErrorExist={setIsErrorExist} />
-          <InputBirth setIsErrorExist={setIsErrorExist} />
+        <div className={"flex flex-col flex-1 justify-center mb-10 w-full"}>
+          <InputName
+            setIsErrorExist={setIsErrorExist}
+            handleChangeInput={handleChangeInput}
+          />
+          <InputBirth
+            setIsErrorExist={setIsErrorExist}
+            handleChangeInput={handleChangeInput}
+          />
           <InputPassword
             setIsErrorExist={setIsErrorExist}
-            setPassword={setPassword}
+            handleChangeInput={handleChangeInput}
           />
           <InputCheckPassword
             setIsErrorExist={setIsErrorExist}
-            password={password}
-            setCheckPassword={setCheckPassword}
+            password={signUpForm[SIGN_UP_FORM_PASSWORD_KEY]}
           />
         </div>
         <PurpleButton text="완료" />
@@ -45,9 +51,10 @@ const InputStep2 = () => {
 
 export default InputStep2;
 
-const InputName = ({ setIsErrorExist }) => {
+const InputName = ({ setIsErrorExist, handleChangeInput }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleChangeInputName = (e) => {
+    handleChangeInput(e);
     const name = e.target.value;
 
     const { isValid, errorMessage } = isValidate({
@@ -62,6 +69,7 @@ const InputName = ({ setIsErrorExist }) => {
     <div className={"flex flex-col justify-center mb-4"}>
       <div>이름</div>
       <input
+        name={SIGN_UP_FORM_NAME_KEY}
         type="text"
         className={
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
@@ -74,14 +82,15 @@ const InputName = ({ setIsErrorExist }) => {
   );
 };
 
-const InputBirth = ({ setIsErrorExist }) => {
+const InputBirth = ({ setIsErrorExist, handleChangeInput }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleChangeInputBirth = (e) => {
+    handleChangeInput(e);
     const birth = e.target.value;
 
     const { isValid, errorMessage } = isValidate({
       value: birth,
-      should: [NOT_EMPTY, GREATER_EQUAL_THAN({ num: 2 })],
+      should: [NOT_EMPTY],
     });
 
     setIsErrorExist(!isValid);
@@ -91,6 +100,7 @@ const InputBirth = ({ setIsErrorExist }) => {
     <div className={"flex flex-col justify-center mb-4"}>
       <div>생년월일</div>
       <input
+        name={SIGN_UP_FORM_BIRTH_KEY}
         type="date"
         className={
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
@@ -103,11 +113,12 @@ const InputBirth = ({ setIsErrorExist }) => {
   );
 };
 
-const InputPassword = ({ setIsErrorExist, setPassword }) => {
+const InputPassword = ({ setIsErrorExist, handleChangeInput }) => {
   const [errorMessage, setErrorMessage] = useState("");
+
   const handleChangeInputPassword = (e) => {
+    handleChangeInput(e);
     const password = e.target.value;
-    setPassword(password);
 
     const { isValid, errorMessage } = isValidate({
       value: password,
@@ -121,6 +132,7 @@ const InputPassword = ({ setIsErrorExist, setPassword }) => {
     <div className={"flex flex-col justify-center mb-4"}>
       <div>비밀번호</div>
       <input
+        name={SIGN_UP_FORM_PASSWORD_KEY}
         type="password"
         className={
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
@@ -133,16 +145,11 @@ const InputPassword = ({ setIsErrorExist, setPassword }) => {
   );
 };
 
-const InputCheckPassword = ({
-  setIsErrorExist,
-  password,
-  setCheckPassword,
-}) => {
+const InputCheckPassword = ({ setIsErrorExist, password }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChangeInputCheckPassword = (e) => {
     const checkPassword = e.target.value;
-    setCheckPassword(checkPassword); // 입력한 비밀번호 확인을 상태로 업데이트
 
     const { isValid, errorMessage } = isValidate({
       value: checkPassword,
