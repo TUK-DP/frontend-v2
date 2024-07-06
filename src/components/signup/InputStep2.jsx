@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
 import ErrorMessage from "./ErrorMessage";
-
-const validate = [
-  { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
-
-  { name: "isName", regex: /.{2,}/, errorMessage: "2글자 이상 입력해주세요." },
-  {
-    name: "isPassword",
-    regex: /.{6,}/,
-    errorMessage: "비밀번호는 6자 이상이어야 합니다.",
-  },
-];
+import {
+  GREATER_EQUAL_THAN,
+  isValidate,
+  MATCH_PASSWORD,
+  NOT_EMPTY,
+  PASSWORD_FORMAT,
+} from "../../utils/validator/input";
 
 const InputStep2 = () => {
   // 버튼 활성화 여부를 위한 변수
@@ -49,21 +45,16 @@ export default InputStep2;
 
 const InputName = ({ setIsErrorExist }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const validateName = (name) => {
-    const isNameValidation = validate.find((item) => item.name === "isName");
-    const isEmptyValidation = validate.find((item) => item.name == "notEmpty");
+  const handleChangeInputName = (e) => {
+    const name = e.target.value;
 
-    if (!isEmptyValidation.regex.test(name)) {
-      setErrorMessage(isEmptyValidation.errorMessage);
-      setIsErrorExist(true);
-      return;
-    } else if (!isNameValidation.regex.test(name)) {
-      setErrorMessage(isNameValidation.errorMessage);
-      setIsErrorExist(true);
-      return;
-    }
-    setErrorMessage("");
-    setIsErrorExist(false);
+    const { isValid, errorMessage } = isValidate({
+      value: name,
+      should: [NOT_EMPTY, GREATER_EQUAL_THAN({ num: 2 })],
+    });
+
+    setIsErrorExist(!isValid);
+    setErrorMessage(errorMessage);
   };
   return (
     <div className={"flex flex-col justify-center mb-4"}>
@@ -74,7 +65,7 @@ const InputName = ({ setIsErrorExist }) => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="이름을 입력해주세요"
-        onChange={(e) => validateName(e.target.value)}
+        onChange={handleChangeInputName}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
@@ -83,15 +74,16 @@ const InputName = ({ setIsErrorExist }) => {
 
 const InputBirth = ({ setIsErrorExist }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const validateBirth = (birth) => {
-    const isBirthValidation = validate.find((item) => item.name === "notEmpty");
-    if (!isBirthValidation.regex.test(birth)) {
-      setErrorMessage(isBirthValidation.errorMessage);
-      setIsErrorExist(true);
-      return;
-    }
-    setErrorMessage("");
-    setIsErrorExist(false);
+  const handleChangeInputBirth = (e) => {
+    const birth = e.target.value;
+
+    const { isValid, errorMessage } = isValidate({
+      value: birth,
+      should: [NOT_EMPTY, GREATER_EQUAL_THAN({ num: 2 })],
+    });
+
+    setIsErrorExist(!isValid);
+    setErrorMessage(errorMessage);
   };
   return (
     <div className={"flex flex-col justify-center mb-4"}>
@@ -102,7 +94,7 @@ const InputBirth = ({ setIsErrorExist }) => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="생년월일을 입력해주세요"
-        onChange={(e) => validateBirth(e.target.value)}
+        onChange={handleChangeInputBirth}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
@@ -111,23 +103,17 @@ const InputBirth = ({ setIsErrorExist }) => {
 
 const InputPassword = ({ setIsErrorExist, setPassword }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const validatePassword = (password) => {
-    const isPasswordValidation = validate.find(
-      (item) => item.name === "isPassword"
-    );
-    const isEmptyValidation = validate.find((item) => item.name == "notEmpty");
-    if (!isEmptyValidation.regex.test(password)) {
-      setErrorMessage(isEmptyValidation.errorMessage);
-      setIsErrorExist(true);
-      return;
-    } else if (!isPasswordValidation.regex.test(password)) {
-      setErrorMessage(isPasswordValidation.errorMessage);
-      setIsErrorExist(true);
-      return;
-    }
+  const handleChangeInputPassword = (e) => {
+    const password = e.target.value;
     setPassword(password);
-    setErrorMessage("");
-    setIsErrorExist(false);
+
+    const { isValid, errorMessage } = isValidate({
+      value: password,
+      should: [NOT_EMPTY, PASSWORD_FORMAT],
+    });
+
+    setIsErrorExist(!isValid);
+    setErrorMessage(errorMessage);
   };
   return (
     <div className={"flex flex-col justify-center mb-4"}>
@@ -138,7 +124,7 @@ const InputPassword = ({ setIsErrorExist, setPassword }) => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="비밀번호를 입력해주세요"
-        onChange={(e) => validatePassword(e.target.value)}
+        onChange={handleChangeInputPassword}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
@@ -152,16 +138,17 @@ const InputCheckPassword = ({
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
-  const validatePasswordMatch = (checkPassword) => {
+  const handleChangeInputCheckPassword = (e) => {
+    const checkPassword = e.target.value;
     setCheckPassword(checkPassword); // 입력한 비밀번호 확인을 상태로 업데이트
 
-    if (checkPassword !== password) {
-      setErrorMessage("비밀번호가 일치하지 않습니다.");
-      setIsErrorExist(true);
-    } else {
-      setErrorMessage("");
-      setIsErrorExist(false);
-    }
+    const { isValid, errorMessage } = isValidate({
+      value: checkPassword,
+      should: [MATCH_PASSWORD({ password })],
+    });
+
+    setIsErrorExist(!isValid);
+    setErrorMessage(errorMessage);
   };
 
   return (
@@ -173,7 +160,7 @@ const InputCheckPassword = ({
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="비밀번호를 입력해주세요"
-        onChange={(e) => validatePasswordMatch(e.target.value)}
+        onChange={handleChangeInputCheckPassword}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
