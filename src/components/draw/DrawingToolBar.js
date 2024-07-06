@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/css";
 import eraser from "../../assets/drawingTools/eraser.png";
 import redPencil from "../../assets/drawingTools/colorPencil_red.png";
 import orangePencil from "../../assets/drawingTools/colorPencil_orange.png";
@@ -11,12 +9,9 @@ import navyPencil from "../../assets/drawingTools/colorPencil_navy.png";
 import purplePencil from "../../assets/drawingTools/colorPencil_purple.png";
 import pinkPencil from "../../assets/drawingTools/colorPencil_pink.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
-import ColorPickerComp from "./ColorPickerComp";
 
-const DrawingToolBar = ({ setSelectedColor }) => {
+const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen, setColor }) => {
   const [selectedTool, setSelectedTool] = useState(null);
-  const [colorPickerOpen, setColorPickerOpen] = useState(false);
-  const [color, setColor] = useColor("#FF0900");
 
   const toolDatas = [
     { tool: eraser, color: "transparent" },
@@ -41,7 +36,7 @@ const DrawingToolBar = ({ setSelectedColor }) => {
     },
   ];
 
-  //rainbowPencil 클릭 시 컬러피커 표시
+  // rainbowPencil 클릭 시 컬러피커 표시
   const handleToolSelect = (index) => {
     setSelectedTool(index);
     if (index === toolDatas.length - 1) {
@@ -65,14 +60,6 @@ const DrawingToolBar = ({ setSelectedColor }) => {
           onClick={() => handleToolSelect(index)}
         />
       ))}
-      {colorPickerOpen && (
-        <ColorPickerComp
-          color={color}
-          setColor={setColor}
-          setSelectedColor={setSelectedColor}
-          setColorPickerOpen={setColorPickerOpen}
-        />
-      )}
     </div>
   );
 };
