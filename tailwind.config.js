@@ -23,9 +23,9 @@ module.exports = {
         mobile: { min: "240px", max: "640px" },
         tablet: { min: "641px", max: "1280" },
         pc: { min: "1280" },
-        borderRadius: {
-          "lg-xl": "0.625rem", //10px
-        },
+      },
+      borderRadius: {
+        "lg-xl": "0.625rem", //10px
       },
     },
     plugins: [],
