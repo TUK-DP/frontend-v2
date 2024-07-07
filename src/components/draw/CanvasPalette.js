@@ -18,9 +18,9 @@ const CanvasPalette = () => {
   }, [paletteRef]);
 
   return (
-    <div className="fixed bottom-0">
+    <>
       <div
-        className="transition-transform duration-500"
+        className="fixed bottom-0 transition-transform duration-500"
         style={{
           transform: isOpen
             ? `translateY(9rem)`
@@ -42,7 +42,7 @@ const CanvasPalette = () => {
           setColorPickerOpen={setColorPickerOpen}
         />
       )}
-    </div>
+    </>
   );
 };
 
