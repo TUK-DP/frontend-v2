@@ -18,6 +18,7 @@ module.exports = {
         minWidth: "360px",
         maxWidth: "1280px",
         navBarHeight: "90px",
+        headerbarHeight: "80px",
       },
       screens: {
         mobile: { min: "240px", max: "640px" },
