@@ -56,7 +56,7 @@ const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
           className={`transition-transform duration-500 ${
             selectedTool === index ? "-translate-y-10" : ""
           }`}
-          style={{ width: "70px", margin: "5px", cursor: "pointer" }}
+          style={{ width: "60px", margin: "5px", cursor: "pointer" }}
           onClick={() => handleToolSelect(index)}
         />
       ))}
