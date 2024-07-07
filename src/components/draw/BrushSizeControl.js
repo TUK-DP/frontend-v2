@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../styles/inputCustum.css";
 
 const BrushSizeControl = ({ selectedColor }) => {
   const [circleSize, setCircleSize] = useState(20); // 초기 원의 크기 설정
@@ -20,11 +21,12 @@ const CustumInputRange = ({ value, onChange }) => {
   return (
     <input
       type="range"
-      min="20"
-      max="50"
+      min="10"
+      max="40"
+      step={1}
       value={value}
       onChange={onChange}
-      className="mr-4 flex-1 appearance-none w-full h-2 rounded-full bg-indigo-400 outline-none cursor-pointer"
+      className="mr-4 flex-1"
     />
   );
 };
