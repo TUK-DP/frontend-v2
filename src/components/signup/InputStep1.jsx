@@ -14,7 +14,7 @@ const validate = [
   },
 ];
 
-const InputStep1 = ({ setCurrentIndex }) => {
+const InputStep1 = () => {
   const [isEmailError, setIsEmailError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +25,6 @@ const InputStep1 = ({ setCurrentIndex }) => {
 
     setTimeout(() => {
       setIsLoading(false);
-      setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, 1));
     }, 3000);
   };
 
