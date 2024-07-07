@@ -10,8 +10,8 @@ import purplePencil from "../../assets/drawingTools/colorPencil_purple.png";
 import pinkPencil from "../../assets/drawingTools/colorPencil_pink.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 
-const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen, setColor }) => {
-  const [selectedTool, setSelectedTool] = useState(null);
+const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
+  const [selectedTool, setSelectedTool] = useState(1);
 
   const toolDatas = [
     { tool: eraser, color: "transparent" },
