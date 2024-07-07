@@ -3,6 +3,7 @@ import PurpleButton from "./PurpleButton";
 import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "../Spinner";
+import SigupStep from "./SignupStep";
 
 const validate = [
   { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
@@ -29,8 +30,9 @@ const InputStep1 = ({ setCurrentIndex }) => {
   };
 
   return (
-    <div className={"flex h-full justify-center min-w-full "}>
+    <div className={"flex h-full justify-center "}>
       <div className="w-5/6 h-full flex flex-col justify-center items-center pb-20">
+        <SigupStep step="1" />
         <InputEmail setIsEmailError={setIsEmailError} />
         <PurpleButton
           text={isLoading ? <Spinner /> : "중복확인"}
@@ -59,7 +61,7 @@ const InputEmail = ({ setIsEmailError }) => {
   };
 
   return (
-    <div className={"flex flex-col justify-center mb-20 w-full flex-1"}>
+    <div className={"flex flex-col justify-center my-20 w-full flex-1"}>
       <div>이메일</div>
       <input
         type="text"
