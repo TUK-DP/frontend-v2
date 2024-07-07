@@ -18,7 +18,7 @@ const CanvasPalette = () => {
   }, [paletteRef]);
 
   return (
-    <div className="absolute bottom-0">
+    <div className="fixed bottom-0">
       <div
         className="transition-transform duration-500"
         style={{
