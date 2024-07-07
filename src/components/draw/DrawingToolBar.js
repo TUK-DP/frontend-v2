@@ -48,7 +48,7 @@ const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
   };
 
   return (
-    <div className="flex overflow-x-scroll scrollbar-hide w-full pt-10 relative">
+    <div className="flex overflow-x-scroll scrollbar-hide pt-10">
       {toolDatas.map((tool, index) => (
         <img
           key={index}
