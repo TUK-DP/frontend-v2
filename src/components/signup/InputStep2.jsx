@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
 import ErrorMessage from "./ErrorMessage";
 import SignupStep from "./SignupStep";
-import Signup from "../../pages/Signup";
 
 const validate = [
   { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
