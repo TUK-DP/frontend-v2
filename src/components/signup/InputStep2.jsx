@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
 import ErrorMessage from "./ErrorMessage";
+import SignupStep from "./SignupStep";
+import Signup from "../../pages/Signup";
 
 const validate = [
   { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
@@ -26,7 +28,9 @@ const InputStep2 = () => {
           "flex flex-col h-full justify-center items-center pb-20 w-5/6 "
         }
       >
-        <div className={"flex flex-col flex-1 justify-center mb-10 w-full"}>
+        <SignupStep step="2" />
+
+        <div className={"flex flex-col flex-1 justify-center py-10 w-full"}>
           <InputName setIsErrorExist={setIsErrorExist} />
           <InputBirth setIsErrorExist={setIsErrorExist} />
           <InputPassword
