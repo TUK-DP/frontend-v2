@@ -1,10 +1,13 @@
 import React from "react";
-import { ColorPicker, useColor } from "react-color-palette";
+import { ColorPicker } from "react-color-palette";
 import "react-color-palette/css";
 
-const ColorPickerComp = ({ setSelectedColor, setColorPickerOpen }) => {
-  const [color, setColor] = useColor("hex", "#FF0900");
-
+const ColorPickerComp = ({
+  color,
+  setColor,
+  setSelectedColor,
+  setColorPickerOpen,
+}) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-4 rounded-md w-[20rem] md:w-[35rem]">

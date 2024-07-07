@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useColor } from "react-color-palette";
 import BrushSizeControl from "./BrushSizeControl";
 import DrawingToolBar from "./DrawingToolBar";
 import ColorPickerComp from "./ColorPickerComp";
@@ -10,6 +11,7 @@ const CanvasPalette = () => {
   const paletteRef = useRef(null);
   const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
+  const [color, setColor] = useColor("hex", "#FF0900");
 
   useEffect(() => {
     if (paletteRef.current) {
@@ -38,6 +40,8 @@ const CanvasPalette = () => {
       </div>
       {colorPickerOpen && (
         <ColorPickerComp
+          color={color}
+          setColor={setColor}
           setSelectedColor={setSelectedColor}
           setColorPickerOpen={setColorPickerOpen}
         />
