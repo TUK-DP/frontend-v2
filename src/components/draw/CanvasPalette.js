@@ -5,7 +5,7 @@ import ColorPickerComp from "./ColorPickerComp";
 import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
 
 const CanvasPalette = () => {
-  const [selectedColor, setSelectedColor] = useState("transparent"); // 초기 색상 설정
+  const [selectedColor, setSelectedColor] = useState("#FF0900"); // 초기 색상 설정
   const [isOpen, setIsOpen] = useState(true);
   const paletteRef = useRef(null);
   const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이
@@ -18,7 +18,7 @@ const CanvasPalette = () => {
   }, [paletteRef]);
 
   return (
-    <div className="fixed bottom-0 right-0">
+    <div className="absolute bottom-0">
       <div
         className="transition-transform duration-500"
         style={{
