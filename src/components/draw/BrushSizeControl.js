@@ -6,9 +6,14 @@ const BrushSizeControl = ({ selectedColor }) => {
 
   return (
     <div className="flex items-center mx-3">
-      <CustumInputRange
+      <input
+        type="range"
+        min="10"
+        max="40"
+        step={1}
         value={circleSize}
         onChange={(event) => setCircleSize(parseInt(event.target.value))}
+        className="mr-4 flex-1"
       />
       <BrushStateCircle selectedColor={selectedColor} circleSize={circleSize} />
     </div>
@@ -16,20 +21,6 @@ const BrushSizeControl = ({ selectedColor }) => {
 };
 
 export default BrushSizeControl;
-
-const CustumInputRange = ({ value, onChange }) => {
-  return (
-    <input
-      type="range"
-      min="10"
-      max="40"
-      step={1}
-      value={value}
-      onChange={onChange}
-      className="mr-4 flex-1"
-    />
-  );
-};
 
 const BrushStateCircle = ({ selectedColor, circleSize }) => {
   return (
