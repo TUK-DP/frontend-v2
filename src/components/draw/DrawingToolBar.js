@@ -39,7 +39,7 @@ const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
     { id: "gray", image: grayPencil, color: "#919191" },
     {
       id: "rainbow",
-      tool: rainbowPencil,
+      image: rainbowPencil,
     },
   ];
 
