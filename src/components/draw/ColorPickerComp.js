@@ -10,15 +10,16 @@ const ColorPickerComp = ({
 }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-4 rounded-md w-[20rem] md:w-[35rem]">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[20rem] md:w-[35rem]">
         <ColorPicker
           color={color}
           onChange={setColor}
           hideInput={["rgb", "hsv", "hex"]} // 옵션 숨기기
         />
-        <div className="flex justify-end mt-4">
+        <div className="flex items-center justify-between mt-6">
+          <ColorState color={color} />
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md shadow-md transition duration-300"
             onClick={() => {
               setSelectedColor(color.hex);
               setColorPickerOpen(false);
@@ -33,3 +34,15 @@ const ColorPickerComp = ({
 };
 
 export default ColorPickerComp;
+
+const ColorState = ({ color }) => {
+  return (
+    <div className="flex items-center">
+      <strong className="md:text-xl">선택한 색상:</strong>
+      <div
+        className="w-20 md:w-28 h-8 border rounded-md ml-2 md:ml-5 shadow-inner"
+        style={{ backgroundColor: color.hex }}
+      ></div>
+    </div>
+  );
+};
