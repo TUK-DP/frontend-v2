@@ -21,25 +21,26 @@ import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
   const [selectedTool, setSelectedTool] = useState(1);
 
-  const toolDatas = [
-    { tool: eraser, color: "transparent" },
-    { tool: blackPencil, color: "#000000" },
-    { tool: redPencil, color: "#FF0900" },
-    { tool: orangePencil, color: "#FF7700" },
-    { tool: coralPencil, color: "#FF9B8A" },
-    { tool: yellowPencil, color: "#FFF200" },
-    { tool: greenPencil, color: "#88FF00" },
-    { tool: olivePencil, color: "#007A08" },
-    { tool: bluePencil, color: "#0051FF" },
-    { tool: navyPencil, color: "#0C00AD" },
-    { tool: purplePencil, color: "#9000FF" },
-    { tool: plumPencil, color: "#78007A" },
-    { tool: pinkPencil, color: "#FF00EA" },
-    { tool: babypinkPencil, color: "#FFA6E6" },
-    { tool: apricotPencil, color: "#FFE4CF" },
-    { tool: brownPencil, color: "#854A19" },
-    { tool: grayPencil, color: "#919191" },
+  const TOOL_LIST = [
+    { id: "eraser", tool: eraser, color: "transparent" },
+    { id: "black", tool: blackPencil, color: "#000000" },
+    { id: "red", tool: redPencil, color: "#FF0900" },
+    { id: "orange", tool: orangePencil, color: "#FF7700" },
+    { id: "coral", tool: coralPencil, color: "#FF9B8A" },
+    { id: "yellow", tool: yellowPencil, color: "#FFF200" },
+    { id: "green", tool: greenPencil, color: "#88FF00" },
+    { id: "olive", tool: olivePencil, color: "#007A08" },
+    { id: "blue", tool: bluePencil, color: "#0051FF" },
+    { id: "navy", tool: navyPencil, color: "#0C00AD" },
+    { id: "purple", tool: purplePencil, color: "#9000FF" },
+    { id: "plum", tool: plumPencil, color: "#78007A" },
+    { id: "pink", tool: pinkPencil, color: "#FF00EA" },
+    { id: "babypink", tool: babypinkPencil, color: "#FFA6E6" },
+    { id: "apricot", tool: apricotPencil, color: "#FFE4CF" },
+    { id: "brown", tool: brownPencil, color: "#854A19" },
+    { id: "gray", tool: grayPencil, color: "#919191" },
     {
+      id: "rainbow",
       tool: rainbowPencil,
     },
   ];
@@ -47,17 +48,17 @@ const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
   // rainbowPencil 클릭 시 컬러피커 표시
   const handleToolSelect = (index) => {
     setSelectedTool(index);
-    if (index === toolDatas.length - 1) {
+    if (index === TOOL_LIST.length - 1) {
       setColorPickerOpen(true);
     } else {
-      setSelectedColor(toolDatas[index].color);
+      setSelectedColor(TOOL_LIST[index].color);
       setColorPickerOpen(false);
     }
   };
 
   return (
     <div className="flex overflow-x-scroll scrollbar-hide pt-10">
-      {toolDatas.map((tool, index) => (
+      {TOOL_LIST.map((tool, index) => (
         <img
           key={index}
           src={tool.tool}
