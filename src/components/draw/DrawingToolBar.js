@@ -19,54 +19,54 @@ import grayPencil from "../../assets/drawingTools/colorPencil_gray.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
 
 const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
-  const [selectedTool, setSelectedTool] = useState(1);
-
   const TOOL_LIST = [
-    { id: "eraser", tool: eraser, color: "transparent" },
-    { id: "black", tool: blackPencil, color: "#000000" },
-    { id: "red", tool: redPencil, color: "#FF0900" },
-    { id: "orange", tool: orangePencil, color: "#FF7700" },
-    { id: "coral", tool: coralPencil, color: "#FF9B8A" },
-    { id: "yellow", tool: yellowPencil, color: "#FFF200" },
-    { id: "green", tool: greenPencil, color: "#88FF00" },
-    { id: "olive", tool: olivePencil, color: "#007A08" },
-    { id: "blue", tool: bluePencil, color: "#0051FF" },
-    { id: "navy", tool: navyPencil, color: "#0C00AD" },
-    { id: "purple", tool: purplePencil, color: "#9000FF" },
-    { id: "plum", tool: plumPencil, color: "#78007A" },
-    { id: "pink", tool: pinkPencil, color: "#FF00EA" },
-    { id: "babypink", tool: babypinkPencil, color: "#FFA6E6" },
-    { id: "apricot", tool: apricotPencil, color: "#FFE4CF" },
-    { id: "brown", tool: brownPencil, color: "#854A19" },
-    { id: "gray", tool: grayPencil, color: "#919191" },
+    { id: "eraser", image: eraser, color: "transparent" },
+    { id: "black", image: blackPencil, color: "#000000" },
+    { id: "red", image: redPencil, color: "#FF0900" },
+    { id: "orange", image: orangePencil, color: "#FF7700" },
+    { id: "coral", image: coralPencil, color: "#FF9B8A" },
+    { id: "yellow", image: yellowPencil, color: "#FFF200" },
+    { id: "green", image: greenPencil, color: "#88FF00" },
+    { id: "olive", image: olivePencil, color: "#007A08" },
+    { id: "blue", image: bluePencil, color: "#0051FF" },
+    { id: "navy", image: navyPencil, color: "#0C00AD" },
+    { id: "purple", image: purplePencil, color: "#9000FF" },
+    { id: "plum", image: plumPencil, color: "#78007A" },
+    { id: "pink", image: pinkPencil, color: "#FF00EA" },
+    { id: "babypink", image: babypinkPencil, color: "#FFA6E6" },
+    { id: "apricot", image: apricotPencil, color: "#FFE4CF" },
+    { id: "brown", image: brownPencil, color: "#854A19" },
+    { id: "gray", image: grayPencil, color: "#919191" },
     {
       id: "rainbow",
       tool: rainbowPencil,
     },
   ];
 
+  const [selectedTool, setSelectedTool] = useState(TOOL_LIST[1]);
+
   // rainbowPencil 클릭 시 컬러피커 표시
-  const handleToolSelect = (index) => {
-    setSelectedTool(index);
-    if (index === TOOL_LIST.length - 1) {
+  const handleToolSelect = (tool) => {
+    setSelectedTool(tool);
+    if (tool.id === "rainbow") {
       setColorPickerOpen(true);
     } else {
-      setSelectedColor(TOOL_LIST[index].color);
+      setSelectedColor(tool.color);
       setColorPickerOpen(false);
     }
   };
 
   return (
     <div className="flex overflow-x-scroll scrollbar-hide pt-10">
-      {TOOL_LIST.map((tool, index) => (
+      {TOOL_LIST.map((tool) => (
         <img
-          key={index}
-          src={tool.tool}
+          key={tool.id}
+          src={tool.image}
           className={`transition-transform duration-500 ${
-            selectedTool === index ? "-translate-y-10" : ""
+            selectedTool.id === tool.id ? "-translate-y-10" : ""
           }`}
           style={{ width: "60px", margin: "5px", cursor: "pointer" }}
-          onClick={() => handleToolSelect(index)}
+          onClick={() => handleToolSelect(tool)}
         />
       ))}
     </div>
