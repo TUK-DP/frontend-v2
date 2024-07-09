@@ -28,6 +28,6 @@ module.exports = {
         "lg-xl": "0.625rem", //10px
       },
     },
-    plugins: [],
   },
+  plugins: [require("tailwind-scrollbar-hide")],
 };
