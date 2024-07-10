@@ -4,25 +4,32 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import InputStep1 from "./InputStep1";
 import InputStep2 from "./InputStep2";
-// 슬라이더 컴포넌트
-const SignupSlider = () => {
-  // 슬라이더 설정
-  const settings = {
-    infinite: false,
-    arrows: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
-  };
+import { useInput } from "../../hooks/useInput";
 
+const settings = {
+  infinite: false,
+  arrows: false,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  adaptiveHeight: true,
+};
+
+// 슬라이더 컴포넌트
+const SignupSlider = ({ signUpForm, handleChangeInput }) => {
+  // 슬라이더 설정
   const sliderDatas = [
     {
       step: 1,
-      component: <InputStep1 />,
+      component: <InputStep1 handleChangeInput={handleChangeInput} />,
     },
     {
       step: 2,
-      component: <InputStep2 />,
+      component: (
+        <InputStep2
+          signUpForm={signUpForm}
+          handleChangeInput={handleChangeInput}
+        />
+      ),
     },
   ];
 

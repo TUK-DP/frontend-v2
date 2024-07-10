@@ -1,20 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
-import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import Spinner from "../Spinner";
+import {
+  EMAIL_FORMAT,
+  isValidate,
+  NOT_EMPTY,
+} from "../../utils/validator/input";
 import SigupStep from "./SignupStep";
 
-const validate = [
-  { name: "notEmpty", regex: /.+/, errorMessage: "필수 입력 항목입니다." },
-  {
-    name: "isEmail",
-    regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
-    errorMessage: "올바르지 않는 이메일 형식입니다.",
-  },
-];
-
-const InputStep1 = () => {
+const InputStep1 = ({ handleChangeInput }) => {
   const [isEmailError, setIsEmailError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +27,10 @@ const InputStep1 = () => {
     <div className={"flex h-full justify-center "}>
       <div className="w-5/6 h-full flex flex-col justify-center items-center pb-20">
         <SigupStep step="1" />
-        <InputEmail setIsEmailError={setIsEmailError} />
+        <InputEmail
+          setIsEmailError={setIsEmailError}
+          handleChangeInput={handleChangeInput}
+        />
         <PurpleButton
           text={isLoading ? <Spinner /> : "중복확인"}
           handleClickButton={handleClickNextButton}
@@ -44,19 +42,17 @@ const InputStep1 = () => {
 
 export default InputStep1;
 
-const InputEmail = ({ setIsEmailError }) => {
+const InputEmail = ({ setIsEmailError, handleChangeInput }) => {
   const [errorMessage, setErrorMessage] = useState("");
-  const validateEmail = (email) => {
-    for (let i = 0; i < validate.length; i++) {
-      const { regex, errorMessage } = validate[i];
-      if (!regex.test(email)) {
-        setErrorMessage(errorMessage);
-        setIsEmailError(true);
-        return;
-      }
-    }
-    setErrorMessage("");
-    setIsEmailError(false);
+  const handleChangeInputEmail = (e) => {
+    handleChangeInput(e);
+    const email = e.target.value;
+    const { isValid, errorMessage } = isValidate({
+      value: email,
+      should: [NOT_EMPTY, EMAIL_FORMAT],
+    });
+    setIsEmailError(!isValid);
+    setErrorMessage(errorMessage);
   };
 
   return (
@@ -68,7 +64,7 @@ const InputEmail = ({ setIsEmailError }) => {
           "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
         }
         placeholder="이메일을 입력해주세요"
-        onChange={(e) => validateEmail(e.target.value)}
+        onChange={handleChangeInputEmail}
       />
       <ErrorMessage errorMessage={errorMessage} />
     </div>
