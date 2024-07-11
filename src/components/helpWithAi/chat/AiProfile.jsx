@@ -1,4 +1,4 @@
-import AiProfileIcon from "./icon/AiProfileIcon";
+import AiProfileIcon from "../icon/AiProfileIcon";
 
 export const AiProfile = () => {
   return (
