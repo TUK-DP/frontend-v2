@@ -3,19 +3,20 @@ import AppLogo from "../assets/AppLogo.png";
 import PurpleButton from "../components/signup/PurpleButton";
 import { useNavigate } from "react-router-dom";
 import { SIGNUP_PAGE_PATH } from "./Signup";
-import ErrorMessage from "../components/signup/ErrorMessage";
 import {
   EMAIL_FORMAT,
-  isValidate,
   NOT_EMPTY,
   PASSWORD_FORMAT,
 } from "../utils/validator/input";
 import { useInput } from "../hooks/useInput";
+import { SignInOrUpInput } from "../components/signup/SignInOrUpInput";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
-export const SIGN_IN_FORM_EMAIL_KEY = "email";
-export const SIGN_IN_FORM_PASSWORD_KEY = "password";
+export const SIGN_IN_FORM_KEY = {
+  EMAIL: "email",
+  PASSWORD: "password",
+};
 
 const Signin = () => {
   const {
@@ -23,17 +24,42 @@ const Signin = () => {
     handleChangeInput,
     setForm: setSignInForm,
   } = useInput({
-    [SIGN_IN_FORM_EMAIL_KEY]: "",
-    [SIGN_IN_FORM_PASSWORD_KEY]: "",
+    [SIGN_IN_FORM_KEY.EMAIL]: "",
+    [SIGN_IN_FORM_KEY.PASSWORD]: "",
   });
+
+  const [isErrorExist, setIsErrorExist] = useState(true);
+
+  const SIGN_IN_INPUT_LIST = [
+    {
+      name: "이메일",
+      type: "text",
+      inputTagName: SIGN_IN_FORM_KEY.EMAIL,
+      inputShould: [NOT_EMPTY, EMAIL_FORMAT],
+    },
+    {
+      name: "비밀번호",
+      type: "password",
+      inputTagName: SIGN_IN_FORM_KEY.PASSWORD,
+      inputShould: [NOT_EMPTY, PASSWORD_FORMAT],
+    },
+  ];
 
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
       <div className={"w-5/6 h-full flex flex-col justify-center items-center"}>
         <img src={AppLogo} className={"pt-24 w-3/4"} />
         <div className={"flex-1 flex flex-col justify-center w-full"}>
-          <InputEmail handleChangeInput={handleChangeInput} />
-          <InputPassword handleChangeInput={handleChangeInput} />
+          {SIGN_IN_INPUT_LIST.map(({ inputTagName, ...props }) => (
+            <SignInOrUpInput
+              key={inputTagName}
+              {...props}
+              inputTagName={inputTagName}
+              value={signInForm[inputTagName]}
+              handleChangeInput={handleChangeInput}
+              setIsError={setIsErrorExist}
+            />
+          ))}
         </div>
         <PurpleButton text="로그인" />
       </div>
@@ -43,68 +69,6 @@ const Signin = () => {
 };
 
 export default Signin;
-
-const InputEmail = ({ handleChangeInput = (e) => e }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const handleChangeInputEmail = (e) => {
-    handleChangeInput(e);
-    const email = e.target.value;
-
-    const { errorMessage } = isValidate({
-      value: email,
-      should: [NOT_EMPTY, EMAIL_FORMAT],
-    });
-
-    setErrorMessage(errorMessage);
-  };
-  return (
-    <div className={"flex flex-col justify-center mb-4"}>
-      <div>이메일</div>
-      <input
-        name={SIGN_IN_FORM_EMAIL_KEY}
-        type="text"
-        className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
-        }
-        placeholder="이메일을 입력해주세요"
-        onChange={handleChangeInputEmail}
-      />
-      <ErrorMessage errorMessage={errorMessage} />
-    </div>
-  );
-};
-
-const InputPassword = ({ handleChangeInput = (e) => e }) => {
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleChangeInputPassword = (e) => {
-    handleChangeInput(e);
-
-    const password = e.target.value;
-    const { errorMessage } = isValidate({
-      value: password,
-      should: [NOT_EMPTY, PASSWORD_FORMAT],
-    });
-
-    setErrorMessage(errorMessage);
-  };
-
-  return (
-    <div className={"flex flex-col justify-center mb-4"}>
-      <div>비밀번호</div>
-      <input
-        name={SIGN_IN_FORM_PASSWORD_KEY}
-        type="password"
-        className={
-          "w-full h-11 border border-secondary-600 rounded-lg-xl text-xl px-4 my-2 outline-none sm:h-16"
-        }
-        placeholder="비밀번호를 입력해주세요"
-        onChange={handleChangeInputPassword}
-      />
-      <ErrorMessage errorMessage={errorMessage} />
-    </div>
-  );
-};
 
 const MoveToSignUp = () => {
   const navigate = useNavigate();
