@@ -6,7 +6,7 @@ import { getCalendarDaysInMonth } from "../../utils/calendar/date";
 export const Calendar = () => {
   const now = new Date();
 
-  const [selectedMonth, setSelectedMonth] = useState({
+  const [selectedYearMonth, setSelectedYearMonth] = useState({
     year: now.getFullYear(),
     month: now.getMonth() + 1,
   });
@@ -18,19 +18,16 @@ export const Calendar = () => {
   });
 
   // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
-  const days = getCalendarDaysInMonth({
-    year: selectedMonth.year,
-    month: selectedMonth.month,
-  });
+  const days = getCalendarDaysInMonth({ ...selectedYearMonth });
 
   return (
     <>
       <CalendarMonthSelector
-        selectedMonth={selectedMonth}
-        setSelectedMonth={setSelectedMonth}
+        selectedYearMonth={selectedYearMonth}
+        setSelectedYearMonth={setSelectedYearMonth}
       />
       <CalendarGrid
-        selectedMonth={selectedMonth}
+        selectedYearMonth={selectedYearMonth}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
         days={days}

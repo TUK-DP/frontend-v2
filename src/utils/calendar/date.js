@@ -2,6 +2,42 @@ import { range } from "../array/range";
 
 export const CALENDAR_HEADER = ["일", "월", "화", "수", "목", "금", "토"];
 
+export const getNextYearMonth = ({ year, month }) => {
+  if (month === 12) {
+    return {
+      year: year + 1,
+      month: 1,
+    };
+  }
+
+  return {
+    year,
+    month: month + 1,
+  };
+};
+
+export const getPreYearMonth = ({ year, month }) => {
+  if (month === 1) {
+    return {
+      year: year - 1,
+      month: 12,
+    };
+  }
+
+  return {
+    year,
+    month: month - 1,
+  };
+};
+
+export const isSaturday = (index) => {
+  return index % 7 === 6;
+};
+
+export const isSunday = (index) => {
+  return index % 7 === 0;
+};
+
 export const isEqualDate = (date1, date2) => {
   return (
     date1.year === date2.year &&
