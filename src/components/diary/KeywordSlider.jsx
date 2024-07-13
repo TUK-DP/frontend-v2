@@ -14,9 +14,9 @@ const KeywordSlider = ({ keywords }) => {
     infinite: false,
   };
   return (
-    <Slider {...settings} className={"w-full py-4"}>
+    <Slider {...settings} className={"w-full mobile:py-4 py-10"}>
       {keywords.map((keyword, index) => (
-        <div key={index} className={"text-center text-3xl "}>
+        <div key={index} className={"text-center mobile:text-3xl text-5xl"}>
           {keyword}
         </div>
       ))}
@@ -29,7 +29,7 @@ const NextArrow = ({ onClick }) => (
   <div className="absolute top-1/2 transform -translate-y-1/2 right-7 z-10">
     <FaLongArrowAltRight
       onClick={onClick}
-      className="text-4xl cursor-pointer"
+      className={"mobile:text-4xl text-6xl cursor-pointer"}
     />
   </div>
 );
@@ -38,7 +38,7 @@ const PrevArrow = ({ onClick }) => (
   <div className="absolute top-1/2 transform -translate-y-1/2 left-7 z-10">
     <FaLongArrowAltLeft
       onClick={onClick}
-      className={"text-4xl cursor-pointer"}
+      className={"mobile:text-4xl text-6xl cursor-pointer"}
     />
   </div>
 );
