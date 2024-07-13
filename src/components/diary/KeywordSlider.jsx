@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
-const KeywordSlider = ({ keywords }) => {
+const KeywordSlider = ({ keywords, setKeywordSlider, canvasSlider }) => {
   const settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -13,8 +13,18 @@ const KeywordSlider = ({ keywords }) => {
     prevArrow: <PrevArrow />,
     infinite: false,
   };
+  let keywordSliderRef = useRef(null);
+
+  useEffect(() => {
+    setKeywordSlider(keywordSliderRef);
+  }, []);
   return (
-    <Slider {...settings} className={"w-full mobile:py-4 py-10"}>
+    <Slider
+      {...settings}
+      asNavFor={canvasSlider}
+      ref={(slider) => (keywordSliderRef = slider)}
+      className={"w-full mobile:py-4 py-10"}
+    >
       {keywords.map((keyword, index) => (
         <div key={index} className={"text-center mobile:text-3xl text-5xl"}>
           {keyword}
