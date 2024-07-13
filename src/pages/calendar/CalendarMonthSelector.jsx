@@ -5,16 +5,14 @@ export const CalendarMonthSelector = ({
   selectedYearMonth,
   setSelectedYearMonth,
 }) => {
+  let { year, month } = selectedYearMonth;
+
   const goPreMonth = () => {
-    setSelectedYearMonth((prev) =>
-      getPreYearMonth({ year: prev.year, month: prev.month })
-    );
+    setSelectedYearMonth((prev) => getPreYearMonth({ ...prev }));
   };
 
   const goNextMonth = () => {
-    setSelectedYearMonth((prev) =>
-      getNextYearMonth({ year: prev.year, month: prev.month })
-    );
+    setSelectedYearMonth((prev) => getNextYearMonth({ ...prev }));
   };
   return (
     <div
@@ -26,8 +24,10 @@ export const CalendarMonthSelector = ({
         onClick={goPreMonth}
       />
       <span
-        className={"font-bold flex items-center"}
-      >{`${selectedYearMonth.year}년 ${selectedYearMonth.month}월`}</span>
+        className={
+          "font-bold flex justify-center items-center text-nowrap  w-0"
+        }
+      >{`${year}년 ${month}월`}</span>
       <IoIosArrowForward
         size={50}
         className={"cursor-pointer"}
