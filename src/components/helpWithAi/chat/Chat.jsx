@@ -4,7 +4,7 @@ import AiProfileIcon from "../icon/AiProfileIcon";
 export const AI_CHAT = "AI";
 export const USER_CHAT = "USER";
 
-export const Chat = ({ id = "AI", children }) => {
+export const Chat = ({ id = AI_CHAT, children }) => {
   return (
     <div className={`flex items-start ${id === USER_CHAT && "justify-end"}`}>
       {id === AI_CHAT && <AiProfile />}

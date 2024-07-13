@@ -1,4 +1,4 @@
-export const TextBlock = ({ text, className }) => {
+export const TextBlock = ({ className, children }) => {
   return (
     <div
       className={
@@ -7,7 +7,7 @@ export const TextBlock = ({ text, className }) => {
         className
       }
     >
-      {text}
+      {children}
     </div>
   );
 };
