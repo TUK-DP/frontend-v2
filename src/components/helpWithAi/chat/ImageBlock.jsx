@@ -1,28 +1,14 @@
-import { AiProfile } from "./AiProfile";
 import { Image } from "antd";
-import { TextBlock } from "./TextBlock";
 
-export const AiImage = ({
+export const ImageBlock = ({
   suggestImageSrcList = [
     "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
     "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
   ],
 }) => {
-  return (
-    <div className={"flex items-start"}>
-      <AiProfile />
-      <div className={"flex flex-col gap-8"}>
-        <TextBlock
-          text={
-            "AI가 제안하는 그림들 입니다! 사진을 선택해 크게 보고 선택을 눌러 그림에 적용하세요!"
-          }
-        />
-        {suggestImageSrcList.map((src, index) => (
-          <SuggestImage key={index} imageSrc={src} />
-        ))}
-      </div>
-    </div>
-  );
+  return suggestImageSrcList.map((src, index) => (
+    <SuggestImage key={index} imageSrc={src} />
+  ));
 };
 
 const SuggestImage = ({ imageSrc }) => {
@@ -31,6 +17,7 @@ const SuggestImage = ({ imageSrc }) => {
       <Image
         preview={{
           mask: <span className={"text-xl font-bold"}>크게 보기</span>,
+          toolbarRender: () => {},
         }}
         className={"object-cover"}
         rootClassName={"block"}
