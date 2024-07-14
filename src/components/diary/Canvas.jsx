@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiMiniArrowUturnLeft } from "react-icons/hi2";
 import { HiMiniArrowUturnRight } from "react-icons/hi2";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const Canvas = () => {
+const Canvas = ({ keywords, setCanvasSlider, canvasSlider }) => {
   return (
     <div>
-      <canvas className={"w-full bg-white aspect-square"}></canvas>
+      <CanvasSlider
+        keywords={keywords}
+        setCanvasSlider={setCanvasSlider}
+        canvasSlider={canvasSlider}
+      />
       <div className={"flex flex-row gap-10 justify-evenly items-center pt-10"}>
         <HiMiniArrowUturnLeft
           size={44}
@@ -32,3 +39,32 @@ const Canvas = () => {
 };
 
 export default Canvas;
+
+const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
+  const settings = {
+    slidesToShow: 1,
+    infinite: false,
+    arrows: false,
+    dots: true,
+  };
+  let canvasSliderRef = useRef(null);
+  useEffect(() => {
+    setCanvasSlider(canvasSliderRef);
+  }, []);
+
+  return (
+    <Slider
+      {...settings}
+      asNavFor={keywordSlider}
+      ref={(slider) => (canvasSliderRef = slider)}
+      className={"w-full"}
+    >
+      {keywords.map((keyword, index) => (
+        <canvas
+          key={index}
+          className={"w-full bg-white aspect-square"}
+        ></canvas>
+      ))}
+    </Slider>
+  );
+};
