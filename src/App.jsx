@@ -6,13 +6,16 @@ import { TestApp } from "./pages/test/TestApp";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
 import Signup, { SIGNUP_PAGE_PATH } from "./pages/Signup";
 import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
-import Diagnosis, {
-  DIAGNOSIS_PAGE_PATH,
-} from "./pages/dementiaDiagnosis/Diagnosis";
+import DiagnosisGuide, {
+  DIAGNOSIS_GUIDE_PAGE_PATH,
+} from "./pages/dementiaDiagnosis/DiagnosisGuide";
 import {
   TEST_BOTTOM_SHEET_PAGE_PATH,
   TestBottomSheetTutorialPage,
 } from "./pages/test/TestBottomSheetTutorialPage";
+import Diagnosis, {
+  DIAGNOSIS_PAGE_PATH,
+} from "./pages/dementiaDiagnosis/Diagnosis";
 
 function App() {
   return (
