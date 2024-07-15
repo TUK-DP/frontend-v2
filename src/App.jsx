@@ -6,6 +6,9 @@ import { TestApp } from "./pages/test/TestApp";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
 import Signup, { SIGNUP_PAGE_PATH } from "./pages/Signup";
 import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
+import DiagnosisGuide, {
+  DIAGNOSIS_GUIDE_PAGE_PATH,
+} from "./pages/dementiaDiagnosis/DiagnosisGuide";
 import {
   TEST_BOTTOM_SHEET_PAGE_PATH,
   TestBottomSheetTutorialPage,
@@ -23,6 +26,10 @@ function App() {
               exact
               path={TEST_BOTTOM_SHEET_PAGE_PATH}
               element={<TestBottomSheetTutorialPage />}
+            />
+            <Route
+              path={DIAGNOSIS_GUIDE_PAGE_PATH}
+              element={<DiagnosisGuide />}
             />
           </Route>
           <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />

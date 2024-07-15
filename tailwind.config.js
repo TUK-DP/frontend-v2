@@ -20,12 +20,13 @@ module.exports = {
         minWidth: "360px",
         maxWidth: "1280px",
         navBarHeight: "90px",
+        chatTextMaxWidth: "300px",
         headerbarHeight: "80px",
       },
       screens: {
         mobile: { min: "240px", max: "640px" },
-        tablet: { min: "641px", max: "1280" },
-        pc: { min: "1280" },
+        tablet: { min: "641px", max: "1280px" },
+        pc: { min: "1280px" },
       },
       borderRadius: {
         "lg-xl": "0.625rem", //10px
