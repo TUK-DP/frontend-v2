@@ -21,7 +21,7 @@ const Diagnosis = () => {
   return (
     <div>
       <DiagnosisSlider sliderRef={sliderRef} />
-      <div className="w-full flex justify-between mt-16 px-5 ">
+      <div className="w-full flex justify-between mt-16 md:mt-24 px-5  md:px-9 ">
         <SliderPrevButton onClick={handlePrevClick} />
         <SliderNextButton onClick={handleNextClick} />
       </div>
@@ -62,15 +62,13 @@ const DiagnosisSlider = ({ sliderRef }) => {
       {sliderDatas.map((slider, index) => (
         <div
           key={slider.id}
-          className="h-[25rem] text-3xl break-keep font-extrabold p-5 flex justify-center items-center"
+          className="h-[25rem] md:h-[35rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex justify-center items-center"
         >
-          <div>
-            <p className="text-center mb-20">{slider.str}</p>
-            <ResponseButtons
-              selected={selectedButtons[index]}
-              onResponse={(buttonId) => handleResponse(index, buttonId)}
-            />
-          </div>
+          <p className="text-center mb-20 md:mb-34">{slider.str}</p>
+          <ResponseButtons
+            selected={selectedButtons[index]}
+            onResponse={(buttonId) => handleResponse(index, buttonId)}
+          />
         </div>
       ))}
     </Slider>
@@ -85,17 +83,17 @@ const ResponseButtons = ({ selected, onResponse }) => {
     <>
       <Button
         text="그렇지않다"
-        className={`${buttonStyles(1)} mb-4`}
+        className={`${buttonStyles(1)} mb-4 md:mb-10 md:h-[5rem] md:text-3xl cursor-pointer`}
         onClick={() => onResponse(1)}
       />
       <Button
         text="간혹(약간) 그렇다"
-        className={`${buttonStyles(2)} mb-4`}
+        className={`${buttonStyles(2)} mb-4 md:mb-10 md:h-[5rem] md:text-3xl cursor-pointer`}
         onClick={() => onResponse(2)}
       />
       <Button
         text="자주(많이) 그렇다"
-        className={`${buttonStyles(3)}`}
+        className={`${buttonStyles(3)} md:h-[5rem] md:text-3xl cursor-pointer`}
         onClick={() => onResponse(3)}
       />
     </>
@@ -103,7 +101,15 @@ const ResponseButtons = ({ selected, onResponse }) => {
 };
 
 const SliderPrevButton = ({ onClick }) => {
-  return <Button text="이전" onClick={onClick} className={"w-[10rem]"} />;
+  return (
+    <Button
+      text="이전"
+      onClick={onClick}
+      className={
+        "w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
+      }
+    />
+  );
 };
 
 const SliderNextButton = ({ onClick }) => {
@@ -111,7 +117,9 @@ const SliderNextButton = ({ onClick }) => {
     <Button
       text="다음"
       onClick={onClick}
-      className={"bg-[#6100C1] text-white w-[10rem]"}
+      className={
+        "bg-[#6100C1] text-white w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
+      }
     />
   );
 };
