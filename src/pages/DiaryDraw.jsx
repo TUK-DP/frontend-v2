@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import HeaderBar from "../components/HeaderBar";
 import PaperBackgroundWrapper from "../components/diary/PaperBackgroundWrapper";
-import KeywordSlider from "../components/diary/KeywordSlider";
-import Canvas from "../components/diary/Canvas";
+import KeywordSlider from "../components/draw/KeywordSlider";
+import Canvas from "../components/draw/Canvas";
 import aiHelpRobot from "../assets/draw/aiHelpRobot.png";
 import showOtherDraw from "../assets/draw/showOtherDraw.png";
 
