@@ -18,7 +18,11 @@ const DiaryRecall = () => {
         일기의 빈칸을 떠올려 보세요
       </div>
       <img src={DiaryRecallImg} alt="diary-recall" />
-      <div className={"font-semibold text-left flex flex-col gap-5 py-5"}>
+      <div
+        className={
+          "font-semibold text-left flex flex-col gap-5 py-5 text-lg md:text-2xl lg:text-2xl"
+        }
+      >
         <div>
           각 빈칸에 적었던 단어를 입력해
           <br />
@@ -33,7 +37,9 @@ const DiaryRecall = () => {
           영어로 된 키워드는 현재 뽑히지 않습니다.
         </p>
       </div>
-      <button className={"text-xl border-2 w-4/5 h-12 rounded-xl"}>
+      <button
+        className={"text-xl border-2 w-4/5 h-12 rounded-xl max-w-[400px]"}
+      >
         문제 풀기
       </button>
     </div>
