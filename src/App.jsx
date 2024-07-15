@@ -13,6 +13,8 @@ import {
   TEST_BOTTOM_SHEET_PAGE_PATH,
   TestBottomSheetTutorialPage,
 } from "./pages/test/TestBottomSheetTutorialPage";
+import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
+
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           </Route>
           <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
           <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
+          <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
