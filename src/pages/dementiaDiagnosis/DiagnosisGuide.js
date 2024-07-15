@@ -8,7 +8,7 @@ const DiagnosisGuide = () => {
     <div className="flex flex-col">
       <DiagnosisIntro />
       <Diagnosisform />
-      <div className="text-[#FF3C3C] mt-16 md:mt-20 mb-2 md:mb-4 px-4 md:px-7 md:text-2xl">
+      <div className="text-[#FF3C3C] mt-16 md:mt-20 mb-2 md:mb-4 px-4 md:px-7 md:text-2xl break-keep">
         정확한 진단이 필요하다면 전문의의 도움을 받으세요
       </div>
       <Button text="진단시작" className={"mx-4 md:mx-7 md:h-16 md:text-3xl"} />
@@ -36,7 +36,7 @@ const Diagnosisform = () => {
       <p className="text-lg md:text-3xl text-[#686868] mb-5 md:mb-8">
         예상 소요 시간: 10 분
       </p>
-      <div className="bg-white p-3 md:p-6 rounded-xl font-semibold md:text-2xl">
+      <div className="bg-white p-3 md:p-6 rounded-xl font-semibold md:text-2xl break-keep">
         <p className="mb-3">
           각 항목에 대하여, 1년 전과 비교하여 현재 상태에 해당하는 곳에 표시해
           주십시오.
