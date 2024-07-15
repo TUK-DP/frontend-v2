@@ -18,6 +18,7 @@ module.exports = {
         minWidth: "360px",
         maxWidth: "1280px",
         navBarHeight: "90px",
+        chatTextMaxWidth: "300px",
         headerbarHeight: "80px",
       },
       screens: {
