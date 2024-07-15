@@ -11,6 +11,9 @@ import {
   TestBottomSheetTutorialPage,
 } from "./pages/test/TestBottomSheetTutorialPage";
 import DiaryRecall, { DIARY_RECALL_PAGE_PATH } from "./pages/DiaryRecall";
+import NoDiaryRecall, {
+  NO_DIARY_RECALL_PAGE_PATH,
+} from "./pages/NoDiaryRecall";
 
 function App() {
   return (
@@ -28,6 +31,7 @@ function App() {
           <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
           <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
           <Route path={DIARY_RECALL_PAGE_PATH} element={<DiaryRecall />} />
+          <Route path={NO_DIARY_RECALL_PAGE_PATH} element={<NoDiaryRecall />} />
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
