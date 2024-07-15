@@ -29,6 +29,10 @@ function App() {
               path={TEST_BOTTOM_SHEET_PAGE_PATH}
               element={<TestBottomSheetTutorialPage />}
             />
+            <Route
+              path={DIAGNOSIS_GUIDE_PAGE_PATH}
+              element={<DiagnosisGuide />}
+            />
           </Route>
           <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
           <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
