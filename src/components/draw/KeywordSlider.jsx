@@ -1,54 +1,60 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
 
 const KeywordSlider = ({ keywords, setKeywordSlider, canvasSlider }) => {
+  const keywordSliderRef = useRef(null);
+
   const settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
     infinite: false,
+    arrows: false, // 기본 화살표 비활성화
   };
-  let keywordSliderRef = useRef(null);
 
   useEffect(() => {
     setKeywordSlider(keywordSliderRef);
-  }, []);
+  }, [setKeywordSlider]);
+
   return (
-    <Slider
-      {...settings}
-      asNavFor={canvasSlider}
-      ref={(slider) => (keywordSliderRef = slider)}
-      className={"w-full mobile:py-4 py-10"}
-    >
-      {keywords.map((keyword, index) => (
-        <div key={index} className={"text-center mobile:text-3xl text-5xl"}>
-          {keyword}
-        </div>
-      ))}
-    </Slider>
+    <div className="relative px-16">
+      {/* 좌우 패딩을 추가하여 슬라이더 범위를 조정 */}
+      <Slider
+        {...settings}
+        asNavFor={canvasSlider}
+        ref={keywordSliderRef}
+        className="w-full mobile:py-4 py-10"
+      >
+        {keywords.map((keyword, index) => (
+          <div key={index} className="text-center mobile:text-3xl text-5xl">
+            {keyword}
+          </div>
+        ))}
+      </Slider>
+      <NextArrow onClick={() => keywordSliderRef.current.slickNext()} />
+      <PrevArrow onClick={() => keywordSliderRef.current.slickPrev()} />
+    </div>
   );
 };
-export default KeywordSlider;
 
 const NextArrow = ({ onClick }) => (
-  <div className="absolute top-1/2 transform -translate-y-1/2 right-7 z-10">
+  <div className="absolute top-1/2 transform -translate-y-1/2 right-4 z-10">
     <FaLongArrowAltRight
       onClick={onClick}
-      className={"mobile:text-4xl text-6xl cursor-pointer"}
+      className="mobile:text-4xl text-6xl cursor-pointer"
     />
   </div>
 );
 
 const PrevArrow = ({ onClick }) => (
-  <div className="absolute top-1/2 transform -translate-y-1/2 left-7 z-10">
+  <div className="absolute top-1/2 transform -translate-y-1/2 left-4 z-10">
     <FaLongArrowAltLeft
       onClick={onClick}
-      className={"mobile:text-4xl text-6xl cursor-pointer"}
+      className="mobile:text-4xl text-6xl cursor-pointer"
     />
   </div>
 );
+
+export default KeywordSlider;
