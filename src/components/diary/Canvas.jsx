@@ -30,6 +30,7 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
     infinite: false,
     arrows: false,
     dots: true,
+    swipe: false,
   };
   let canvasSliderRef = useRef(null);
   useEffect(() => {
