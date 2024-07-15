@@ -7,7 +7,9 @@ module.exports = {
           600: "#6100C1",
         },
         secondary: {
+          500: "#686868",
           600: "#D9D9D9",
+          700: "#FF3C3C",
         },
         sliderBgGame: "#FFE68F",
         sliderBgResult: "#FF9B52",
