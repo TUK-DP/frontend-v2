@@ -26,10 +26,10 @@ function App() {
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
               element={<DiagnosisGuide />}
             />
+            <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
+            <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
           </Route>
           <Route path={DIARY_PAGE_PATH} element={<Diary />} />
-          <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
-          <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
           <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
         </Routes>
       </BrowserRouter>
