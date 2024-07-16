@@ -2,6 +2,18 @@ import { range } from "../array/range";
 
 export const CALENDAR_HEADER = ["일", "월", "화", "수", "목", "금", "토"];
 
+export const getNow = () => {
+  const now = new Date();
+  return {
+    year: now.getFullYear(),
+    month: now.getMonth() + 1,
+    day: now.getDate(),
+    hour: now.getHours(),
+    minute: now.getMinutes(),
+    second: now.getSeconds(),
+  };
+};
+
 export const getNextYearMonth = ({ year, month }) => {
   if (month === 12) {
     return {

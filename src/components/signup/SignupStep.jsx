@@ -11,9 +11,7 @@ const INPUT_INFO = "정보 입력";
 
 const SigupStep = ({ step }) => {
   return (
-    <div
-      className={`mt-headerbarHeight w-full flex flex-row justify-center items-center py-5 `}
-    >
+    <div className={`w-full flex flex-row justify-center items-center py-5 `}>
       {step === 1 ? (
         <TbCircleNumber1Filled size={30} color="#1777FF" />
       ) : (

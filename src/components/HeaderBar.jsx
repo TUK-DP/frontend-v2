@@ -8,7 +8,7 @@ const HeaderBar = ({ content }) => {
     navigate(-1);
   };
   return (
-    <div className="w-full h-20 px-3 py-4 flex flex-row items-center absolute top-0">
+    <div className="w-full h-headerBarHeight px-3 py-4 flex flex-row items-center absolute top-0 ">
       <IoIosArrowBack
         size={40}
         color="#B2B2B2"

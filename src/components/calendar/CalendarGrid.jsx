@@ -6,10 +6,10 @@ import {
 } from "../../utils/calendar/date";
 
 export const CalendarGrid = ({
+  days,
   selectedYearMonth,
   selectedDate,
   setSelectedDate,
-  days,
 }) => {
   return (
     <div className={"grid grid-cols-7 text-4xl mobile:text-2xl"}>
