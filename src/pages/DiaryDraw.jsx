@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import HeaderBar from "../components/HeaderBar";
-import PaperBackgroundWrapper from "../components/diary/PaperBackgroundWrapper";
+import React, { useState } from "react";
 import KeywordSlider from "../components/draw/KeywordSlider";
 import Canvas from "../components/draw/Canvas";
 import aiHelpRobot from "../assets/draw/aiHelpRobot.png";
@@ -13,24 +11,21 @@ const DiaryDraw = () => {
   const [canvasSlider, setCanvasSlider] = useState(null);
 
   return (
-    <PaperBackgroundWrapper>
-      <HeaderBar />
-      <div className={"mobile:px-5 px-20 pb-5 pt-headerbarHeight"}>
-        <KeywordSlider
-          keywords={keywords}
-          setKeywordSlider={setKeywordSlider}
-          canvasSlider={canvasSlider}
-        />
-        <Canvas
-          keywords={keywords}
-          setCanvasSlider={setCanvasSlider}
-          keywordSlider={keywordSlider}
-        />
-        <DrawHelpWrapper>
-          <DrawHelpButtons />
-        </DrawHelpWrapper>
-      </div>
-    </PaperBackgroundWrapper>
+    <div className={"mobile:px-5 px-20 pb-5"}>
+      <KeywordSlider
+        keywords={keywords}
+        setKeywordSlider={setKeywordSlider}
+        canvasSlider={canvasSlider}
+      />
+      <Canvas
+        keywords={keywords}
+        setCanvasSlider={setCanvasSlider}
+        keywordSlider={keywordSlider}
+      />
+      <DrawHelpWrapper>
+        <DrawHelpButtons />
+      </DrawHelpWrapper>
+    </div>
   );
 };
 
