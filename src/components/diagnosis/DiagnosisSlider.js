@@ -28,9 +28,11 @@ const DiagnosisSlider = ({
       {sliderDatas.map((slider, index) => (
         <div
           key={slider.id}
-          className="h-[25rem] md:h-[35rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex justify-center items-center"
+          className="h-[35rem] md:h-[45rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex justify-center items-center"
         >
-          <p className="text-center mb-20 md:mb-34">{slider.str}</p>
+          <p className="text-center mb-16 md:mb-34 h-[15rem] flex items-center">
+            {slider.str}
+          </p>
           <ResponseButtons
             selected={selectedButtons[index]}
             onResponse={(buttonId) => onResponse(index, buttonId)}
