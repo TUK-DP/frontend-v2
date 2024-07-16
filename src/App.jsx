@@ -9,10 +9,6 @@ import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
 import DiagnosisGuide, {
   DIAGNOSIS_GUIDE_PAGE_PATH,
 } from "./pages/dementiaDiagnosis/DiagnosisGuide";
-import {
-  TEST_BOTTOM_SHEET_PAGE_PATH,
-  TestBottomSheetTutorialPage,
-} from "./pages/test/TestBottomSheetTutorialPage";
 import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
 
@@ -23,11 +19,6 @@ function App() {
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
-            <Route
-              exact
-              path={TEST_BOTTOM_SHEET_PAGE_PATH}
-              element={<TestBottomSheetTutorialPage />}
-            />
             <Route
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
               element={<DiagnosisGuide />}
