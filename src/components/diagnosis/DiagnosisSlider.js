@@ -15,51 +15,34 @@ const DiagnosisSlider = ({
     arrows: false,
     afterChange: onSlideChange,
   };
-  const sliderDatas = [
-    { id: 1, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 2,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 3, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 4,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 5, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    { id: 6, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 7,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 8, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 9,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 10, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    { id: 11, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 12,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 13, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
-    {
-      id: 14,
-      str: "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-    },
-    { id: 15, str: "과거에 쓰던 기구의 사용이 서툴러졌다." },
+
+  const DiagnosisDatas = [
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
+    "과거에 쓰던 기구의 사용이 서툴러졌다.",
   ];
 
   return (
     <Slider ref={sliderRef} {...settings}>
-      {sliderDatas.map((slider, index) => (
+      {DiagnosisDatas.map((diagnosis, index) => (
         <div
-          key={slider.id}
-          className="h-[35rem] md:h-[45rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex justify-center items-center"
+          key={index}
+          className="h-[35rem] md:h-[45rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex flex-col justify-center items-center"
         >
           <p className="text-center mb-16 md:mb-34 h-[15rem] flex items-center">
-            {slider.str}
+            {diagnosis}
           </p>
           <ResponseButtons
             selected={selectedButtons[index]}
