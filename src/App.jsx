@@ -14,7 +14,7 @@ import {
   TestBottomSheetTutorialPage,
 } from "./pages/test/TestBottomSheetTutorialPage";
 import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
-
+import Home, { HOME_PAGE_PATH } from "./pages/Home";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
-            <Route exact path={"/"} element={<TestApp />} />
+            <Route exact path={HOME_PAGE_PATH} element={<Home />} />
             <Route
               exact
               path={TEST_BOTTOM_SHEET_PAGE_PATH}
