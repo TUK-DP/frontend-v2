@@ -2,9 +2,11 @@ import React from "react";
 import btn_survey from "../../assets/home/button/btn_survey.png";
 import btn_diary from "../../assets/home/button/btn_diary.png";
 import useGoDiagnosisGuide from "../../hooks/Diagnosis/useGoDiagnosisGuide";
+import useGoDiary from "../../hooks/diary/useGoDiary";
 
 const MainDementiaPreventionSection = () => {
   let { goDiagnosisGuide } = useGoDiagnosisGuide();
+  let { goDiaryPage } = useGoDiary();
   return (
     <div className="flex justify-between my-8">
       <MainFeatureButton
@@ -17,6 +19,7 @@ const MainDementiaPreventionSection = () => {
         adverb={"하루기록"}
         buttonName={"일기장"}
         imgsrc={btn_diary}
+        onClick={goDiaryPage}
       />
     </div>
   );
