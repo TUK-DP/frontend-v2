@@ -28,8 +28,8 @@ function App() {
             />
             <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
             <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
+            <Route path={DIARY_PAGE_PATH} element={<Diary />} />
           </Route>
-          <Route path={DIARY_PAGE_PATH} element={<Diary />} />
           <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
         </Routes>
       </BrowserRouter>
