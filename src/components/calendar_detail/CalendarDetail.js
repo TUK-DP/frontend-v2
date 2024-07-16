@@ -4,7 +4,7 @@ import { CheckDiaryIcon } from "./icon/CheckDiaryIcon";
 import { DiaryDetailActionButton } from "./DiaryDetailActionButton";
 import { GoDrawingIcon } from "./icon/GoDrawingIcon";
 
-export const CalendarDetail = () => {
+export const CalendarDetail = ({ selectedDate }) => {
   return (
     <div className={"bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"}>
       <WhatHappenSection mb={"mb-12"} />

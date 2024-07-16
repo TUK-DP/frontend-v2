@@ -24,16 +24,22 @@ const Diary = () => {
     day,
   });
 
+  // 날짜 선택 시, BottomSheet를 MIDDLE_POSITION으로 변경하고 선택된 날짜를 설정
+  const setSelectedDateWithBottomSheet = (...args) => {
+    setPosition(MIDDLE_POSITION);
+    setSelectedDate(...args);
+  };
+
   return (
     <>
       <Calendar
         selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
+        setSelectedDate={setSelectedDateWithBottomSheet}
         selectedYearMonth={selectedYearMonth}
         setSelectedYearMonth={setSelectedYearMonth}
       />
       <BottomSheetLayout position={position} setPosition={setPosition}>
-        <CalendarDetail />
+        <CalendarDetail selectedDate={selectedDate} />
       </BottomSheetLayout>
     </>
   );
