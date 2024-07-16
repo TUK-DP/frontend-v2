@@ -18,10 +18,6 @@ const Diagnosis = () => {
     sliderRef.current.slickPrev();
   };
 
-  const handleNextClick = () => {
-    sliderRef.current.slickNext();
-  };
-
   const handleSlideChange = (current) => {
     setCurrentSlide(current);
   };
@@ -52,7 +48,7 @@ const Diagnosis = () => {
       />
       <div className="w-full flex justify-between mt-16 md:mt-24 px-5 md:px-9">
         <SliderPrevButton onClick={handlePrevClick} />
-        <SliderNextButton onClick={handleNextClick} />
+        <SliderNextButton isLastSlide={currentSlide === totalSlides - 1} />
       </div>
     </div>
   );
@@ -70,11 +66,10 @@ const SliderPrevButton = ({ onClick }) => {
   );
 };
 
-const SliderNextButton = ({ onClick }) => {
+const SliderNextButton = ({ isLastSlide }) => {
   return (
     <Button
-      text="다음"
-      onClick={onClick}
+      text={isLastSlide ? "완료" : "다음"}
       className="bg-[#6100C1] text-white w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
     />
   );
