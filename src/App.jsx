@@ -2,7 +2,6 @@ import "./index.css";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
-import { TestApp } from "./pages/test/TestApp";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
 import Signup, { SIGNUP_PAGE_PATH } from "./pages/Signup";
 import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
@@ -11,6 +10,7 @@ import DiagnosisGuide, {
 } from "./pages/dementiaDiagnosis/DiagnosisGuide";
 import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
+import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
               element={<DiagnosisGuide />}
             />
           </Route>
+          <Route path={DIARY_PAGE_PATH} element={<Diary />} />
           <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
           <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
           <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
