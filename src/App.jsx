@@ -14,6 +14,7 @@ import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
 import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
+import MyPage, { MY_PAGE_PATH } from "./pages/MyPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
+            <Route path={MY_PAGE_PATH} element={<MyPage />} />
           </Route>
           <Route element={<HeaderBarLayout />}>
             <Route

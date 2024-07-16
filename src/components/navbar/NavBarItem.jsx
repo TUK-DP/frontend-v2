@@ -1,13 +1,22 @@
-import { useNavBarStore } from "../../stores/NavBarStore";
+import { NAV_BAR_ITEM_LIST, useNavBarStore } from "../../stores/NavBarStore";
+import { useNavigate } from "react-router-dom";
 
-export const NavBarItem = ({ value, name, icon: Icon }) => {
-  const { selectedMenu, onClick } = useNavBarStore((state) => state);
+export const NavBarItem = ({ value, name, path, icon: Icon }) => {
+  const { selectedMenu, changeMenuItem } = useNavBarStore((state) => state);
 
   const isSelected = selectedMenu.value === value;
 
+  let navigate = useNavigate();
+
+  const handleClick = () => {
+    let clickedItem = NAV_BAR_ITEM_LIST.find((item) => item.value === value);
+    navigate(path);
+    changeMenuItem(clickedItem);
+  };
+
   return (
     <div
-      onClick={() => onClick(value)}
+      onClick={handleClick}
       className={
         "max-w-36 md:max-w-56 w-full h-full flex flex-col justify-center"
       }
