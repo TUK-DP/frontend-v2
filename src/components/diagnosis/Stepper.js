@@ -8,17 +8,19 @@ import {
   TbCircleCheck,
 } from "react-icons/tb";
 
-const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
+const Stepper = ({ totalSteps, selectedButtons, onStepClick }) => {
+  const getSize = () => (window.innerWidth >= 768 ? 50 : 30); // md 이상이면 50, 아니면 30
+
   const icons = [
-    <TbCircleNumber1Filled size={30} color="#6100C1" />,
-    <TbCircleNumber2Filled size={30} color="#6100C1" />,
-    <TbCircleNumber3Filled size={30} color="#6100C1" />,
-    <TbCircleNumber4Filled size={30} color="#6100C1" />,
-    <TbCircleNumber5Filled size={30} color="#6100C1" />,
+    <TbCircleNumber1Filled size={getSize()} color="#6100C1" />,
+    <TbCircleNumber2Filled size={getSize()} color="#6100C1" />,
+    <TbCircleNumber3Filled size={getSize()} color="#6100C1" />,
+    <TbCircleNumber4Filled size={getSize()} color="#6100C1" />,
+    <TbCircleNumber5Filled size={getSize()} color="#6100C1" />,
   ];
 
   return (
-    <div className="w-full flex justify-center items-center mt-8 cursor-pointer">
+    <div className="w-full flex justify-center items-center mt-16 cursor-pointer">
       {Array.from({ length: totalSteps }, (_, index) => (
         <div
           key={index}
@@ -26,11 +28,11 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
           onClick={() => onStepClick(index)}
         >
           {selectedButtons[index] ? (
-            <TbCircleCheck size={30} color="#6100C1" />
+            <TbCircleCheck size={getSize()} color="#6100C1" />
           ) : (
             icons[index]
           )}
-          {index < totalSteps - 1 && <div className="w-16"></div>}
+          {index < totalSteps - 1 && <div className="w-12 md:w-20"></div>}
         </div>
       ))}
     </div>
