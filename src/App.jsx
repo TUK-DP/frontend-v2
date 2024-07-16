@@ -12,6 +12,8 @@ import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
 import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
+import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
+import React from "react";
 
 function App() {
   return (
@@ -30,7 +32,11 @@ function App() {
             <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
             <Route path={DIARY_PAGE_PATH} element={<Diary />} />
           </Route>
-          <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
+          <Route element={<PaperBackgroundWrapper />}>
+            <Route element={<HeaderBarLayout />}>
+              <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
+            </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
