@@ -20,7 +20,7 @@ const Stepper = ({ totalSteps, selectedButtons, onStepClick }) => {
   ];
 
   return (
-    <div className="w-full flex justify-center items-center mt-16 cursor-pointer">
+    <div className="w-full flex justify-center items-center my-16 cursor-pointer">
       {Array.from({ length: totalSteps }, (_, index) => (
         <div
           key={index}

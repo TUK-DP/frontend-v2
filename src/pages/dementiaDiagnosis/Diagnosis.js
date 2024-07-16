@@ -18,6 +18,22 @@ const Diagnosis = () => {
     sliderRef.current.slickPrev();
   };
 
+  const handleNextClick = () => {
+    if (currentSlide === totalSlides - 1) {
+      // 완료 버튼이 눌렸을 때, 체크되지 않은 슬라이더로 이동
+      const firstUncheckedSlide = selectedButtons.findIndex(
+        (button) => button === null
+      );
+      if (firstUncheckedSlide !== -1) {
+        sliderRef.current.slickGoTo(firstUncheckedSlide);
+      } else {
+        /* 진단이 완료된 경우 */
+      }
+    } else {
+      sliderRef.current.slickNext();
+    }
+  };
+
   const handleSlideChange = (current) => {
     setCurrentSlide(current);
   };
@@ -48,7 +64,10 @@ const Diagnosis = () => {
       />
       <div className="w-full flex justify-between mt-16 md:mt-24 px-5 md:px-9">
         <SliderPrevButton onClick={handlePrevClick} />
-        <SliderNextButton isLastSlide={currentSlide === totalSlides - 1} />
+        <SliderNextButton
+          onClick={handleNextClick}
+          isLastSlide={currentSlide === totalSlides - 1}
+        />
       </div>
     </div>
   );
@@ -66,10 +85,11 @@ const SliderPrevButton = ({ onClick }) => {
   );
 };
 
-const SliderNextButton = ({ isLastSlide }) => {
+const SliderNextButton = ({ onClick, isLastSlide }) => {
   return (
     <Button
       text={isLastSlide ? "완료" : "다음"}
+      onClick={onClick}
       className="bg-[#6100C1] text-white w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
     />
   );
