@@ -3,6 +3,8 @@ import { GoRememoryIcon } from "./icon/GoRememoryIcon";
 import { CheckDiaryIcon } from "./icon/CheckDiaryIcon";
 import { DiaryDetailActionButton } from "./DiaryDetailActionButton";
 import { GoDrawingIcon } from "./icon/GoDrawingIcon";
+import { useNavigate } from "react-router-dom";
+import { DIARY_DRAW_PAGE_PATH } from "../../pages/DiaryDraw";
 
 export const CalendarDetail = ({ selectedDate }) => {
   return (
@@ -45,8 +47,16 @@ const GoDrawingSection = () => {
 };
 
 const GoDrawingButton = () => {
+  let navigate = useNavigate();
+  const goDrawing = () => {
+    navigate(DIARY_DRAW_PAGE_PATH);
+  };
+
   return (
-    <div className={"rounded-2xl bg-white flex p-4 cursor-pointer"}>
+    <div
+      onClick={goDrawing}
+      className={"rounded-2xl bg-white flex p-4 cursor-pointer"}
+    >
       <GoDrawingIcon className={"w-20 mr-12 " + "mobile:w-14 mobile:mr-6"} />
       <div
         className={
