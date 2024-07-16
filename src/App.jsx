@@ -11,6 +11,7 @@ import DiagnosisGuide, {
 import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
 import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
+import HeaderBarLayout from "./layouts/HeaderBarLayout";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
+          </Route>
+          <Route element={<HeaderBarLayout />}>
             <Route
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
               element={<DiagnosisGuide />}
