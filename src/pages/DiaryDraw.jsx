@@ -3,7 +3,7 @@ import KeywordSlider from "../components/draw/KeywordSlider";
 import Canvas from "../components/draw/Canvas";
 import aiHelpRobot from "../assets/draw/aiHelpRobot.png";
 import showOtherDraw from "../assets/draw/showOtherDraw.png";
-import useGoHelpForAiPage from "../hooks/HelpForAi/useGoHelpForAiPage";
+import useGoHelpWithAiPage from "../hooks/HelpWithAi/useGoHelpWithAiPage";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
@@ -44,7 +44,7 @@ const DrawHelpWrapper = ({ children }) => {
 };
 
 const DrawHelpButtons = () => {
-  let { goHelpForAiPage } = useGoHelpForAiPage();
+  let { goHelpForAiPage } = useGoHelpWithAiPage();
 
   return (
     <div className={"flex gap-5 justify-center items-center"}>

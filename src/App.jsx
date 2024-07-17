@@ -15,7 +15,7 @@ import HeaderBarLayout from "./layouts/HeaderBarLayout";
 import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
 import MyPage, { MY_PAGE_PATH } from "./pages/MyPage";
-import HelpForAi, { HELP_FOR_AI_PATH } from "./pages/HelpForAi";
+import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
 
 function App() {
   return (
@@ -44,7 +44,7 @@ function App() {
             {/* 오직 헤더바 */}
             <Route element={<HeaderBarLayout />}>
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
-              <Route path={HELP_FOR_AI_PATH} element={<HelpForAi />} />
+              <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
             </Route>
           </Route>
         </Routes>
