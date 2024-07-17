@@ -12,7 +12,7 @@ const HeaderBar = ({ content }) => {
       <IoIosArrowBack
         size={40}
         color="#B2B2B2"
-        onClick={() => handleClickBackButton()}
+        onClick={handleClickBackButton}
       />
       {/* 나중에 페이지 이름 넣을 곳 */}
       {/* <div className={"flex-1 text-center"}>{content}</div> */}
