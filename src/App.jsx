@@ -15,7 +15,6 @@ import HeaderBarLayout from "./layouts/HeaderBarLayout";
 import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
 import MyPage, { MY_PAGE_PATH } from "./pages/MyPage";
-
 import DiaryRecall, { DIARY_RECALL_PAGE_PATH } from "./pages/DiaryRecall";
 import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
