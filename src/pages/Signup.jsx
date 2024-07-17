@@ -31,7 +31,6 @@ const Signup = () => {
 
   return (
     <>
-      <HeaderBar />
       <div className={"flex flex-col h-full"}>
         <SigupStep step={sliderStep} />
         <SignupSlider setSliderStep={setSliderStep}>

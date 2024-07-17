@@ -1,9 +1,9 @@
 import { NavBarItem } from "./NavBarItem";
 import { NAV_BAR_ITEM_LIST } from "../../stores/NavBarStore";
-import { useIsScrollDowning } from "../../hooks/useNavBar";
+import useNavBar from "../../hooks/navbar/useNavBar";
 
 export const NavBar = () => {
-  const { isScrollDowning } = useIsScrollDowning({ offset: 100 });
+  let { isScrollDowning } = useNavBar();
   return (
     <nav
       id={"NavBar"}

@@ -4,7 +4,12 @@ export const TOP_POSITION = "top_position";
 export const MIDDLE_POSITION = "middle_position";
 export const BOTTOM_POSITION = "bottom_position";
 
-export const BottomSheetLayout = ({ position, setPosition, offset = 150, children }) => {
+export const BottomSheetLayout = ({
+  position,
+  setPosition,
+  offset = 150,
+  children,
+}) => {
   const middleLimitComp = useRef(null);
   const bottomSheet = useRef(null);
   const [middleTop, setMiddleTop] = useState(0); // useEffect 에서 초기화
@@ -27,7 +32,7 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
         setStaticContainerTop("100%");
         break;
     }
-  }, [position]);
+  }, [position, middleTop]);
 
   const [isClicking, setIsClicking] = useState(false);
   const [movingContainerTop, setMovingContainerTop] = useState(0);
@@ -41,7 +46,8 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
   const handleMouseDown = (e) => {
     setIsClicking(true);
     setMovingContainerTop(bottomSheet.current.getBoundingClientRect().top);
-    whenMouseDown.current.containerTop = bottomSheet.current.getBoundingClientRect().top;
+    whenMouseDown.current.containerTop =
+      bottomSheet.current.getBoundingClientRect().top;
     whenMouseDown.current.clientY = e.clientY;
   };
 
@@ -98,15 +104,16 @@ export const BottomSheetLayout = ({ position, setPosition, offset = 150, childre
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
-
         onTouchStart={(e) => handleMouseDown(e.touches[0])}
         onTouchMove={(e) => handleMouseMove(e.touches[0])}
         onTouchEnd={handleMouseUpOrLeave}
-
         style={{ top: isClicking ? movingContainerTop : staticContainerTop }}
-        className={"fixed z-10 w-full top-0 bottom-0 h-full overflow-hidden max-w-maxWidth" +
+        className={
+          "fixed z-10 w-full top-0 bottom-0 h-full overflow-hidden max-w-maxWidth" +
           " " +
-          (isClicking ? "" : "transition-all duration-500")}>
+          (isClicking ? "" : "transition-all duration-500")
+        }
+      >
         {children}
       </div>
     </>

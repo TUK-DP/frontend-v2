@@ -48,7 +48,7 @@ const Signin = () => {
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
       <div className={"w-5/6 h-full flex flex-col justify-center items-center"}>
-        <img src={AppLogo} className={"pt-24 w-3/4"} />
+        <img src={AppLogo} className={"mt-12 w-3/4"} />
         <div className={"flex-1 flex flex-col justify-center w-full"}>
           {SIGN_IN_INPUT_LIST.map(({ inputTagName, ...props }) => (
             <SignInOrUpInput
