@@ -20,7 +20,7 @@ const ContentWrapper = ({ children }) => {
   return (
     <div
       className={
-        "bg-primary-700 rounded-lg-xl flex flex-col font-bold lg:p-10 md:p-10 p-5 items-center md:w-5/6 lg:w-5/6 w-11/12  gap-5"
+        "bg-primary-700 rounded-lg-xl flex flex-col font-bold lg:p-10 md:p-10 p-5 items-center md:w-4/6 lg:w-4/6 w-11/12  gap-5 text-center"
       }
     >
       {children}
@@ -30,7 +30,7 @@ const ContentWrapper = ({ children }) => {
 
 const NoRecallGuideSection = () => {
   return (
-    <div className={"text-3xl text-left w-full"}>
+    <div className={"text-3xl w-full"}>
       일기 회상에 필요한
       <br />
       키워드가 없어요..
@@ -40,7 +40,7 @@ const NoRecallGuideSection = () => {
 
 const WhyNoRecallSection = () => {
   return (
-    <div className={"bg-white rounded-lg-xl text-2xl w-full p-5"}>
+    <div className={"bg-white rounded-lg-xl text-2xl w-full p-5 "}>
       <p>
         일기가 너무 짧거나
         <br />
