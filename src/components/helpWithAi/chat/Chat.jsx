@@ -6,7 +6,10 @@ export const USER_CHAT = "USER";
 
 export const Chat = ({ id = AI_CHAT, children }) => {
   return (
-    <div className={`flex items-start ${id === USER_CHAT && "justify-end"}`}>
+    <div
+      className={`flex gap-4 items-start 
+    ${id === USER_CHAT && "justify-end"}`}
+    >
       {id === AI_CHAT && <AiProfile />}
       <div className={"flex flex-col gap-6"}>{children}</div>
     </div>
@@ -17,10 +20,10 @@ export const AiProfile = () => {
   return (
     <div
       className={
-        "w-16 h-16 rounded-full border-[1px] flex justify-center items-center"
+        "min-w-20 min-h-20 bg-white rounded-full border-[1px] flex justify-center items-center"
       }
     >
-      <AiProfileIcon width={50} />
+      <AiProfileIcon className={""} />
     </div>
   );
 };

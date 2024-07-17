@@ -13,7 +13,7 @@ export const ImageBlock = ({
 
 const SuggestImage = ({ imageSrc }) => {
   return (
-    <div className={"mx-4 w-[250px] border-[1px] rounded-lg-xl overflow-clip"}>
+    <div className={"w-[250px] border-[1px] rounded-lg-xl overflow-clip"}>
       <Image
         preview={{
           mask: <span className={"text-xl font-bold"}>크게 보기</span>,
