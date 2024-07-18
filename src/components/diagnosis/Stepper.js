@@ -76,12 +76,14 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
           onClick={() => onStepClick(index)}
         >
           {selectedButtons[index] ? (
-            <TbCircleCheck size={getSize()} color="#6100C1" />
+            <TbCircleCheck
+              color="#6100C1"
+              className="w-10 h-10 md:w-16 md:h-16"
+            />
           ) : (
             <Icon
-              size={getSize()}
               color="white"
-              className="border-2 rounded-full bg-[#6100C1]"
+              className="border-2 rounded-full bg-[#6100C1] w-10 h-10 md:w-16 md:h-16"
             />
           )}
           {index < totalSteps - 1 && <div className="w-12 md:w-20"></div>}
