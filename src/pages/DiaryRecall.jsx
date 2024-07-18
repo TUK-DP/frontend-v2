@@ -6,7 +6,7 @@ const DiaryRecall = () => {
   return (
     <div
       className={
-        "flex flex-col px-5  items-center gap-5 text-center py-20 font-bold"
+        "flex flex-col font-bold justify-start items-center gap-5 h-auto tablet:gap-10"
       }
     >
       <GuideSection />
@@ -60,7 +60,11 @@ const ExplainSection = () => {
 
 const GoRecallTestButton = () => {
   return (
-    <button className={"text-xl border-2 w-4/5 h-12 rounded-xl max-w-[400px]"}>
+    <button
+      className={
+        "text-xl border-2 tablet:border-4 tablet:h-16 w-4/5 h-12 rounded-xl shrink-0 mb-10"
+      }
+    >
       문제 풀기
     </button>
   );
