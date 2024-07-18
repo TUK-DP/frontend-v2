@@ -3,8 +3,9 @@ import { GoRememoryIcon } from "./icon/GoRememoryIcon";
 import { CheckDiaryIcon } from "./icon/CheckDiaryIcon";
 import { DiaryDetailActionButton } from "./DiaryDetailActionButton";
 import { GoDrawingIcon } from "./icon/GoDrawingIcon";
+import useGoDiary from "../../hooks/diary/useGoDiary";
 
-export const CalendarDetail = () => {
+export const CalendarDetail = ({ selectedDate }) => {
   return (
     <div className={"bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"}>
       <WhatHappenSection mb={"mb-12"} />
@@ -45,8 +46,12 @@ const GoDrawingSection = () => {
 };
 
 const GoDrawingButton = () => {
+  let { goDiaryDrawPage } = useGoDiary();
   return (
-    <div className={"rounded-2xl bg-white flex p-4 cursor-pointer"}>
+    <div
+      onClick={goDiaryDrawPage}
+      className={"rounded-2xl bg-white flex p-4 cursor-pointer"}
+    >
       <GoDrawingIcon className={"w-20 mr-12 " + "mobile:w-14 mobile:mr-6"} />
       <div
         className={

@@ -20,7 +20,7 @@ export default DiagnosisGuide;
 
 const DiagnosisIntro = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center font-bold mt-32 md:mt-[15rem]">
+    <div className="w-full flex flex-col items-center justify-center font-bold mt-16 md:mt-[7rem]">
       <div className="text-3xl md:text-5xl">치매가 걱정되시나요?</div>
       <div className="text-[#686868] text-xl md:text-3xl mt-6 md:mt-9 mb-8 md:mb-11">
         치매 진단 검사를 받아보세요
