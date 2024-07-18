@@ -23,7 +23,7 @@ export const AiProfile = () => {
         "min-w-20 min-h-20 bg-white rounded-full border-[1px] flex justify-center items-center"
       }
     >
-      <AiProfileIcon className={""} />
+      <AiProfileIcon />
     </div>
   );
 };
