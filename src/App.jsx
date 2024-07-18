@@ -37,16 +37,17 @@ function App() {
             <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
             <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
             <Route path={DIARY_PAGE_PATH} element={<Diary />} />
+            <Route path={DIARY_RECALL_PAGE_PATH} element={<DiaryRecall />} />
+            <Route
+              path={NO_DIARY_RECALL_PAGE_PATH}
+              element={<NoDiaryRecall />}
+            />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
             <Route element={<HeaderBarLayout />}>
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
             </Route>
           </Route>
-          <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
-          <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
-          <Route path={DIARY_RECALL_PAGE_PATH} element={<DiaryRecall />} />
-          <Route path={NO_DIARY_RECALL_PAGE_PATH} element={<NoDiaryRecall />} />
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
