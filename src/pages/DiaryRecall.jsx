@@ -6,7 +6,7 @@ const DiaryRecall = () => {
   return (
     <div
       className={
-        "flex flex-col font-bold justify-start items-center gap-5 h-auto tablet:gap-10"
+        "flex flex-col font-bold justify-start items-center gap-5 h-auto tablet:gap-12"
       }
     >
       <GuideSection />
@@ -21,13 +21,13 @@ export default DiaryRecall;
 
 const GuideSection = () => {
   return (
-    <div className={"flex flex-col gap-5"}>
-      <div className={"text-4xl"}>
+    <div className={"flex flex-col gap-5 text-center"}>
+      <div className={"text-4xl tablet:text-6xl"}>
         일기를 회상해서
         <br />
         기억을 되살려 보세요!
       </div>
-      <div className={"text-2xl text-secondary-500"}>
+      <div className={"text-2xl text-secondary-500 tablet:text-4xl"}>
         일기의 빈칸을 떠올려 보세요
       </div>
     </div>
@@ -38,7 +38,7 @@ const ExplainSection = () => {
   return (
     <div
       className={
-        "font-semibold text-left flex flex-col gap-5 py-5 text-lg md:text-2xl lg:text-2xl"
+        "font-semibold text-left flex flex-col gap-5 py-5 text-lg tablet:text-3xl"
       }
     >
       <div>
@@ -62,7 +62,7 @@ const GoRecallTestButton = () => {
   return (
     <button
       className={
-        "text-xl border-2 tablet:border-4 tablet:h-16 w-4/5 h-12 rounded-xl shrink-0 mb-10"
+        "text-xl border-2 tablet:border-4 tablet:h-20 w-4/5 h-12 rounded-xl shrink-0 mb-10 tablet:text-4xl"
       }
     >
       문제 풀기
