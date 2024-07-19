@@ -54,7 +54,7 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
     if (selectedStepElement) {
       const containerWidth =
         scrollerRef.current.offsetWidth; /* stepper 컨테이너 너비 */
-      const iconWidth = getSize(); /* 아이콘 너비 */
+      const iconWidth = selectedStepElement.offsetWidth; /* 아이콘 너비 */
       const iconOffsetLeft =
         selectedStepElement.offsetLeft; /* 아이콘의 왼쪽 오프셋 위치 */
       const scrollPosition =
