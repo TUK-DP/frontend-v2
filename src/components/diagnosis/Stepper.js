@@ -45,7 +45,7 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
   }, [currentStep]);
 
   const moveStepper = () => {
-    const selectedStepElement = scrollerRef.current.children[currentStep - 1];
+    const selectedStepElement = scrollerRef.current.children[currentStep];
 
     const containerWidth = scrollerRef.current.offsetWidth;
     const iconWidth = selectedStepElement.offsetWidth;

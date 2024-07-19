@@ -25,7 +25,7 @@ const Diagnosis = () => {
   return (
     <div>
       <Stepper
-        currentStep={currentSlide + 1}
+        currentStep={currentSlide}
         totalSteps={totalSlides}
         selectedButtons={selectedButtons}
         onStepClick={handleStepClick}
