@@ -1,57 +1,116 @@
 import { useRef, useState, useCallback } from "react";
+import {
+  TbNumber1Small,
+  TbNumber2Small,
+  TbNumber3Small,
+  TbNumber4Small,
+  TbNumber5Small,
+  TbNumber6Small,
+  TbNumber7Small,
+  TbNumber8Small,
+  TbNumber9Small,
+  TbNumber10Small,
+  TbNumber11Small,
+  TbNumber12Small,
+  TbNumber13Small,
+  TbNumber14Small,
+  TbNumber15Small,
+} from "react-icons/tb";
+
+const icons = [
+  TbNumber1Small,
+  TbNumber2Small,
+  TbNumber3Small,
+  TbNumber4Small,
+  TbNumber5Small,
+  TbNumber6Small,
+  TbNumber7Small,
+  TbNumber8Small,
+  TbNumber9Small,
+  TbNumber10Small,
+  TbNumber11Small,
+  TbNumber12Small,
+  TbNumber13Small,
+  TbNumber14Small,
+  TbNumber15Small,
+];
+
+const buttonTexts = {
+  1: "그렇지않다",
+  2: "간혹(약간) 그렇다",
+  3: "자주(많이) 그렇다",
+};
 
 const useDiagnosisSlider = (totalSlides) => {
   const sliderRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [selectedButtons, setSelectedButtons] = useState(
-    Array(totalSlides).fill(null)
+  const [sliderItems, setSliderItems] = useState(
+    Array.from({ length: totalSlides }, (_, index) => ({
+      id: index,
+      stepIcon: icons[index],
+      selectedButton: null,
+      response: undefined,
+    }))
   );
 
   const handlePrevClick = useCallback(() => {
-    sliderRef.current.slickPrev();
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
   }, []);
 
   const handleNextClick = useCallback(() => {
     if (currentSlide !== totalSlides - 1) {
-      sliderRef.current.slickNext();
+      if (sliderRef.current) {
+        sliderRef.current.slickNext();
+      }
       return;
     }
 
-    const firstUncheckedSlide = selectedButtons.findIndex(
-      (button) => button === null
+    const firstUncheckedSlide = sliderItems.findIndex(
+      (item) => item.selectedButton === null
     );
 
-    if (firstUncheckedSlide !== -1) {
+    if (firstUncheckedSlide !== -1 && sliderRef.current) {
       sliderRef.current.slickGoTo(firstUncheckedSlide);
     }
-  }, [currentSlide, selectedButtons, totalSlides]);
+  }, [currentSlide, sliderItems, totalSlides]);
 
   const handleSlideChange = useCallback((current) => {
     setCurrentSlide(current);
   }, []);
 
-  const handleResponse = useCallback(
-    (slideId, buttonId) => {
-      const newSelectedButtons = [...selectedButtons];
-      newSelectedButtons[slideId] = buttonId;
-      setSelectedButtons(newSelectedButtons);
-    },
-    [selectedButtons]
-  );
+  const handleResponse = useCallback((slideId, buttonId) => {
+    setSliderItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === slideId
+          ? {
+              ...item,
+              selectedButton: buttonId,
+              response: buttonTexts[buttonId],
+            }
+          : item
+      )
+    );
+  }, []);
 
   const handleStepClick = useCallback((step) => {
-    sliderRef.current.slickGoTo(step);
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(step);
+    }
   }, []);
 
   return {
     sliderRef,
     currentSlide,
-    selectedButtons,
+    selectedButtons: sliderItems.map((item) => item.selectedButton),
+    responses: sliderItems.map((item) => item.response),
     handlePrevClick,
     handleNextClick,
     handleSlideChange,
     handleResponse,
     handleStepClick,
+    icons,
   };
 };
 

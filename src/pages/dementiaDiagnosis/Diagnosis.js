@@ -20,6 +20,7 @@ const Diagnosis = () => {
     handleSlideChange,
     handleResponse,
     handleStepClick,
+    icons,
   } = useDiagnosisSlider(totalSlides);
 
   return (
@@ -29,6 +30,7 @@ const Diagnosis = () => {
         totalSteps={totalSlides}
         selectedButtons={selectedButtons}
         onStepClick={handleStepClick}
+        icons={icons}
       />
       <DiagnosisSlider
         sliderRef={sliderRef}
