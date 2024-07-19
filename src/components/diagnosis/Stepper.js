@@ -39,20 +39,28 @@ const Stepper = ({
       ref={scrollerRef}
     >
       {icons.map((Icon, index) => (
-        <StepperIcon
-          key={index}
-          Icon={Icon}
-          index={index}
-          totalSteps={totalSteps}
-          isSelected={!!selectedButtons[index]}
-          onClick={onStepClick}
-        />
+        <div key={index} className="flex items-center">
+          <StepperIcon
+            Icon={Icon}
+            index={index}
+            totalSteps={totalSteps}
+            isSelected={!!selectedButtons[index]}
+            onClick={onStepClick}
+          />
+          {index < totalSteps - 1 && (
+            <div
+              className={`w-12 md:w-20 h-2 ${
+                currentStep > index ? "bg-purple-700" : "bg-gray-400"
+              }`}
+            ></div>
+          )}
+        </div>
       ))}
     </div>
   );
 };
 
-const StepperIcon = ({ Icon, index, totalSteps, isSelected, onClick }) => (
+const StepperIcon = ({ Icon, index, isSelected, onClick }) => (
   <div
     className="flex items-center cursor-pointer"
     onClick={() => onClick(index)}
@@ -65,7 +73,6 @@ const StepperIcon = ({ Icon, index, totalSteps, isSelected, onClick }) => (
         className="border-2 rounded-full bg-[#6100C1] w-10 h-10 md:w-16 md:h-16"
       />
     )}
-    {index < totalSteps - 1 && <div className="w-12 md:w-20"></div>}
   </div>
 );
 
