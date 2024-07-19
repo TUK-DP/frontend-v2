@@ -19,8 +19,6 @@ import {
 } from "react-icons/tb";
 
 const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
-  const getSize = () => (window.innerWidth >= 768 ? 50 : 30);
-
   const icons = [
     TbNumber1Small,
     TbNumber2Small,
@@ -47,25 +45,18 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
   }, [currentStep]);
 
   const moveStepper = () => {
-    const selectedStepElement =
-      scrollerRef.current.children[
-        currentStep - 1
-      ]; /* 현재 슬라이드에 해당하는 step */
-    if (selectedStepElement) {
-      const containerWidth =
-        scrollerRef.current.offsetWidth; /* stepper 컨테이너 너비 */
-      const iconWidth = selectedStepElement.offsetWidth; /* 아이콘 너비 */
-      const iconOffsetLeft =
-        selectedStepElement.offsetLeft; /* 아이콘의 왼쪽 오프셋 위치 */
-      const scrollPosition =
-        iconOffsetLeft -
-        containerWidth / 2 +
-        iconWidth / 2; /* 스크롤 위치 계산하여 화면 중앙에 위치 */
-      scrollerRef.current.scrollTo({
-        left: scrollPosition,
-        behavior: "smooth",
-      });
-    }
+    const selectedStepElement = scrollerRef.current.children[currentStep - 1];
+
+    const containerWidth = scrollerRef.current.offsetWidth;
+    const iconWidth = selectedStepElement.offsetWidth;
+    const iconOffsetLeft = selectedStepElement.offsetLeft;
+
+    const scrollPosition = iconOffsetLeft - containerWidth / 2 + iconWidth / 2;
+
+    scrollerRef.current.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
   };
   return (
     <div
