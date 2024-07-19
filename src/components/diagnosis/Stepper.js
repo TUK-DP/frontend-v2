@@ -73,27 +73,36 @@ const Stepper = ({ currentStep, totalSteps, selectedButtons, onStepClick }) => {
       ref={scrollerRef}
     >
       {icons.map((Icon, index) => (
-        <div
+        <StepperIcon
           key={index}
-          className="flex items-center cursor-pointer"
-          onClick={() => onStepClick(index)}
-        >
-          {selectedButtons[index] ? (
-            <TbCircleCheck
-              color="#6100C1"
-              className="w-10 h-10 md:w-16 md:h-16"
-            />
-          ) : (
-            <Icon
-              color="white"
-              className="border-2 rounded-full bg-[#6100C1] w-10 h-10 md:w-16 md:h-16"
-            />
-          )}
-          {index < totalSteps - 1 && <div className="w-12 md:w-20"></div>}
-        </div>
+          Icon={Icon}
+          index={index}
+          totalSteps={totalSteps}
+          isSelected={!!selectedButtons[index]}
+          onClick={onStepClick}
+        />
       ))}
     </div>
   );
 };
 
 export default Stepper;
+
+const StepperIcon = ({ Icon, index, totalSteps, isSelected, onClick }) => {
+  return (
+    <div
+      className="flex items-center cursor-pointer"
+      onClick={() => onClick(index)}
+    >
+      {isSelected ? (
+        <TbCircleCheck color="#6100C1" className="w-10 h-10 md:w-16 md:h-16" />
+      ) : (
+        <Icon
+          color="white"
+          className="border-2 rounded-full bg-[#6100C1] w-10 h-10 md:w-16 md:h-16"
+        />
+      )}
+      {index < totalSteps - 1 && <div className="w-12 md:w-20"></div>}
+    </div>
+  );
+};
