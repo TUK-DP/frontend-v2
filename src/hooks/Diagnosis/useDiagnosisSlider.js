@@ -12,17 +12,17 @@ const useDiagnosisSlider = (totalSlides) => {
   }, []);
 
   const handleNextClick = useCallback(() => {
-    if (currentSlide === totalSlides - 1) {
-      const firstUncheckedSlide = selectedButtons.findIndex(
-        (button) => button === null
-      );
-      if (firstUncheckedSlide !== -1) {
-        sliderRef.current.slickGoTo(firstUncheckedSlide);
-      } else {
-        // 진단이 완료된 경우 처리
-      }
-    } else {
+    if (currentSlide !== totalSlides - 1) {
       sliderRef.current.slickNext();
+      return;
+    }
+
+    const firstUncheckedSlide = selectedButtons.findIndex(
+      (button) => button === null
+    );
+
+    if (firstUncheckedSlide !== -1) {
+      sliderRef.current.slickGoTo(firstUncheckedSlide);
     }
   }, [currentSlide, selectedButtons, totalSlides]);
 
