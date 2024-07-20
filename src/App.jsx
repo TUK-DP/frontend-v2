@@ -8,6 +8,9 @@ import Signin, { SIGNIN_PAGE_PATH } from "./pages/Signin";
 import DiagnosisGuide, {
   DIAGNOSIS_GUIDE_PAGE_PATH,
 } from "./pages/dementiaDiagnosis/DiagnosisGuide";
+import Diagnosis, {
+  DIAGNOSIS_PAGE_PATH,
+} from "./pages/dementiaDiagnosis/Diagnosis";
 import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
 import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
@@ -19,10 +22,14 @@ import DiaryRecall, { DIARY_RECALL_PAGE_PATH } from "./pages/DiaryRecall";
 import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
 } from "./pages/NoDiaryRecall";
+import RecentDiaries, {
+  RECENT_DIARIES_PAGE_PATH,
+} from "./pages/mypage/RecentDiaries";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
 import ControlPhotoOpacity, {
   CONTROL_PHOTO_OPACITY_PAGE_PATH,
 } from "./pages/draws/ControlPhotoOpacity";
+
 
 function App() {
   return (
@@ -50,6 +57,10 @@ function App() {
               path={CONTROL_PHOTO_OPACITY_PAGE_PATH}
               element={<ControlPhotoOpacity />}
             />
+            <Route
+              path={RECENT_DIARIES_PAGE_PATH}
+              element={<RecentDiaries />}
+            />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
             <Route element={<HeaderBarLayout />}>
@@ -57,6 +68,9 @@ function App() {
               <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
             </Route>
           </Route>
+          <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
+          <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
+          <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
