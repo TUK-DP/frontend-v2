@@ -22,6 +22,8 @@ import NoDiaryRecall, {
 import RecentDiaries, {
   RECENT_DIARIES_PAGE_PATH,
 } from "./pages/mypage/RecentDiaries";
+import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
+
 
 function App() {
   return (
@@ -53,6 +55,7 @@ function App() {
           <Route element={<PaperBackgroundWrapper />}>
             <Route element={<HeaderBarLayout />}>
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
+              <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
             </Route>
           </Route>
         </Routes>

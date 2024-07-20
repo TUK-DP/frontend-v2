@@ -1,3 +1,5 @@
+const headerBarHeight = "80px";
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -25,7 +27,8 @@ module.exports = {
         maxWidth: "1280px",
         navBarHeight: "90px",
         chatTextMaxWidth: "300px",
-        headerBarHeight: "80px",
+        headerBarHeight: headerBarHeight,
+        heightWithOutHeader: `calc(100vh - ${headerBarHeight})`,
       },
       screens: {
         mobile: { min: "240px", max: "640px" },

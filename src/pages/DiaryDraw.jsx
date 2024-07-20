@@ -3,6 +3,7 @@ import KeywordSlider from "../components/draw/KeywordSlider";
 import Canvas from "../components/draw/Canvas";
 import aiHelpRobot from "../assets/draw/aiHelpRobot.png";
 import showOtherDraw from "../assets/draw/showOtherDraw.png";
+import useGoHelpWithAiPage from "../hooks/HelpWithAi/useGoHelpWithAiPage";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
@@ -43,25 +44,30 @@ const DrawHelpWrapper = ({ children }) => {
 };
 
 const DrawHelpButtons = () => {
+  let { goHelpForAiPage } = useGoHelpWithAiPage();
+
   return (
     <div className={"flex gap-5 justify-center items-center"}>
       <DrawHelpButton
         content={"AI 도움받기"}
         imgUrl={aiHelpRobot}
         bgColor="aiHelpButton"
+        onClick={goHelpForAiPage}
       />
       <DrawHelpButton
         content={["다른 사람\n그림 구경하기"]}
         imgUrl={showOtherDraw}
         bgColor="showOtherDrawButton"
+        onClick={() => {}}
       />
     </div>
   );
 };
 
-const DrawHelpButton = ({ content, imgUrl, bgColor }) => {
+const DrawHelpButton = ({ content, imgUrl, bgColor, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className={`w-1/2 aspect-square bg-${bgColor} rounded-lg-xl flex flex-col justify-between items-end mobile:p-5 p-10 cursor-pointer`}
     >
       <p
