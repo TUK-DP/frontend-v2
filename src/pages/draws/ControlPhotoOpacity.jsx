@@ -19,7 +19,7 @@ const ControlPhotoOpacity = () => {
     <div className={"w-full h-full flex flex-col items-center "}>
       <div
         className={
-          "w-11/12 bg-primary-800 rounded-lg-xl flex flex-col p-5 gap-10"
+          "w-11/12 bg-primary-800 rounded-lg-xl flex flex-col p-5 gap-10 pb-10"
         }
       >
         <CustomChat />
