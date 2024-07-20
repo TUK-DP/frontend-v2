@@ -19,7 +19,11 @@ import DiaryRecall, { DIARY_RECALL_PAGE_PATH } from "./pages/DiaryRecall";
 import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
 } from "./pages/NoDiaryRecall";
+import RecentDiaries, {
+  RECENT_DIARIES_PAGE_PATH,
+} from "./pages/mypage/RecentDiaries";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
+
 
 function App() {
   return (
@@ -42,6 +46,10 @@ function App() {
             <Route
               path={NO_DIARY_RECALL_PAGE_PATH}
               element={<NoDiaryRecall />}
+            />
+            <Route
+              path={RECENT_DIARIES_PAGE_PATH}
+              element={<RecentDiaries />}
             />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
