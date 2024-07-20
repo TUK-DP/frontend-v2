@@ -41,8 +41,8 @@ export default ControlPhotoOpacity;
 const CustomChat = () => {
   return (
     <div className={"flex items-center gap-5"}>
-      <AiProfile />
-      <TextBlock className={"bg-white w-full"}>
+      <AiProfile className />
+      <TextBlock className={"bg-white w-full tablet:text-3xl"}>
         사진의 투명도를
         <br />
         조절할 수 있어요.
@@ -67,10 +67,12 @@ const ControlOpacityButton = ({ selectedOpacity, setSelectedOpacity }) => {
     setSelectedOpacity(index);
   };
   return (
-    <div className={"flex w-full justify-between text-primary-600 font-bold"}>
+    <div
+      className={"flex w-full justify-between text-primary-600 font-bold gap-5"}
+    >
       {OPACITY_BUTTON.map((button, index) => (
         <button
-          className={`w-16 h-10 rounded-lg-xl ${
+          className={`min-w-16 w-full h-10 rounded-lg-xl tablet:h-20 tablet:text-3xl ${
             index === selectedOpacity
               ? "bg-primary-600 text-white"
               : "bg-white border-primary-600 border-2"
