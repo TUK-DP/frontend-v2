@@ -20,6 +20,9 @@ import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
 } from "./pages/NoDiaryRecall";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
+import ControlPhotoOpacity, {
+  CONTROL_PHOTO_OPACITY_PAGE_PATH,
+} from "./pages/draws/ControlPhotoOpacity";
 
 function App() {
   return (
@@ -42,6 +45,10 @@ function App() {
             <Route
               path={NO_DIARY_RECALL_PAGE_PATH}
               element={<NoDiaryRecall />}
+            />
+            <Route
+              path={CONTROL_PHOTO_OPACITY_PAGE_PATH}
+              element={<ControlPhotoOpacity />}
             />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
