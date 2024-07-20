@@ -26,6 +26,9 @@ import RecentDiaries, {
   RECENT_DIARIES_PAGE_PATH,
 } from "./pages/mypage/RecentDiaries";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
+import ControlPhotoOpacity, {
+  CONTROL_PHOTO_OPACITY_PAGE_PATH,
+} from "./pages/draws/ControlPhotoOpacity";
 
 
 function App() {
@@ -49,6 +52,10 @@ function App() {
             <Route
               path={NO_DIARY_RECALL_PAGE_PATH}
               element={<NoDiaryRecall />}
+            />
+            <Route
+              path={CONTROL_PHOTO_OPACITY_PAGE_PATH}
+              element={<ControlPhotoOpacity />}
             />
             <Route
               path={RECENT_DIARIES_PAGE_PATH}
