@@ -7,16 +7,16 @@ import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";
 
 const OPACITY_BUTTON = [
-  { text: "없음", opacity: 1 },
-  { text: "30%", opacity: 0.7 },
-  { text: "50%", opacity: 0.5 },
-  { text: "70%", opacity: 0.3 },
+  { text: "없음", opacity: "opacity-100" },
+  { text: "30%", opacity: "opacity-70" },
+  { text: "50%", opacity: "opacity-50" },
+  { text: "70%", opacity: "opacity-30" },
 ];
 
 const ControlPhotoOpacity = () => {
   const [selectedOpacity, setSelectedOpacity] = useState(0);
   return (
-    <div className={"w-full h-full flex flex-col items-center"}>
+    <div className={"w-full h-full flex flex-col items-center "}>
       <div
         className={
           "w-11/12 bg-primary-800 rounded-lg-xl flex flex-col p-5 gap-10"
@@ -56,7 +56,7 @@ const ControlOpacity = ({ imgUrl, opacity }) => {
     <div className={"bg-white w-full aspect-square"}>
       <img
         src={imgUrl}
-        className={`bg-cover bg-no-repeat w-full h-full opacity-${opacity * 100} `}
+        className={`bg-cover bg-no-repeat w-full h-full ${opacity}`}
       />
     </div>
   );
