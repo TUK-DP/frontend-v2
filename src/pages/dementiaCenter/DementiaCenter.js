@@ -17,7 +17,28 @@ const DementiaCenter = () => {
   }, []);
 
   const handleSearch = () => {
-    setCenters([]);
+    setCenters([
+      {
+        centerName: "시흥시 치매센터",
+        address: "경기도 시흥시 산기대학로",
+        distance: "7.8",
+      },
+      {
+        centerName: "시흥시 치매센터",
+        address: "경기도 시흥시 산기대학로",
+        distance: "7.8",
+      },
+      {
+        centerName: "시흥시 치매센터",
+        address: "경기도 시흥시 산기대학로",
+        distance: "7.8",
+      },
+      {
+        centerName: "시흥시 치매센터",
+        address: "경기도 시흥시 산기대학로",
+        distance: "7.8",
+      },
+    ]);
     setIsSearchClicked(true);
   };
 
