@@ -2,10 +2,12 @@ import React from "react";
 
 const CenterList = ({ centers, isSearchClicked }) => {
   return (
-    <div className={"overflow-scroll"}>
+    <>
       <NoneCentersComp centers={centers} isSearchClicked={isSearchClicked} />
-      {centers.length > 0 && <CenterComp centers={centers} />}
-    </div>
+      <div className="overflow-scroll scrollbar-hide">
+        {centers.length > 0 && <CenterComp centers={centers} />}
+      </div>
+    </>
   );
 };
 export default CenterList;
