@@ -26,7 +26,9 @@ import RecentDiaries, {
   RECENT_DIARIES_PAGE_PATH,
 } from "./pages/mypage/RecentDiaries";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
-
+import DementiaCenter, {
+  DEMENTIA_CENTER_PAGE_PATH,
+} from "./pages/dementiaCenter/DementiaCenter";
 
 function App() {
   return (
@@ -53,6 +55,10 @@ function App() {
             <Route
               path={RECENT_DIARIES_PAGE_PATH}
               element={<RecentDiaries />}
+            />
+            <Route
+              path={DEMENTIA_CENTER_PAGE_PATH}
+              element={<DementiaCenter />}
             />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
