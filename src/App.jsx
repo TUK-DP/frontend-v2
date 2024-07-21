@@ -29,6 +29,9 @@ import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
 import DementiaCenter, {
   DEMENTIA_CENTER_PAGE_PATH,
 } from "./pages/dementiaCenter/DementiaCenter";
+import ControlPhotoOpacity, {
+  CONTROL_PHOTO_OPACITY_PAGE_PATH,
+} from "./pages/draws/ControlPhotoOpacity";
 
 function App() {
   return (
@@ -51,6 +54,10 @@ function App() {
             <Route
               path={NO_DIARY_RECALL_PAGE_PATH}
               element={<NoDiaryRecall />}
+            />
+            <Route
+              path={CONTROL_PHOTO_OPACITY_PAGE_PATH}
+              element={<ControlPhotoOpacity />}
             />
             <Route
               path={RECENT_DIARIES_PAGE_PATH}
