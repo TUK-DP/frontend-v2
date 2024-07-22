@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dateParser } from "../../utils/api/dateConverter";
+import { dateParser, dateToDotString } from "../../utils/api/dateConverter";
 import Slider from "react-slick";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
@@ -42,7 +42,7 @@ const DiaryDetail = () => {
     <div className={"flex flex-col gap-10 px-10"}>
       <DiaryDate {...{ year, month, day }} />
       <DiaryKeywordImagesSlider keywords={diary.keywords} />
-      <span className={"mb-20 text-xl break-keep tablet:text-3xl"}>
+      <span className={"mb-20 text-xl break-words tablet:text-3xl"}>
         {diary.content}
       </span>
     </div>
@@ -77,9 +77,13 @@ const DiaryKeywordImagesSlider = ({ keywords }) => {
 
 const NoDiaryImage = () => {
   return (
-    <div className={"mx-auto font-bold  "}>
-      <span className={"text-3xl text-end"}>그려진 그림이 없어요..</span>
-      <p className={"text-2xl text-end mt-6"}>그림 그리러 가기 ></p>
+    <div className={"mx-auto font-bold h-auto"}>
+      <span className={"text-2xl text-end tablet:text-4xl text-nowrap"}>
+        그려진 그림이 없어요.. <span className={"ml-4"}>😢</span>
+      </span>
+      <p className={"text-xl text-end mt-6 tablet:text-3xl cursor-pointer"}>
+        그림 그리러 가기 >
+      </p>
     </div>
   );
 };
@@ -92,9 +96,7 @@ const DiaryDate = ({ year, month, day }) => {
   return (
     <div className="flex items-center -mx-10 text-2xl md:text-4xl text-[#5B5B5B] font-bold">
       <HorizontalLine className={"w-12"} />
-      <p className={"mx-4"}>
-        {year}.{month.toString().padStart(2, "0")}.{day}
-      </p>
+      <p className={"mx-4"}>{dateToDotString({ year, month, day })}</p>
       <HorizontalLine className={"flex-1"} />
     </div>
   );
