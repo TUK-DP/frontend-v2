@@ -31,6 +31,9 @@ import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/draws/HelpWithAi";
 import ControlPhotoOpacity, {
   CONTROL_PHOTO_OPACITY_PAGE_PATH,
 } from "./pages/draws/ControlPhotoOpacity";
+import KeywordReferenceImages, {
+  KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH,
+} from "./pages/draws/KeywordReferenceImages";
 
 function App() {
   return (
@@ -66,7 +69,10 @@ function App() {
               element={<RecentDiaries />}
             />
             <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
-
+            <Route
+              path={KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH}
+              element={<KeywordReferenceImages />}
+            />
             {/* 헤더바 + 종이 배경 */}
             <Route element={<PaperBackgroundWrapper />}>
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
