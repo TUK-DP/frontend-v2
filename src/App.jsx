@@ -34,6 +34,9 @@ import ControlPhotoOpacity, {
 import KeywordReferenceImages, {
   KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH,
 } from "./pages/draws/KeywordReferenceImages";
+import DiaryDetail, {
+  DIARY_DETAIL_PAGE_PATH,
+} from "./pages/diaryDetails/DiaryDetail";
 
 function App() {
   return (
@@ -75,6 +78,7 @@ function App() {
             />
             {/* 헤더바 + 종이 배경 */}
             <Route element={<PaperBackgroundWrapper />}>
+              <Route path={DIARY_DETAIL_PAGE_PATH} element={<DiaryDetail />} />
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
               <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
             </Route>

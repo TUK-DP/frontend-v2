@@ -4,6 +4,9 @@ import { CheckDiaryIcon } from "./icon/CheckDiaryIcon";
 import { DiaryDetailActionButton } from "./DiaryDetailActionButton";
 import { GoDrawingIcon } from "./icon/GoDrawingIcon";
 import useGoDiary from "../../hooks/diary/useGoDiary";
+import { useNavigate } from "react-router-dom";
+import { DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/DiaryRecall";
+import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 
 export const CalendarDetail = ({ selectedDate }) => {
   return (
@@ -15,20 +18,29 @@ export const CalendarDetail = ({ selectedDate }) => {
 };
 
 const WhatHappenSection = ({ mb }) => {
+  let navigate = useNavigate();
+
+  const buttons = [
+    {
+      title: "회상하러 가기",
+      icon: GoRememoryIcon,
+      onClick: () => navigate(DIARY_RECALL_PAGE_PATH),
+    },
+    {
+      title: "일기 확인하기",
+      icon: CheckDiaryIcon,
+      onClick: () => navigate(DIARY_DETAIL_PAGE_PATH),
+    },
+  ];
+
   return (
     <>
       <div className={"text-3xl text-white font-bold mb-8"}>
         무슨 일이 있었나요?
       </div>
       <div className={`flex justify-between gap-8 mobile:gap-4 ${mb}`}>
-        <DiaryDetailActionButton
-          title={"회상하러 가기"}
-          icon={GoRememoryIcon}
-        />
-        <DiaryDetailActionButton
-          title={"일기 확인하기"}
-          icon={CheckDiaryIcon}
-        />
+        <DiaryDetailActionButton {...buttons[0]} />
+        <DiaryDetailActionButton {...buttons[1]} />
       </div>
     </>
   );
