@@ -1,7 +1,7 @@
-import ChatSendIcon from "../components/helpWithAi/icon/ChatSendIcon";
+import ChatSendIcon from "../../components/helpWithAi/icon/ChatSendIcon";
 import { useEffect, useState } from "react";
-import { useInput } from "../hooks/useInput";
-import useChatWithAi from "../hooks/HelpWithAi/useChatWithAi";
+import { useInput } from "../../hooks/useInput";
+import useChatWithAi from "../../hooks/HelpWithAi/useChatWithAi";
 
 export const HELP_WITH_AI_PATH = "/helpwithai";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import DiaryRecallImg from "../assets/diary/questionPeople.png";
+import DiaryRecallImg from "../../assets/diary/questionPeople.png";
 
 export const DIARY_RECALL_PAGE_PATH = "/diary/recall";
 const DiaryRecall = () => {

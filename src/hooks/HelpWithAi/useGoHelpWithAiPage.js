@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { HELP_WITH_AI_PATH } from "../../pages/HelpWithAi";
+import { HELP_WITH_AI_PATH } from "../../pages/draws/HelpWithAi";
 
 const useGoHelpWithAiPage = () => {
   let navigate = useNavigate();

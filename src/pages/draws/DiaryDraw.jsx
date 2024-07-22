@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import KeywordSlider from "../components/draw/KeywordSlider";
-import Canvas from "../components/draw/Canvas";
-import aiHelpRobot from "../assets/draw/aiHelpRobot.png";
-import showOtherDraw from "../assets/draw/showOtherDraw.png";
-import useGoHelpWithAiPage from "../hooks/HelpWithAi/useGoHelpWithAiPage";
+import KeywordSlider from "../../components/draw/KeywordSlider";
+import Canvas from "../../components/draw/Canvas";
+import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
+import showOtherDraw from "../../assets/draw/showOtherDraw.png";
+import useGoHelpWithAiPage from "../../hooks/HelpWithAi/useGoHelpWithAiPage";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {

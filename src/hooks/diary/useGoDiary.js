@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { DIARY_PAGE_PATH } from "../../pages/Diary";
-import { DIARY_DRAW_PAGE_PATH } from "../../pages/DiaryDraw";
+import { DIARY_PAGE_PATH } from "../../pages/diarys/Diary";
+import { DIARY_DRAW_PAGE_PATH } from "../../pages/draws/DiaryDraw";
 
 const useGoDiary = () => {
   let navigate = useNavigate();

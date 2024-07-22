@@ -4,7 +4,7 @@ import { ReactComponent as HomeIcon } from "../assets/navbar/home_icon.svg";
 import { ReactComponent as MyPageIcon } from "../assets/navbar/mypage_icon.svg";
 import { HOME_PAGE_PATH } from "../pages/Home";
 import { MY_PAGE_PATH } from "../pages/MyPage";
-import { DIARY_PAGE_PATH } from "../pages/Diary";
+import { DIARY_PAGE_PATH } from "../pages/diarys/Diary";
 
 export const NAV_BAR_ITEM_LIST = [
   {

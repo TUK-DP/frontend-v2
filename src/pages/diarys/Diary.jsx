@@ -1,11 +1,11 @@
-import { Calendar } from "../components/calendar/Calendar";
+import { Calendar } from "../../components/calendar/Calendar";
 import {
   BottomSheetLayout,
   MIDDLE_POSITION,
-} from "../layouts/BottomSheetLayout";
-import { CalendarDetail } from "../components/calendar_detail/CalendarDetail";
+} from "../../layouts/BottomSheetLayout";
+import { CalendarDetail } from "../../components/calendar_detail/CalendarDetail";
 import { useState } from "react";
-import { getNow } from "../utils/calendar/date";
+import { getNow } from "../../utils/calendar/date";
 
 export const DIARY_PAGE_PATH = "/diary";
 

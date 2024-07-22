@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import AppLogo from "../assets/AppLogo.png";
-import PurpleButton from "../components/signup/PurpleButton";
+import AppLogo from "../../assets/AppLogo.png";
+import PurpleButton from "../../components/signup/PurpleButton";
 import { useNavigate } from "react-router-dom";
 import { SIGNUP_PAGE_PATH } from "./Signup";
 import {
   EMAIL_FORMAT,
   NOT_EMPTY,
   PASSWORD_FORMAT,
-} from "../utils/validator/input";
-import { useInput } from "../hooks/useInput";
-import { SignInOrUpInput } from "../components/signup/SignInOrUpInput";
+} from "../../utils/validator/input";
+import { useInput } from "../../hooks/useInput";
+import { SignInOrUpInput } from "../../components/signup/SignInOrUpInput";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
