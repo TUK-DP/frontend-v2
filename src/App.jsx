@@ -30,16 +30,18 @@ import ControlPhotoOpacity, {
   CONTROL_PHOTO_OPACITY_PAGE_PATH,
 } from "./pages/draws/ControlPhotoOpacity";
 
-
 function App() {
   return (
     <MobileResponsiveLayout>
       <BrowserRouter>
         <Routes>
+          {/* 네브바 */}
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
             <Route path={MY_PAGE_PATH} element={<MyPage />} />
           </Route>
+
+          {/* 헤더바 */}
           <Route element={<HeaderBarLayout />}>
             <Route
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
@@ -61,16 +63,14 @@ function App() {
               path={RECENT_DIARIES_PAGE_PATH}
               element={<RecentDiaries />}
             />
-          </Route>
-          <Route element={<PaperBackgroundWrapper />}>
-            <Route element={<HeaderBarLayout />}>
+            <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
+
+            {/* 헤더바 + 종이 배경 */}
+            <Route element={<PaperBackgroundWrapper />}>
               <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
               <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
             </Route>
           </Route>
-          <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
-          <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
-          <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
         </Routes>
       </BrowserRouter>
     </MobileResponsiveLayout>
