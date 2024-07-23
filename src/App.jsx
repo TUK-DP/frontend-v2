@@ -17,7 +17,7 @@ import Diary, { DIARY_PAGE_PATH } from "./pages/Diary";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
 import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
-import MyPage, { MY_PAGE_PATH } from "./pages/MyPage";
+import MyPage, { MY_PAGE_PATH } from "./pages/mypage/MyPage";
 import DiaryRecall, { DIARY_RECALL_PAGE_PATH } from "./pages/DiaryRecall";
 import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
@@ -40,13 +40,13 @@ function App() {
         <Routes>
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
-            <Route path={MY_PAGE_PATH} element={<MyPage />} />
           </Route>
           <Route element={<HeaderBarLayout />}>
             <Route
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
               element={<DiagnosisGuide />}
             />
+            <Route path={MY_PAGE_PATH} element={<MyPage />} />
             <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
             <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
             <Route path={DIARY_PAGE_PATH} element={<Diary />} />
