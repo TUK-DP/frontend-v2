@@ -1,5 +1,5 @@
 import React from "react";
-import NoDiaryRecallImg from "../assets/diary/noDiaryRecall.png";
+import NoDiaryRecallImg from "../../assets/diary/noDiaryRecall.png";
 export const NO_DIARY_RECALL_PAGE_PATH = "/diary/norecall";
 const NoDiaryRecall = () => {
   return (
