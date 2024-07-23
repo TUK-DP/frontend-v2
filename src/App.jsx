@@ -29,7 +29,7 @@ import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/HelpWithAi";
 import ControlPhotoOpacity, {
   CONTROL_PHOTO_OPACITY_PAGE_PATH,
 } from "./pages/draws/ControlPhotoOpacity";
-
+import Gym, { GYM_PAGE_PATH } from "./pages/gym/Gym";
 
 function App() {
   return (
@@ -61,6 +61,7 @@ function App() {
               path={RECENT_DIARIES_PAGE_PATH}
               element={<RecentDiaries />}
             />
+            <Route path={GYM_PAGE_PATH} element={<Gym />} />
           </Route>
           <Route element={<PaperBackgroundWrapper />}>
             <Route element={<HeaderBarLayout />}>
