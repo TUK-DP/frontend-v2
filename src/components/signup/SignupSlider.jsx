@@ -5,16 +5,13 @@ import "slick-carousel/slick/slick-theme.css";
 import "../../styles/signInOrUpSlider.css";
 
 // 슬라이더 컴포넌트
-const SignupSlider = ({ children, setSliderStep, sliderRef }) => {
+const SignupSlider = ({ children, sliderRef }) => {
   const settings = {
     infinite: false,
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
-    beforeChange: (pre, next) => {
-      setSliderStep(next + 1);
-    },
   };
 
   // 슬라이더 설정

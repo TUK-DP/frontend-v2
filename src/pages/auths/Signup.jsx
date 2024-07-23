@@ -1,9 +1,8 @@
 import SignupSlider from "../../components/signup/SignupSlider";
 import { useInput } from "../../hooks/inputs/useInput";
 import InputStep1 from "../../components/signup/InputStep1";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import InputStep2 from "../../components/signup/InputStep2";
-import SigupStep from "../../components/signup/SignupStep";
 
 export const SIGNUP_PAGE_PATH = "/signup";
 
@@ -24,19 +23,16 @@ const Signup = () => {
     [SIGH_UP_FORM_KEY.NAME]: "",
   });
 
-  const [sliderStep, setSliderStep] = useState(1);
   const sliderRef = useRef(null);
 
   const goNextStep = () => {
-    setSliderStep((prev) => prev + 1);
     sliderRef.current.slickNext();
   };
 
   return (
     <>
       <div className={"flex flex-col h-full"}>
-        <SigupStep step={sliderStep} />
-        <SignupSlider setSliderStep={setSliderStep} sliderRef={sliderRef}>
+        <SignupSlider sliderRef={sliderRef}>
           <InputStep1 {...{ signUpForm, handleChangeInput, goNextStep }} />
           <InputStep2 {...{ signUpForm, handleChangeInput }} />
         </SignupSlider>
