@@ -5,9 +5,11 @@ export const DiaryDetailActionButton = ({
   className = "",
   title = "",
   icon: Icon,
+  onClick,
 }) => {
   return (
     <div
+      onClick={onClick}
       className={
         "relative bg-[#F4F4F4] flex-1 rounded-2xl cursor-pointer px-4 py-8" +
         ` ${className} ${heightClass}`

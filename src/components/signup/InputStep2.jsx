@@ -8,7 +8,7 @@ import {
   PASSWORD_FORMAT,
 } from "../../utils/validator/input";
 import { SignInOrUpInput } from "./SignInOrUpInput";
-import { SIGH_UP_FORM_KEY } from "../../pages/Signup";
+import { SIGH_UP_FORM_KEY } from "../../pages/auths/Signup";
 
 const InputStep2 = ({ signUpForm, handleChangeInput }) => {
   // 버튼 활성화 여부를 위한 변수

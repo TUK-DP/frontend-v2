@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const PaperBackgroundWrapper = (props) => {
   return (
     <div
-      className="min-h-screen bg-cover bg-center"
+      className="min-h-screen -mt-headerBarHeight pt-headerBarHeight bg-cover bg-center"
       style={{ backgroundImage: `url(${paperImg})` }}
     >
       <Outlet />

@@ -3,7 +3,7 @@ import PurpleButton from "./PurpleButton";
 import Spinner from "../Spinner";
 import { EMAIL_FORMAT, NOT_EMPTY } from "../../utils/validator/input";
 import { SignInOrUpInput } from "./SignInOrUpInput";
-import { SIGH_UP_FORM_KEY } from "../../pages/Signup";
+import { SIGH_UP_FORM_KEY } from "../../pages/auths/Signup";
 
 const InputStep1 = ({ signUpForm, handleChangeInput }) => {
   const [isEmailError, setIsEmailError] = useState(true);
