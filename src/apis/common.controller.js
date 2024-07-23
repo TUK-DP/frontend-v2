@@ -1,5 +1,15 @@
 import axios from "axios";
 
+/**
+ * 제너릭 타입
+ * @typedef{{
+ *   isSuccess : boolean,
+ *   message : string,
+ *   result : T,
+ * }} ApiResponse<T>
+ * @template T
+ * */
+
 export class Api {
   base_url = process.env.REACT_APP_BASE_URL;
 
@@ -28,7 +38,7 @@ export class Api {
   /**
    * @param {string} url
    * @param {{} | URLSearchParams} params
-   * @param {AxiosRequestConfig} config
+   * @param {AxiosRequestConfig?} config
    * @return {Promise<AxiosResponse<any>>}
    */
   async get(url, params = {}, config) {
@@ -45,7 +55,7 @@ export class Api {
   /**
    * @param {string} url
    * @param {{}} body
-   * @param {AxiosRequestConfig} config
+   * @param {AxiosRequestConfig?} config
    * @return {Promise<AxiosResponse<any>>}
    */
   async post(url, body = {}, config) {
@@ -75,7 +85,7 @@ export class Api {
   /**
    * @param {string} url
    * @param {{}} body
-   * @param {AxiosRequestConfig} config
+   * @param {AxiosRequestConfig?} config
    * @return {Promise<AxiosResponse<any>>}
    */
   async patch(url, body, config) {
@@ -90,7 +100,7 @@ export class Api {
   /**
    * @param {string} url
    * @param {{}} body
-   * @param {AxiosRequestConfig} config
+   * @param {AxiosRequestConfig?} config
    * @return {Promise<AxiosResponse<any>>}
    */
   async delete(url, body, config) {
