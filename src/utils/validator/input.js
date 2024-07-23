@@ -1,8 +1,15 @@
 // { regex, errorMessage } <- 컨벤션
-export const EMAIL_FORMAT = {
-  regex: new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"),
-  errorMessage: "올바르지 않는 이메일 형식입니다.",
+
+// loginId는 6자 보다 길어야 한다.
+export const LOGIN_ID_FORMAT = {
+  regex: new RegExp(".{6,}"),
+  errorMessage: "아이디는 6자 이상이어야 합니다.",
 };
+
+// export const EMAIL_FORMAT = {
+//   regex: new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"),
+//   errorMessage: "올바르지 않는 이메일 형식입니다.",
+// };
 
 export const PASSWORD_FORMAT = {
   regex: new RegExp(".{6,}"),

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PurpleButton from "./PurpleButton";
 import Spinner from "../Spinner";
-import { EMAIL_FORMAT, NOT_EMPTY } from "../../utils/validator/input";
 import { SignInOrUpInput } from "./SignInOrUpInput";
 import { SIGH_UP_FORM_KEY } from "../../pages/auths/Signup";
+import { LOGIN_ID_FORMAT, NOT_EMPTY } from "../../utils/validator/input";
 
-const InputStep1 = ({ signUpForm, handleChangeInput }) => {
+const InputStep1 = ({ signUpForm, handleChangeInput, goNextStep }) => {
   const [isEmailError, setIsEmailError] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,21 +16,22 @@ const InputStep1 = ({ signUpForm, handleChangeInput }) => {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+      goNextStep();
+    }, 1000);
+  };
+
+  const inputProps = {
+    value: signUpForm[SIGH_UP_FORM_KEY.LOGIN_ID],
+    inputTagName: SIGH_UP_FORM_KEY.LOGIN_ID,
+    inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
+    setIsError: setIsEmailError,
+    handleChangeInput,
   };
 
   return (
     <div className={"flex h-full justify-center "}>
       <div className="w-5/6 h-full flex flex-col justify-center items-center">
-        <SignInOrUpInput
-          name={"이메일"}
-          className={"flex-1"}
-          value={signUpForm[SIGH_UP_FORM_KEY.EMAIL]}
-          inputTagName={SIGH_UP_FORM_KEY.EMAIL}
-          inputShould={[NOT_EMPTY, EMAIL_FORMAT]}
-          setIsError={setIsEmailError}
-          handleChangeInput={handleChangeInput}
-        />
+        <SignInOrUpInput name={"아이디"} className={"flex-1"} {...inputProps} />
         <PurpleButton
           text={isLoading ? <Spinner /> : "중복확인"}
           handleClickButton={handleClickNextButton}
