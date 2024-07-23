@@ -2,12 +2,14 @@ import React from "react";
 import btn_gymnastics from "../../assets/home/button/btn_gymnastics.png";
 import btn_rockScissorsPaper from "../../assets/home/button/btn_rockScissorsPaper.png";
 import btn_colorMatch from "../../assets/home/button/btn_colorMatch.png";
+import useGoGym from "../../hooks/gym/useGoGym";
 
 const SubDementiaPreventionSection = () => {
+  const { goGymPage } = useGoGym();
   return (
     <>
       <div className="text-2xl font-bold mt-14 mb-5">치매를 예방해볼까요?</div>
-      <GymnasticsButton />
+      <GymnasticsButton goGymPage={goGymPage} />
       <div className=" text-md md:text-xl my-5">
         <span className="text-orange-500">미니게임</span>
         <span>을 통해 두뇌를 활성화 시키세요!</span>
@@ -17,9 +19,12 @@ const SubDementiaPreventionSection = () => {
   );
 };
 //체조 버튼 컴포넌트
-const GymnasticsButton = () => {
+const GymnasticsButton = ({ goGymPage }) => {
   return (
-    <div className="mb-6 flex justify-between items-center border-2 rounded-xl p-5 md:px-12 bg-[#f4f4f4] text-md sm:text-lg md:text-xl cursor-pointer">
+    <div
+      className="mb-6 flex justify-between items-center border-2 rounded-xl p-5 md:px-12 bg-[#f4f4f4] text-md sm:text-lg md:text-xl cursor-pointer"
+      onClick={goGymPage}
+    >
       <img src={btn_gymnastics} />
       <div className="mr-8 md:mr-16">
         <span className="text-orange-500">간단한 체조</span>
