@@ -10,14 +10,18 @@ import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 
 export const CalendarDetail = ({ selectedDate }) => {
   return (
-    <div className={"bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"}>
-      <WhatHappenSection mb={"mb-12"} />
+    <div
+      className={
+        "flex flex-col gap-12 bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"
+      }
+    >
+      <WhatHappenSection />
       <GoDrawingSection />
     </div>
   );
 };
 
-const WhatHappenSection = ({ mb }) => {
+const WhatHappenSection = () => {
   let navigate = useNavigate();
 
   const buttons = [
@@ -38,7 +42,7 @@ const WhatHappenSection = ({ mb }) => {
       <div className={"text-3xl text-white font-bold mb-8"}>
         무슨 일이 있었나요?
       </div>
-      <div className={`flex justify-between gap-8 mobile:gap-4 ${mb}`}>
+      <div className={`flex justify-between gap-8 mobile:gap-4`}>
         <DiaryDetailActionButton {...buttons[0]} />
         <DiaryDetailActionButton {...buttons[1]} />
       </div>

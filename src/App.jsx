@@ -17,10 +17,10 @@ import Diary, { DIARY_PAGE_PATH } from "./pages/diarys/Diary";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
 import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
-import MyPage, { MY_PAGE_PATH } from "./pages/MyPage";
 import DiaryRecall, {
   DIARY_RECALL_PAGE_PATH,
 } from "./pages/diarys/DiaryRecall";
+import MyPage, { MY_PAGE_PATH } from "./pages/mypage/MyPage";
 import NoDiaryRecall, {
   NO_DIARY_RECALL_PAGE_PATH,
 } from "./pages/diarys/NoDiaryRecall";
@@ -28,6 +28,9 @@ import RecentDiaries, {
   RECENT_DIARIES_PAGE_PATH,
 } from "./pages/mypage/RecentDiaries";
 import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/draws/HelpWithAi";
+import DementiaCenter, {
+  DEMENTIA_CENTER_PAGE_PATH,
+} from "./pages/dementiaCenter/DementiaCenter";
 import ControlPhotoOpacity, {
   CONTROL_PHOTO_OPACITY_PAGE_PATH,
 } from "./pages/draws/ControlPhotoOpacity";
@@ -37,6 +40,9 @@ import KeywordReferenceImages, {
 import DiaryDetail, {
   DIARY_DETAIL_PAGE_PATH,
 } from "./pages/diaryDetails/DiaryDetail";
+import DiaryRecall, {
+  DIARY_RECALL_PAGE_PATH,
+} from "./pages/diarys/DiaryRecall";
 
 function App() {
   return (
@@ -46,7 +52,6 @@ function App() {
           {/* 네브바 */}
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
-            <Route path={MY_PAGE_PATH} element={<MyPage />} />
           </Route>
 
           {/* 헤더바 */}
@@ -55,6 +60,7 @@ function App() {
               path={DIAGNOSIS_GUIDE_PAGE_PATH}
               element={<DiagnosisGuide />}
             />
+            <Route path={MY_PAGE_PATH} element={<MyPage />} />
             <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
             <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
             <Route path={DIARY_PAGE_PATH} element={<Diary />} />
@@ -76,6 +82,12 @@ function App() {
               path={KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH}
               element={<KeywordReferenceImages />}
             />
+
+            <Route
+              path={DEMENTIA_CENTER_PAGE_PATH}
+              element={<DementiaCenter />}
+            />
+
             {/* 헤더바 + 종이 배경 */}
             <Route element={<PaperBackgroundWrapper />}>
               <Route path={DIARY_DETAIL_PAGE_PATH} element={<DiaryDetail />} />
