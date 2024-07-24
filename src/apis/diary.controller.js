@@ -39,7 +39,6 @@ class DiaryController extends Api {
    * @return {Promise<AxiosResponse<ApiResponse<CheckDiaries>>>}
    */
   findCheckDiaries = async ({ userId, year, month }) => {
-    await delay(500);
     return await this.get("/diary/check", { userId, year, month });
   };
 

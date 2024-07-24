@@ -6,7 +6,7 @@ import {
 } from "../../utils/calendar/date";
 import { dateToDashString } from "../../utils/api/dateConverter";
 import { ResponseSkeleton } from "../skeleton/ResponseSkeleton";
-import useFetchDiaryChecks from "../../hooks/diary/fetchers/useFetchDiaryChecks";
+import useFetchDiaryChecks from "../../hooks/diary/queries/useFetchDiaryChecks";
 
 export const CalendarGrid = ({
   days,
