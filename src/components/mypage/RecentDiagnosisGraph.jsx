@@ -18,7 +18,7 @@ const RecentDiagnosisGraph = ({ number, className, ...props }) => {
   );
 };
 
-const colors = ["#5fc25f", "#FFD52F", "#e15449"];
+const colors = ["#97D8DD", "#FFD52F", "#FC5C50"];
 
 const options = {
   circumference: 180,
