@@ -4,17 +4,17 @@ import PurpleButton from "../../components/signup/PurpleButton";
 import { useNavigate } from "react-router-dom";
 import { SIGNUP_PAGE_PATH } from "./Signup";
 import {
-  EMAIL_FORMAT,
+  LOGIN_ID_FORMAT,
   NOT_EMPTY,
   PASSWORD_FORMAT,
 } from "../../utils/validator/input";
-import { useInput } from "../../hooks/useInput";
+import { useInput } from "../../hooks/inputs/useInput";
 import { SignInOrUpInput } from "../../components/signup/SignInOrUpInput";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
 export const SIGN_IN_FORM_KEY = {
-  EMAIL: "email",
+  LOGIN_ID: "loginId",
   PASSWORD: "password",
 };
 
@@ -24,7 +24,7 @@ const Signin = () => {
     handleChangeInput,
     setForm: setSignInForm,
   } = useInput({
-    [SIGN_IN_FORM_KEY.EMAIL]: "",
+    [SIGN_IN_FORM_KEY.LOGIN_ID]: "",
     [SIGN_IN_FORM_KEY.PASSWORD]: "",
   });
 
@@ -32,10 +32,10 @@ const Signin = () => {
 
   const SIGN_IN_INPUT_LIST = [
     {
-      name: "이메일",
+      name: "아이디",
       type: "text",
-      inputTagName: SIGN_IN_FORM_KEY.EMAIL,
-      inputShould: [NOT_EMPTY, EMAIL_FORMAT],
+      inputTagName: SIGN_IN_FORM_KEY.LOGIN_ID,
+      inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
     },
     {
       name: "비밀번호",
@@ -53,10 +53,8 @@ const Signin = () => {
           {SIGN_IN_INPUT_LIST.map(({ inputTagName, ...props }) => (
             <SignInOrUpInput
               key={inputTagName}
-              {...props}
-              inputTagName={inputTagName}
+              {...{ handleChangeInput, inputTagName, ...props }}
               value={signInForm[inputTagName]}
-              handleChangeInput={handleChangeInput}
               setIsError={setIsErrorExist}
             />
           ))}

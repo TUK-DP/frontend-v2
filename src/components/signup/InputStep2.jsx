@@ -22,12 +22,6 @@ const InputStep2 = ({ signUpForm, handleChangeInput }) => {
       inputShould: [NOT_EMPTY, GREATER_EQUAL_THAN({ num: 2 })],
     },
     {
-      name: "생년월일",
-      type: "date",
-      inputTagName: SIGH_UP_FORM_KEY.BIRTH,
-      inputShould: [NOT_EMPTY],
-    },
-    {
       name: "비밀번호",
       type: "password",
       inputTagName: SIGH_UP_FORM_KEY.PASSWORD,
@@ -53,10 +47,8 @@ const InputStep2 = ({ signUpForm, handleChangeInput }) => {
             return (
               <SignInOrUpInput
                 key={inputTagName}
-                {...props}
-                inputTagName={inputTagName}
+                {...{ inputTagName, handleChangeInput, ...props }}
                 value={signUpForm[inputTagName]}
-                handleChangeInput={handleChangeInput}
                 setIsError={setIsErrorExist}
               />
             );
