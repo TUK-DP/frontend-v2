@@ -40,6 +40,7 @@ import DiaryDetail, {
 import DiaryRecall, {
   DIARY_RECALL_PAGE_PATH,
 } from "./pages/diarys/DiaryRecall";
+import Gym, { GYM_PAGE_PATH } from "./pages/gym/Gym";
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
               path={RECENT_DIARIES_PAGE_PATH}
               element={<RecentDiaries />}
             />
+            <Route path={GYM_PAGE_PATH} element={<Gym />} />
             <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
             <Route
               path={KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH}
