@@ -4,14 +4,9 @@ import {
   isSaturday,
   isSunday,
 } from "../../utils/calendar/date";
-import { useQuery } from "@tanstack/react-query";
-import DiaryController from "../../apis/diary.controller";
-import {
-  dateToDotString,
-  HOUR,
-  yearMonthToDashString,
-} from "../../utils/api/dateConverter";
+import { dateToDashString } from "../../utils/api/dateConverter";
 import { ResponseSkeleton } from "../skeleton/ResponseSkeleton";
+import useFetchDiaryChecks from "../../hooks/diary/fetchers/useFetchDiaryChecks";
 
 export const CalendarGrid = ({
   days,
@@ -57,11 +52,8 @@ const CalenderBody = ({
 
   return days.map((day, index) => (
     <CalendarBodyCell
-      key={dateToDotString({ ...selectedYearMonth, day: index })}
-      day={day}
-      selectedYearMonth={selectedYearMonth}
-      selectedDate={selectedDate}
-      handleClickCell={handleClickCell}
+      key={dateToDashString({ ...selectedYearMonth, day: index })}
+      {...{ day, selectedYearMonth, selectedDate, handleClickCell }}
     />
   ));
 };
@@ -85,27 +77,13 @@ const CalendarHeaderCell = ({ index, day, className }) => {
 const CalendarBodyCell = ({
   selectedYearMonth,
   selectedDate,
-  className = "",
   handleClickCell,
   day,
   index,
 }) => {
-  let {
-    isFetching,
-    isSuccess,
-    data: diaryChecks,
-  } = useQuery({
-    queryKey: [
-      "diaries",
-      { year: selectedYearMonth.year, month: selectedYearMonth.month },
-    ],
-    queryFn: () =>
-      DiaryController.findCheckDiaries({
-        userId: 2,
-        year: selectedYearMonth.year,
-        month: selectedYearMonth.month,
-      }),
-    staleTime: HOUR * 2,
+  let { isFetching, isCanRender, isDiaryExist } = useFetchDiaryChecks({
+    selectedYearMonth,
+    day,
   });
 
   const isSelectedCell = (day) => {
@@ -116,33 +94,37 @@ const CalendarBodyCell = ({
   };
 
   return (
+    <div className={`flex justify-center items-center w-full`}>
+      <div
+        className={
+          "relative flex justify-center w-16 h-16  mobile:w-10 mobile:h-10"
+        }
+      >
+        {!isCanRender && <ResponseSkeleton />}
+        {isCanRender && (
+          <>
+            <CellWithCircle
+              {...{ isSelectedCell, index, day, handleClickCell }}
+            />
+            <Dot isVisible={isDiaryExist} isSelected={isSelectedCell(day)} />
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const CellWithCircle = ({ day, index, isSelectedCell, handleClickCell }) => {
+  return (
     <div
-      className={`relative flex flex-col justify-center items-center w-full ${className}`}
-    >
-      {isFetching && <ResponseSkeleton />}
-      {!isFetching && isSuccess && (
-        <>
-          <div
-            className={`flex flex-col justify-center items-center rounded-full cursor-pointer px-1 w-16 h-16
-          mobile:w-10 mobile:h-10
+      onClick={() => handleClickCell(day)}
+      className={`flex flex-col justify-center aspect-square items-center rounded-full cursor-pointer px-1          
           ${isSunday(index) && "text-red-600"}
           ${isSaturday(index) && "text-blue-600"}
           ${isSelectedCell(day) && "bg-blue-600 !text-white"}
         `}
-            onClick={() => handleClickCell(day)}
-          >
-            {day}
-          </div>
-          <Dot
-            isVisible={
-              diaryChecks.data.result[
-                yearMonthToDashString({ ...selectedYearMonth })
-              ][day]?.isExist
-            }
-            isSelected={isSelectedCell(day)}
-          />
-        </>
-      )}
+    >
+      {day}
     </div>
   );
 };
