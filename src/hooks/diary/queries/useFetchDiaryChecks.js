@@ -3,7 +3,13 @@ import DiaryController from "../../../apis/diary.controller";
 import { HOUR, yearMonthToDashString } from "../../../utils/api/dateConverter";
 
 /**
- * @return {{diaryChecks: AxiosResponse<ApiResponse<CheckDiaries>>, isFetching: boolean, isCanRender: boolean, isDiaryExist : boolean}}
+ * @return {{
+ *    diaryChecks: AxiosResponse<ApiResponse<CheckDiaries>>,
+ *    isFetching: boolean,
+ *    isCanRender: boolean,
+ *    isDiaryExist : boolean,
+ *    isDiaryExistDay : (day : number) => boolean
+ * }}
  */
 const useFetchDiaryChecks = ({ selectedYearMonth, day }) => {
   let {
@@ -26,6 +32,12 @@ const useFetchDiaryChecks = ({ selectedYearMonth, day }) => {
 
   const isCanRender = !isFetching && isSuccess;
 
+  const isDiaryExistDay = (day) => {
+    return diaryChecks?.data?.result?.[
+      yearMonthToDashString({ ...selectedYearMonth, day })
+    ]?.[day].isExist;
+  };
+
   const isDiaryExist =
     day !== "" &&
     isCanRender &&
@@ -38,6 +50,7 @@ const useFetchDiaryChecks = ({ selectedYearMonth, day }) => {
     isCanRender,
     diaryChecks,
     isDiaryExist,
+    isDiaryExistDay,
   };
 };
 
