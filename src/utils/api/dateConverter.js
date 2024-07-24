@@ -22,3 +22,8 @@ export const dateToDotString = ({ year, month, day }) => {
 export const yearMonthToDashString = ({ year, month }) => {
   return `${year}-${month}`;
 };
+
+// {year : 2024, month : 6 } => 2024년 6월
+export const yearMonthToKoreanString = ({ year, month }) => {
+  return `${year}년 ${month}월`;
+};

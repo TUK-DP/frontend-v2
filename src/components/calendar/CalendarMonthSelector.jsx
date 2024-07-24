@@ -1,19 +1,21 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { getNextYearMonth, getPreYearMonth } from "../../utils/calendar/date";
+import { useCalendarStore } from "../../stores/CalendarStore";
+import { yearMonthToKoreanString } from "../../utils/api/dateConverter";
 
-export const CalendarMonthSelector = ({
-  selectedYearMonth,
-  setSelectedYearMonth,
-}) => {
-  let { year, month } = selectedYearMonth;
+export const CalendarMonthSelector = () => {
+  let { selectedYearMonth, setSelectedYearMonth } = useCalendarStore(
+    (state) => state
+  );
 
   const goPreMonth = () => {
-    setSelectedYearMonth((prev) => getPreYearMonth({ ...prev }));
+    setSelectedYearMonth(getPreYearMonth(selectedYearMonth));
   };
 
   const goNextMonth = () => {
-    setSelectedYearMonth((prev) => getNextYearMonth({ ...prev }));
+    setSelectedYearMonth(getNextYearMonth(selectedYearMonth));
   };
+
   return (
     <div
       className={
@@ -29,7 +31,9 @@ export const CalendarMonthSelector = ({
         className={
           "font-bold flex justify-center items-center text-nowrap  w-0"
         }
-      >{`${year}년 ${month}월`}</span>
+      >
+        {yearMonthToKoreanString(selectedYearMonth)}
+      </span>
       <IoIosArrowForward
         size={50}
         className={"cursor-pointer"}

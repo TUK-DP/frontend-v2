@@ -8,8 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/DiaryRecall";
 import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
+import { useCalendarStore } from "../../stores/CalendarStore";
 
-export const CalendarDetail = ({ selectedDate }) => {
+export const CalendarDetail = () => {
+  let { selectedDate } = useCalendarStore((state) => state); // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
+
   const { isCanRender } = useFetchDiary({
     selectedDate,
   });
