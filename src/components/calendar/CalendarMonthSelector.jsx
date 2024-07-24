@@ -16,7 +16,9 @@ export const CalendarMonthSelector = ({
   };
   return (
     <div
-      className={"flex w-full justify-around pb-10 text-5xl mobile:text-3xl"}
+      className={
+        "flex w-full justify-around pb-10 text-5xl mobile:text-3xl mobile:pb-4"
+      }
     >
       <IoIosArrowBack
         size={50}

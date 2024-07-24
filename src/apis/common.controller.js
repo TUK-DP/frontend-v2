@@ -11,7 +11,7 @@ import axios from "axios";
  * */
 
 export class Api {
-  base_url = process.env.REACT_APP_BASE_URL;
+  base_url = process.env.REACT_APP_SERVER_URL;
 
   // axios static instance
   axiosInstance;
