@@ -10,7 +10,7 @@ import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
 
 export const CalendarDetail = ({ selectedDate }) => {
-  const { diary, isDiaryExist, isFetching, isCanRender } = useFetchDiary({
+  const { isCanRender } = useFetchDiary({
     selectedDate,
   });
 
@@ -20,8 +20,6 @@ export const CalendarDetail = ({ selectedDate }) => {
         "flex flex-col gap-12 bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"
       }
     >
-      {!isDiaryExist && <NoDiary />}
-      {isFetching && <DiarySkeleton />}
       {isCanRender && (
         <>
           <WhatHappenSection />
@@ -30,15 +28,6 @@ export const CalendarDetail = ({ selectedDate }) => {
       )}
     </div>
   );
-};
-
-const NoDiary = () => {
-  return <div>일기가 없습니다.</div>;
-};
-
-// @todo 로딩 스켈레톤 마저 구현해야함
-const DiarySkeleton = () => {
-  return <div>로딩중...</div>;
 };
 
 const WhatHappenSection = () => {
