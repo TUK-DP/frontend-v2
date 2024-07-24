@@ -35,7 +35,7 @@ const Stepper = ({
 
   return (
     <div
-      className="w-full flex items-center my-14 overflow-x-scroll scrollbar-hide px-5 md:px-10"
+      className="w-full flex items-center overflow-x-scroll scrollbar-hide px-5 md:px-10"
       ref={scrollerRef}
     >
       {icons.map((Icon, index) => (

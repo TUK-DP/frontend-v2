@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import DiagnosisSlider from "../../components/diagnosis/DiagnosisSlider";
 import Stepper from "../../components/diagnosis/Stepper";
 import useDiagnosisSlider from "../../hooks/Diagnosis/useDiagnosisSlider";
+import { useNavigate } from "react-router-dom";
 
 export const DIAGNOSIS_PAGE_PATH = "/diagnosis";
 
@@ -22,6 +23,18 @@ const Diagnosis = () => {
     handleStepClick,
     icons,
   } = useDiagnosisSlider(totalSlides);
+
+  const isLastSlide = currentSlide === totalSlides - 1;
+
+  let navigate = useNavigate();
+
+  const handleNextButtonClick = () => {
+    handleNextClick(() => {
+      if (isLastSlide) {
+        navigate("/");
+      }
+    });
+  };
 
   return (
     <div>
@@ -41,8 +54,8 @@ const Diagnosis = () => {
       <div className="w-full flex justify-between mt-16 md:mt-24 px-5 md:px-9">
         <SliderPrevButton onClick={handlePrevClick} />
         <SliderNextButton
-          onClick={handleNextClick}
-          isLastSlide={currentSlide === totalSlides - 1}
+          onClick={handleNextButtonClick}
+          isLastSlide={isLastSlide}
         />
       </div>
     </div>

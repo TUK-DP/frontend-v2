@@ -41,7 +41,7 @@ const DiagnosisSlider = ({
           key={index}
           className="h-[35rem] md:h-[45rem] text-3xl md:text-5xl break-keep font-extrabold p-5 md:p-8 flex flex-col justify-center items-center"
         >
-          <p className="text-center mb-16 md:mb-34 h-[15rem] flex items-center">
+          <p className="text-center md:mb-34 h-[15rem] flex items-center tablet:my-14">
             {diagnosis}
           </p>
           <ResponseButtons

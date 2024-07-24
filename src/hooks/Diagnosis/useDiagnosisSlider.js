@@ -59,22 +59,28 @@ const useDiagnosisSlider = (totalSlides) => {
     }
   }, []);
 
-  const handleNextClick = useCallback(() => {
-    if (currentSlide !== totalSlides - 1) {
-      if (sliderRef.current) {
-        sliderRef.current.slickNext();
+  const handleNextClick = useCallback(
+    (whenAllResponseCallback) => {
+      if (currentSlide !== totalSlides - 1) {
+        if (sliderRef.current) {
+          sliderRef.current.slickNext();
+        }
+        return;
       }
-      return;
-    }
 
-    const firstUncheckedSlide = sliderItems.findIndex(
-      (item) => item.selectedButton === null
-    );
+      const firstUncheckedSlide = sliderItems.findIndex(
+        (item) => item.selectedButton === null
+      );
 
-    if (firstUncheckedSlide !== -1 && sliderRef.current) {
-      sliderRef.current.slickGoTo(firstUncheckedSlide);
-    }
-  }, [currentSlide, sliderItems, totalSlides]);
+      if (firstUncheckedSlide !== -1 && sliderRef.current) {
+        sliderRef.current.slickGoTo(firstUncheckedSlide);
+        return;
+      }
+
+      whenAllResponseCallback();
+    },
+    [currentSlide, sliderItems, totalSlides]
+  );
 
   const handleSlideChange = useCallback((current) => {
     setCurrentSlide(current);
