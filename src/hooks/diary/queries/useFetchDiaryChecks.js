@@ -9,10 +9,11 @@ import { useCalendarStore } from "../../../stores/CalendarStore";
  *    isFetching: boolean,
  *    isCanRender: boolean,
  *    isDiaryExistDay : (day : number) => boolean
+ *    isDiaryExist: boolean
  * }}
  */
 const useFetchDiaryChecks = () => {
-  let { selectedYearMonth } = useCalendarStore((state) => state);
+  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state);
   let {
     isFetching,
     isSuccess,
@@ -35,10 +36,13 @@ const useFetchDiaryChecks = () => {
     ]?.[day]?.isExist;
   };
 
+  const isDiaryExist = isDiaryExistDay(selectedDate.day);
+
   return {
     isFetching,
     isCanRender,
     diaryChecks,
+    isDiaryExist,
     isDiaryExistDay,
   };
 };
