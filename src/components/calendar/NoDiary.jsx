@@ -26,7 +26,7 @@ const GoWriteDiaryButton = () => {
       }
     >
       <img src={btn_diary} className={"h-full"} />
-      <div className={"text-3xl text-[#5B5B5B] tablet:text-4xl"}>
+      <div className={"text-3xl text-[#5B5B5B] tablet:text-5xl"}>
         일기 쓰러 가기
       </div>
     </div>
