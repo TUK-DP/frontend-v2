@@ -1,39 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { dateToDotString } from "../../utils/api/dateConverter";
 import { useCalendarStore } from "../../stores/CalendarStore";
-import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
-import { useInput } from "../../hooks/inputs/useInput";
 import TextareaAutosize from "react-textarea-autosize";
 import DiaryKeywordImagesSlider from "../../components/diaryDetail/DiaryKeywordImagesSlider";
 import DiaryControlButton from "./DiaryControlButton";
-import { useIsMutating } from "@tanstack/react-query";
+import useDiaryControl from "../../hooks/diaryDetail/useDiaryControl";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
 const DiaryDetail = () => {
-  let { diary, isDiaryExist } = useFetchDiary();
-  const content = diary?.content;
-
-  let { form, handleChangeInput } = useInput({
-    content: content || "",
-  });
-  const { selectedDate } = useCalendarStore((state) => state);
-
-  const isMutating = useIsMutating({ mutationKey: ["diary", selectedDate] });
-
-  const [controlState, setControlState] = useState({
-    isEditActive: !isDiaryExist,
-    controlButtonActive: true,
-    controlButtonText: `${!isDiaryExist ? "작성하기" : "수정하기"}`,
-    controlButtonMessage: isMutating ? "키워드 추출중입니다!" : " ",
-  });
+  let { handleClick, controlState, content, handleChangeInput } =
+    useDiaryControl();
 
   return (
     <div className={"flex flex-col gap-10 px-10 pb-10"}>
       <DiaryDate />
       <DiaryKeywordImagesSlider />
       <TextareaAutosize
-        value={form.content}
+        value={content}
         disabled={!controlState.isEditActive}
         className={
           "bg-transparent resize-none overflow-hidden text-3xl outline-none whitespace-pre-wrap"
@@ -43,9 +27,9 @@ const DiaryDetail = () => {
         onChange={handleChangeInput}
       />
       <DiaryControlButton
-        content={form.content}
+        content={content}
         controlState={controlState}
-        setControlState={setControlState}
+        handleClick={handleClick}
       />
     </div>
   );

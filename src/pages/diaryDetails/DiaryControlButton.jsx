@@ -16,14 +16,14 @@ import Spinner from "../../components/Spinner";
  * @param content {string}
  * @param className {string}
  * @param controlState {ControlState}
- * @param setControlState {React.Dispatch<React.SetStateAction<ControlState>>}
+ * @param handleClick {(whenDiaryAction : () => void) => void}
  * @param props {React.HTMLProps}
  */
 const DiaryControlButton = ({
   content,
   className,
   controlState,
-  setControlState,
+  handleClick,
   ...props
 }) => {
   const { selectedDate, selectedYearMonth } = useCalendarStore(
@@ -73,38 +73,6 @@ const DiaryControlButton = ({
   });
   const isMutating = useIsMutating(["diary", selectedDate]);
 
-  const handleClick = (e) => {
-    // 수정하기 버튼 클릭시 수정 완료 버튼으로 변경
-    if (!controlState.isEditActive) {
-      setControlState({
-        ...controlState,
-        isEditActive: true,
-        controlButtonText: "수정 완료",
-      });
-      return;
-    }
-
-    // 일기 내용이 없을 때
-    if (content === "") {
-      setControlState({
-        ...controlState,
-        controlButtonMessage: "일기를 입력해주세요.",
-      });
-      return;
-    }
-
-    // 일기 내용이 있을 때 일기 저장
-    setControlState({
-      ...controlState,
-      isEditActive: false,
-      controlButtonActive: false,
-      controlButtonMessage: "키워드 추출중입니다!",
-    });
-
-    // 일기 저장 API 호출
-    mutate();
-  };
-
   return (
     <>
       <div
@@ -114,7 +82,7 @@ const DiaryControlButton = ({
       </div>
       <button
         disabled={isMutating || !controlState.controlButtonActive}
-        onClick={handleClick}
+        onClick={() => handleClick(mutate)}
         className={`border-2 bg-secondary-400 rounded-lg text-2xl py-3 ${className}`}
         {...props}
       >
