@@ -10,13 +10,13 @@ const settings = {
 };
 
 const DiaryKeywordImagesSlider = () => {
-  let { isDiaryExist, diary } = useFetchDiary();
+  let { isDiaryExist, isCanRender, diary } = useFetchDiary();
 
-  if (!isDiaryExist) {
+  if (!isDiaryExist || !isCanRender) {
     return null;
   }
 
-  const keywords = diary.data.result[0].keywords;
+  const keywords = diary.keywords;
 
   if (!keywords.some(({ imgUrl }) => imgUrl)) {
     return <NoDiaryImage />;
