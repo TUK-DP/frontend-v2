@@ -16,7 +16,7 @@ const useFetchDiary = () => {
     isSuccess,
     data: diary,
   } = useQuery({
-    queryKey: ["diary", selectedDate],
+    queryKey: diaryQueryKey(selectedDate),
     queryFn: () =>
       DiaryController.findDiaryByUserIdAndDate(2, {
         date: dateToDashString(selectedDate),
@@ -28,6 +28,10 @@ const useFetchDiary = () => {
   const isCanRender = !isFetching && isSuccess;
 
   return { isFetching, isCanRender, diary, isDiaryExist };
+};
+
+export const diaryQueryKey = (selectedDate) => {
+  return ["diary", selectedDate];
 };
 
 export default useFetchDiary;
