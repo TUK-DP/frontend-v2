@@ -9,7 +9,7 @@ import { Api } from "./common.controller";
  *
  *
  * @typedef {{
- *   id : number,
+ *   diaryId : number,
  *   title : string,
  *   createDate : string - YYYY-MM-DD,
  *   content : string,
@@ -48,8 +48,8 @@ class DiaryController extends Api {
     return await this.get("/diary/check", { userId, year, month });
   };
 
-  //일기 작성
   /**
+   * 일기 작성
    * @param userId {number}
    * @param title {string?}
    * @param content {string}
@@ -59,11 +59,33 @@ class DiaryController extends Api {
   createDiary = async ({ userId, title = "쓰레기값", content, date }) => {
     return await this.post("/diary", { userId, title, content, date });
   };
-  // //일기 수정
-  // updateDiary = async (diaryId, diaryData) => {
-  //   return await this.patch(`/diary/${diaryId}`, { data: diaryData });
-  // };
-  // // 일기 삭제
+
+  /**
+   * 일기 수정
+   * @param diaryId {number}
+   * @param userId {number}
+   * @param title {string?}
+   * @param content {string?}
+   * @param date {string?} - YYYY-MM-DD
+   * @return {Promise<AxiosResponse<ApiResponse<Diary>>>}
+   */
+  updateDiary = async ({
+    diaryId,
+    userId,
+    title = "쓰레기값",
+    content,
+    date,
+  }) => {
+    return await this.patch(`/diary/${diaryId}`, {
+      diaryId,
+      userId,
+      title,
+      content,
+      date,
+    });
+  };
+
+  // 일기 삭제
   // deleteDiary = async (diaryId, diaryData) => {
   //   return await this.delete(`/diary/${diaryId}`);
   // };
