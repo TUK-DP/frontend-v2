@@ -41,6 +41,9 @@ import DiaryRecall, {
   DIARY_RECALL_PAGE_PATH,
 } from "./pages/diarys/DiaryRecall";
 import Gym, { GYM_PAGE_PATH } from "./pages/gym/Gym";
+import DiagnosisResult, {
+  DIAGNOSIS_RESULT_PAGE_PATH,
+} from "./pages/dementiaDiagnosis/DiagnosisResult";
 
 function App() {
   return (
@@ -85,6 +88,11 @@ function App() {
             <Route
               path={DEMENTIA_CENTER_PAGE_PATH}
               element={<DementiaCenter />}
+            />
+
+            <Route
+              path={DIAGNOSIS_RESULT_PAGE_PATH}
+              element={<DiagnosisResult />}
             />
 
             {/* 헤더바 + 종이 배경 */}
