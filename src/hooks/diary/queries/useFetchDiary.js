@@ -2,15 +2,14 @@ import useFetchDiaryChecks from "./useFetchDiaryChecks";
 import { useQuery } from "@tanstack/react-query";
 import DiaryController from "../../../apis/diary.controller";
 import { dateToDashString, HOUR } from "../../../utils/api/dateConverter";
+import { useCalendarStore } from "../../../stores/CalendarStore";
 
 /**
  * @return {{diary: AxiosResponse<ApiResponse<Diary[]>>, isFetching: boolean, isDiaryExist: boolean, isCanRender: boolean}}
  */
-const useFetchDiary = ({ selectedDate }) => {
-  const { isDiaryExist } = useFetchDiaryChecks({
-    selectedYearMonth: { ...selectedDate },
-    day: selectedDate.day,
-  });
+const useFetchDiary = () => {
+  const { selectedDate } = useCalendarStore((state) => state);
+  const { isDiaryExist } = useFetchDiaryChecks();
 
   const {
     isFetching,
