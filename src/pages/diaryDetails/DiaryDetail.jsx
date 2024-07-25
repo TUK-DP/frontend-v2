@@ -5,6 +5,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import DiaryKeywordImagesSlider from "../../components/diaryDetail/DiaryKeywordImagesSlider";
 import DiaryControlButton from "./DiaryControlButton";
 import useDiaryControl from "../../hooks/diaryDetail/useDiaryControl";
+import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
@@ -12,13 +13,15 @@ const DiaryDetail = () => {
   let { handleClick, controlState, content, handleChangeInput } =
     useDiaryControl();
 
+  let { isMutating } = useCreateDiary();
+
   return (
     <div className={"flex flex-col gap-10 px-10 pb-10"}>
       <DiaryDate />
       <DiaryKeywordImagesSlider />
       <TextareaAutosize
         value={content}
-        disabled={!controlState.isEditActive}
+        disabled={isMutating || !controlState.isEditActive}
         className={
           "bg-transparent resize-none overflow-hidden text-3xl outline-none whitespace-pre-wrap"
         }
@@ -51,12 +54,3 @@ const DiaryDate = () => {
 };
 
 export default DiaryDetail;
-
-/**
- * @typedef {{
- *   isEditActive: boolean,
- *   controlButtonActive: boolean,
- *   controlButtonText: string,
- *   controlButtonMessage: string
- * }} ControlState
- */
