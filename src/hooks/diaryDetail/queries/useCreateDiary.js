@@ -23,7 +23,6 @@ const useCreateDiary = () => {
   const { mutate } = useMutation({
     mutationKey: ["diary", "create", selectedDate],
     mutationFn: async (content) => {
-      await delay(6000);
       return await DiaryController.createDiary({
         userId: 2,
         content,

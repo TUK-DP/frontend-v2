@@ -24,7 +24,6 @@ const useUpdateDiary = () => {
   const { mutate } = useMutation({
     mutationKey: ["diary", "update", selectedDate],
     mutationFn: async (content) => {
-      await delay(6000);
       return await DiaryController.updateDiary({
         userId: 2,
         diaryId: diary.diaryId,
