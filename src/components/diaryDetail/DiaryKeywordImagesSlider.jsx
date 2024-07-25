@@ -2,6 +2,7 @@ import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
 import Slider from "react-slick";
 import React from "react";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
+import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
 
 const settings = {
   infinite: false,
@@ -12,7 +13,10 @@ const settings = {
 
 const DiaryKeywordImagesSlider = () => {
   let { isDiaryExist, isCanRender, diary } = useFetchDiary();
-  let { isMutating } = useCreateDiary();
+  // console.log(isMutating);
+  const create = useCreateDiary();
+  const update = useUpdateDiary();
+  let isMutating = create.isMutating || update.isMutating;
 
   if (!isDiaryExist || !isCanRender || isMutating) {
     return null;

@@ -6,6 +6,7 @@ import DiaryKeywordImagesSlider from "../../components/diaryDetail/DiaryKeywordI
 import DiaryControlButton from "./DiaryControlButton";
 import useDiaryControl from "../../hooks/diaryDetail/useDiaryControl";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
+import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
@@ -13,7 +14,9 @@ const DiaryDetail = () => {
   let { handleClick, controlState, content, handleChangeInput } =
     useDiaryControl();
 
-  let { isMutating } = useCreateDiary();
+  const create = useCreateDiary();
+  const update = useUpdateDiary();
+  let isMutating = create.isMutating || update.isMutating;
 
   return (
     <div className={"flex flex-col gap-10 px-10 pb-10"}>

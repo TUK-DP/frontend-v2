@@ -1,5 +1,7 @@
 import Spinner from "../../components/Spinner";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
+import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
+import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
 
 /**
  * @param content {string}
@@ -15,7 +17,11 @@ const DiaryControlButton = ({
   handleClick,
   ...props
 }) => {
-  let { isMutating, mutate } = useCreateDiary();
+  let { isDiaryExist } = useFetchDiary();
+  const create = useCreateDiary();
+  const update = useUpdateDiary();
+
+  const isMutating = create.isMutating || update.isMutating;
 
   return (
     <>
@@ -26,7 +32,11 @@ const DiaryControlButton = ({
       </div>
       <button
         disabled={isMutating}
-        onClick={() => handleClick(() => mutate(content))}
+        onClick={() =>
+          handleClick(() => {
+            isDiaryExist ? update.mutate(content) : create.mutate(content);
+          })
+        }
         className={`border-2 bg-secondary-400 rounded-lg text-2xl py-3 ${className}`}
         {...props}
       >
