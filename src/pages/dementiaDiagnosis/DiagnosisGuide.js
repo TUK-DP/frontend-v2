@@ -1,9 +1,13 @@
 import React from "react";
 import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
+import { DIAGNOSIS_PAGE_PATH } from "./Diagnosis";
 
 export const DIAGNOSIS_GUIDE_PAGE_PATH = "/diagnosisguide";
 
 const DiagnosisGuide = () => {
+  let navigate = useNavigate();
+
   return (
     <div className="flex flex-col">
       <DiagnosisIntro />
@@ -11,7 +15,13 @@ const DiagnosisGuide = () => {
       <div className="text-[#FF3C3C] mt-16 md:mt-20 mb-2 md:mb-4 px-4 md:px-7 md:text-2xl break-keep">
         정확한 진단이 필요하다면 전문의의 도움을 받으세요
       </div>
-      <Button text="진단시작" className={"mx-4 md:mx-7 md:h-16 md:text-3xl"} />
+      <Button
+        text="진단시작"
+        className={"mx-4 md:mx-7 md:h-16 md:text-3xl"}
+        onClick={() => {
+          navigate(DIAGNOSIS_PAGE_PATH);
+        }}
+      />
     </div>
   );
 };
