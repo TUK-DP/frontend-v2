@@ -11,20 +11,18 @@ import { useNavigate } from "react-router-dom";
 export const DIAGNOSIS_PAGE_PATH = "/diagnosis";
 
 const Diagnosis = () => {
-  const totalSlides = 15;
   const {
     sliderRef,
     currentSlide,
-    selectedButtons,
+    setCurrentSlide,
+    sliderItems,
     handlePrevClick,
     handleNextClick,
-    handleSlideChange,
     handleResponse,
     handleStepClick,
-    icons,
-  } = useDiagnosisSlider(totalSlides);
+  } = useDiagnosisSlider();
 
-  const isLastSlide = currentSlide === totalSlides - 1;
+  const isLastSlide = currentSlide.id === sliderItems.length - 1;
 
   let navigate = useNavigate();
 
@@ -38,18 +36,9 @@ const Diagnosis = () => {
 
   return (
     <div>
-      <Stepper
-        currentStep={currentSlide}
-        totalSteps={totalSlides}
-        selectedButtons={selectedButtons}
-        onStepClick={handleStepClick}
-        icons={icons}
-      />
+      <Stepper {...{ currentSlide, sliderItems, handleStepClick }} />
       <DiagnosisSlider
-        sliderRef={sliderRef}
-        onSlideChange={handleSlideChange}
-        selectedButtons={selectedButtons}
-        onResponse={handleResponse}
+        {...{ sliderRef, sliderItems, setCurrentSlide, handleResponse }}
       />
       <div className="w-full flex justify-between mt-16 md:mt-24 px-5 md:px-9">
         <SliderPrevButton onClick={handlePrevClick} />
