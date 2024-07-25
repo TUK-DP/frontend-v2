@@ -19,7 +19,7 @@ const useFetchDiaryChecks = () => {
     isSuccess,
     data: diaryChecks,
   } = useQuery({
-    queryKey: ["diaries", { ...selectedYearMonth }],
+    queryKey: diaryCheckQueryKey(selectedYearMonth),
     queryFn: () =>
       DiaryController.findCheckDiaries({
         userId: 2,
@@ -45,6 +45,10 @@ const useFetchDiaryChecks = () => {
     isDiaryExist,
     isDiaryExistDay,
   };
+};
+
+export const diaryCheckQueryKey = (selectedYearMonth) => {
+  return ["diary", "check", selectedYearMonth];
 };
 
 export default useFetchDiaryChecks;
