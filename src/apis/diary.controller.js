@@ -1,6 +1,4 @@
 import { Api } from "./common.controller";
-import { delay } from "../utils/api/delay";
-import { SECONDS } from "../utils/api/dateConverter";
 
 /**
  * @typedef {{
@@ -50,10 +48,17 @@ class DiaryController extends Api {
     return await this.get("/diary/check", { userId, year, month });
   };
 
-  // //일기 작성
-  // writeDiary = async (diaryData) => {
-  //   return await this.post("/diary", { data: diaryData });
-  // };
+  //일기 작성
+  /**
+   * @param userId {number}
+   * @param title {string?}
+   * @param content {string}
+   * @param date {string} - YYYY-MM-DD
+   * @return {Promise<AxiosResponse<ApiResponse<Diary>>>}
+   */
+  createDiary = async ({ userId, title = "쓰레기값", content, date }) => {
+    return await this.post("/diary", { userId, title, content, date });
+  };
   // //일기 수정
   // updateDiary = async (diaryId, diaryData) => {
   //   return await this.patch(`/diary/${diaryId}`, { data: diaryData });
