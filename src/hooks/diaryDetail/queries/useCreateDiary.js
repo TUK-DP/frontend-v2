@@ -9,9 +9,7 @@ import {
   dateToDashString,
   yearMonthToDashString,
 } from "../../../utils/api/dateConverter";
-import useFetchDiary, {
-  diaryQueryKey,
-} from "../../diary/queries/useFetchDiary";
+import { diaryQueryKey } from "../../diary/queries/useFetchDiary";
 import { useCalendarStore } from "../../../stores/CalendarStore";
 import DiaryController from "../../../apis/diary.controller";
 
@@ -19,12 +17,11 @@ const useCreateDiary = () => {
   const { selectedDate, selectedYearMonth } = useCalendarStore(
     (state) => state
   );
-  let { isDiaryExist } = useFetchDiary();
 
   let queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationKey: ["diary", selectedDate],
+    mutationKey: ["diary", "create", selectedDate],
     mutationFn: async (content) => {
       await delay(6000);
       return await DiaryController.createDiary({
@@ -34,10 +31,6 @@ const useCreateDiary = () => {
       });
     },
     onMutate: async (content) => {
-      console.log(content);
-      // 일기 저장 전에 일기가 있는지 확인
-      if (isDiaryExist) return;
-
       queryClient.setQueryData(
         diaryCheckQueryKey(selectedYearMonth),
         (old) => ({
@@ -63,7 +56,7 @@ const useCreateDiary = () => {
   });
 
   const isMutating = useIsMutating({
-    mutationKey: ["diary", selectedDate],
+    mutationKey: ["diary", "create", selectedDate],
   });
 
   return { mutate, isMutating: isMutating === 1 };
