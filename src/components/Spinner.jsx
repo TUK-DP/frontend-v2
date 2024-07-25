@@ -1,8 +1,8 @@
 import React from "react";
 import { SyncLoader } from "react-spinners";
 
-const Spinner = () => {
-  return <SyncLoader color="#FFFFFF" />;
+const Spinner = ({ color = "#FFFFFF" }) => {
+  return <SyncLoader color={color} />;
 };
 
 export default Spinner;
