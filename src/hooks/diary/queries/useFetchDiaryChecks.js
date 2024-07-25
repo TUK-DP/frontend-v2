@@ -5,7 +5,7 @@ import { useCalendarStore } from "../../../stores/CalendarStore";
 
 /**
  * @return {{
- *    diaryChecks: AxiosResponse<ApiResponse<CheckDiaries>>,
+ *    diaryChecks: CheckDiaries,
  *    isFetching: boolean,
  *    isCanRender: boolean,
  *    isDiaryExistDay : (day : number) => boolean
@@ -20,20 +20,21 @@ const useFetchDiaryChecks = () => {
     data: diaryChecks,
   } = useQuery({
     queryKey: diaryCheckQueryKey(selectedYearMonth),
-    queryFn: () =>
-      DiaryController.findCheckDiaries({
+    queryFn: async () => {
+      const response = await DiaryController.findCheckDiaries({
         userId: 2,
         ...selectedYearMonth,
-      }),
+      });
+      return response.data.result;
+    },
     staleTime: HOUR * 2,
   });
 
   const isCanRender = !isFetching && isSuccess;
 
   const isDiaryExistDay = (day) => {
-    return diaryChecks?.data?.result?.[
-      yearMonthToDashString({ ...selectedYearMonth, day })
-    ]?.[day]?.isExist;
+    return diaryChecks?.[yearMonthToDashString({ ...selectedYearMonth })]?.[day]
+      ?.isExist;
   };
 
   const isDiaryExist = isDiaryExistDay(selectedDate.day);
