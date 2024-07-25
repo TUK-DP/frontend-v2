@@ -6,22 +6,26 @@ import { useInput } from "../../hooks/inputs/useInput";
 import TextareaAutosize from "react-textarea-autosize";
 import DiaryKeywordImagesSlider from "../../components/diaryDetail/DiaryKeywordImagesSlider";
 import DiaryControlButton from "./DiaryControlButton";
+import { useIsMutating } from "@tanstack/react-query";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
 const DiaryDetail = () => {
   let { diary, isDiaryExist } = useFetchDiary();
-  const content = diary?.data?.result?.[0]?.content;
+  const content = diary?.content;
 
   let { form, handleChangeInput } = useInput({
     content: content || "",
   });
+  const { selectedDate } = useCalendarStore((state) => state);
+
+  const isMutating = useIsMutating({ mutationKey: ["diary", selectedDate] });
 
   const [controlState, setControlState] = useState({
     isEditActive: !isDiaryExist,
     controlButtonActive: true,
     controlButtonText: `${!isDiaryExist ? "작성하기" : "수정하기"}`,
-    controlButtonMessage: "",
+    controlButtonMessage: isMutating ? "키워드 추출중입니다!" : " ",
   });
 
   return (
