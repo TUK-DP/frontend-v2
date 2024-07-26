@@ -5,50 +5,51 @@ import {
   TOP_POSITION,
 } from "../../layouts/BottomSheetLayout";
 import { CalendarDetail } from "../../components/calendar_detail/CalendarDetail";
-import { useState } from "react";
-import { getNow } from "../../utils/calendar/date";
+import { useEffect, useState } from "react";
+import useFetchDiaryChecks from "../../hooks/diary/queries/useFetchDiaryChecks";
+import NoDiary from "../../components/calendar/NoDiary";
+import { useCalendarStore } from "../../stores/CalendarStore";
 
 export const DIARY_PAGE_PATH = "/diary";
 
 const Diary = () => {
-  const [position, setPosition] = useState(BOTTOM_POSITION);
-  const { year, month, day } = getNow();
+  let { selectedDate } = useCalendarStore((state) => state);
 
-  const [selectedYearMonth, setSelectedYearMonth] = useState({
-    year,
-    month,
-  });
-
-  const [selectedDate, setSelectedDate] = useState({
-    year,
-    month,
-    day,
-  });
-
-  // 날짜 선택 시, BottomSheet를 TOP_POSITION으로 변경하고 선택된 날짜를 설정
-  const setSelectedDateWithBottomSheet = (...args) => {
-    setPosition(TOP_POSITION);
-    setSelectedDate(...args);
-  };
-
-  const setSelectedYearMonthWithBottomSheet = (...args) => {
-    setPosition(BOTTOM_POSITION);
-    setSelectedYearMonth(...args);
-  };
+  let { position, setPosition, isDiaryExistDay } = useBottomSheetPosition();
 
   return (
     <>
-      <Calendar
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDateWithBottomSheet}
-        selectedYearMonth={selectedYearMonth}
-        setSelectedYearMonth={setSelectedYearMonthWithBottomSheet}
-      />
-      <BottomSheetLayout position={position} setPosition={setPosition}>
-        <CalendarDetail selectedDate={selectedDate} />
+      <Calendar />
+      <BottomSheetLayout {...{ position, setPosition }}>
+        <CalendarDetail />
       </BottomSheetLayout>
+      <NoDiary isExist={isDiaryExistDay(selectedDate.day)} />
     </>
   );
+};
+
+const useBottomSheetPosition = () => {
+  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state);
+
+  const [position, setPosition] = useState(BOTTOM_POSITION);
+
+  let { isDiaryExistDay } = useFetchDiaryChecks();
+
+  // 선택된 날짜에 일기가 존재하는지 확인하여 BottomSheet 의 위치를 설정
+  useEffect(() => {
+    if (isDiaryExistDay(selectedDate.day)) {
+      setPosition(TOP_POSITION);
+      return;
+    }
+    setPosition(BOTTOM_POSITION);
+  }, [selectedDate]);
+
+  // 달이 변경되면 BottomSheet 의 위치를 초기화
+  useEffect(() => {
+    setPosition(BOTTOM_POSITION);
+  }, [selectedYearMonth]);
+
+  return { position, setPosition, isDiaryExistDay };
 };
 
 export default Diary;

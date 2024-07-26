@@ -4,10 +4,18 @@ import { SECONDS } from "../utils/api/dateConverter";
 
 /**
  * @typedef {{
+ *   keywordId : number,
+ *   keyword : string,
+ *   imgUrl : string,
+ * }} Keyword
+ *
+ *
+ * @typedef {{
  *   id : number,
  *   title : string,
  *   createDate : string - YYYY-MM-DD,
  *   content : string,
+ *   keywords : Keyword[],
  *   imgUrl : string,
  * }} Diary
  *
@@ -29,7 +37,7 @@ class DiaryController extends Api {
   //유저의 일기 조회
 
   /**
-   * @return {Promise<AxiosResponse<ApiResponse<Diary>>>}
+   * @return {Promise<AxiosResponse<ApiResponse<Diary[]>>>}
    */
   findDiaryByUserIdAndDate = async (userId, { date }) => {
     return await this.get(`/diary/user/${userId}`, { date });

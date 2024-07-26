@@ -1,5 +1,6 @@
 import {
   CALENDAR_HEADER,
+  getCalendarDaysInMonth,
   isEqualDate,
   isSaturday,
   isSunday,
@@ -7,23 +8,14 @@ import {
 import { dateToDashString } from "../../utils/api/dateConverter";
 import { ResponseSkeleton } from "../skeleton/ResponseSkeleton";
 import useFetchDiaryChecks from "../../hooks/diary/queries/useFetchDiaryChecks";
+import { useCalendarStore } from "../../stores/CalendarStore";
 
-export const CalendarGrid = ({
-  days,
-  selectedYearMonth,
-  selectedDate,
-  setSelectedDate,
-}) => {
+export const CalendarGrid = () => {
   return (
     <>
       <div className={"grid grid-cols-7 gap-2 text-4xl mobile:text-2xl"}>
         <CalendarHeader />
-        <CalenderBody
-          days={days}
-          selectedYearMonth={selectedYearMonth}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
+        <CalenderBody />
       </div>
     </>
   );
@@ -35,12 +27,14 @@ const CalendarHeader = () => {
   ));
 };
 
-const CalenderBody = ({
-  days,
-  selectedYearMonth,
-  selectedDate,
-  setSelectedDate,
-}) => {
+const CalenderBody = () => {
+  let { setSelectedDate, selectedYearMonth } = useCalendarStore(
+    (state) => state
+  );
+
+  // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
+  const days = getCalendarDaysInMonth({ ...selectedYearMonth });
+
   const handleClickCell = (day) => {
     if (!day) return;
 
@@ -53,7 +47,7 @@ const CalenderBody = ({
   return days.map((day, index) => (
     <CalendarBodyCell
       key={dateToDashString({ ...selectedYearMonth, day: index })}
-      {...{ day, selectedYearMonth, selectedDate, handleClickCell }}
+      {...{ day, handleClickCell }}
     />
   ));
 };
@@ -74,17 +68,10 @@ const CalendarHeaderCell = ({ index, day, className }) => {
   );
 };
 
-const CalendarBodyCell = ({
-  selectedYearMonth,
-  selectedDate,
-  handleClickCell,
-  day,
-  index,
-}) => {
-  let { isFetching, isCanRender, isDiaryExist } = useFetchDiaryChecks({
-    selectedYearMonth,
-    day,
-  });
+const CalendarBodyCell = ({ handleClickCell, day, index }) => {
+  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state); // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
+
+  let { isCanRender, isDiaryExistDay } = useFetchDiaryChecks();
 
   const isSelectedCell = (day) => {
     return isEqualDate(selectedDate, {
@@ -106,7 +93,10 @@ const CalendarBodyCell = ({
             <CellWithCircle
               {...{ isSelectedCell, index, day, handleClickCell }}
             />
-            <Dot isVisible={isDiaryExist} isSelected={isSelectedCell(day)} />
+            <Dot
+              isVisible={isDiaryExistDay(day)}
+              isSelected={isSelectedCell(day)}
+            />
           </>
         )}
       </div>

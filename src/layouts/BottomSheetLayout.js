@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export const TOP_POSITION = "top_position";
-export const MIDDLE_POSITION = "middle_position";
+// export const MIDDLE_POSITION = "middle_position";
 export const BOTTOM_POSITION = "bottom_position";
 
 export const BottomSheetLayout = ({
@@ -25,9 +25,9 @@ export const BottomSheetLayout = ({
       case TOP_POSITION:
         setStaticContainerTop(0);
         break;
-      case MIDDLE_POSITION:
-        setStaticContainerTop(middleTop);
-        break;
+      // case MIDDLE_POSITION:
+      //   setStaticContainerTop(middleTop);
+      //   break;
       case BOTTOM_POSITION:
         setStaticContainerTop("100%");
         break;
@@ -75,18 +75,20 @@ export const BottomSheetLayout = ({
     // 아래로 움직였다면
     if (movingContainerTop > staticContainerTop) {
       // 만약 MIDDLE 에서 움직였다면 BOTTOM으로 이동
-      if (position === MIDDLE_POSITION) {
-        setPosition(BOTTOM_POSITION);
-        return;
-      }
+      // if (position === MIDDLE_POSITION) {
+      //   setPosition(BOTTOM_POSITION);
+      //   return;
+      // }
 
       // 만약 TOP에서 움직였다면 MIDDlE 으로 이동
-      setPosition(MIDDLE_POSITION);
+      // setPosition(MIDDLE_POSITION);
+
+      setPosition(BOTTOM_POSITION);
 
       // 만약 container 가 MIDDLE의 top 보다 offset 만큼 더 내려갔다면 BOTTOM으로 이동
-      if (movingContainerTop >= middleTop + offset) {
-        setPosition(BOTTOM_POSITION);
-      }
+      // if (movingContainerTop >= middleTop + offset) {
+      //   setPosition(BOTTOM_POSITION);
+      // }
     }
 
     // 위로 움직였다면

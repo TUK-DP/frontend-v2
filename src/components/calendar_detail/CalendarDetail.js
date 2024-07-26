@@ -7,16 +7,23 @@ import useGoDiary from "../../hooks/diary/useGoDiary";
 import { useNavigate } from "react-router-dom";
 import { DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/DiaryRecall";
 import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
+import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
 
-export const CalendarDetail = ({ selectedDate }) => {
+export const CalendarDetail = () => {
+  const { isCanRender } = useFetchDiary();
+
   return (
     <div
       className={
         "flex flex-col gap-12 bg-primary-600 p-4 pt-20 h-full rounded-t-2xl"
       }
     >
-      <WhatHappenSection />
-      <GoDrawingSection />
+      {isCanRender && (
+        <>
+          <WhatHappenSection />
+          <GoDrawingSection />
+        </>
+      )}
     </div>
   );
 };
