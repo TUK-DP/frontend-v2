@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ColorPicker } from "react-color-palette";
 import "react-color-palette/css";
+import { pickerHeight, mdPickerHeight } from "../../constants/size";
 
 const ColorPickerComp = ({
   color,
@@ -8,19 +9,21 @@ const ColorPickerComp = ({
   setSelectedColor,
   setColorPickerOpen,
 }) => {
-  const [pickerHeight, setPickerHeight] = useState(200);
+  const [colorPickerHeight, setColorPickerHeight] = useState(pickerHeight);
+
   useEffect(() => {
     const updateHeight = () => {
       if (window.innerWidth >= 768) {
-        setPickerHeight(240);
+        setColorPickerHeight(mdPickerHeight);
       } else {
-        setPickerHeight(200);
+        setColorPickerHeight(pickerHeight);
       }
     };
 
-    // Set the initial height
     updateHeight();
   }, []);
+  console.log(colorPickerHeight);
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-[20rem] md:w-[35rem] md:h-[30rem]">
@@ -31,7 +34,7 @@ const ColorPickerComp = ({
           color={color}
           onChange={setColor}
           hideInput={["rgb", "hsv", "hex"]} // 옵션 숨기기
-          height={pickerHeight}
+          height={colorPickerHeight}
         />
         <div className="flex items-center justify-between mt-6">
           <ColorState color={color} />
