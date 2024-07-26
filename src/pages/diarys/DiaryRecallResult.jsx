@@ -61,7 +61,7 @@ const DiaryRecallResult = () => {
         <span className={"text-9xl text-green-500"}>{score}</span> /{" "}
         <span>{total}</span>
       </div>
-      <div className={"flex flex-col flex-1 justify-center gap-6"}>
+      <div className={"flex flex-col flex-1 gap-6"}>
         {questions.map((question, index) => (
           <AnswerBox
             check={check.answerList[index]}
