@@ -1,4 +1,6 @@
 import btn_diary from "../../assets/home/button/btn_diary.png";
+import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
+import { useNavigate } from "react-router-dom";
 
 const NoDiary = ({ isExist }) => {
   if (isExist) {
@@ -19,8 +21,12 @@ const NoDiary = ({ isExist }) => {
 };
 
 const GoWriteDiaryButton = () => {
+  let navigate = useNavigate();
   return (
     <div
+      onClick={() => {
+        navigate(DIARY_DETAIL_PAGE_PATH);
+      }}
       className={
         "flex items-center border-2 rounded-xl h-40 p-4 bg-secondary-600 tablet:h-64 cursor-pointer"
       }

@@ -33,7 +33,8 @@ const useFetchDiary = () => {
 };
 
 export const diaryQueryKey = (selectedDate) => {
-  return ["diary", selectedDate];
+  const { year, month, day } = selectedDate;
+  return ["diary", year, month, day];
 };
 
 export default useFetchDiary;

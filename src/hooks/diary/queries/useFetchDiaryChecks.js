@@ -49,7 +49,8 @@ const useFetchDiaryChecks = () => {
 };
 
 export const diaryCheckQueryKey = (selectedYearMonth) => {
-  return ["diary", "check", selectedYearMonth];
+  const { year, month } = selectedYearMonth;
+  return ["diary", year, month];
 };
 
 export default useFetchDiaryChecks;
