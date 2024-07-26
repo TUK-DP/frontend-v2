@@ -11,7 +11,7 @@ const useDiaryControl = () => {
 
   const [controlState, setControlState] = useState({
     isEditActive: !isDiaryExist,
-    controlButtonText: `${!isDiaryExist ? "작성하기" : "수정하기"}`,
+    controlButtonText: `${!isDiaryExist ? "저장" : "수정하기"}`,
     controlButtonMessage: " ",
   });
 
