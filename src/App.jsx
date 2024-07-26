@@ -1,5 +1,7 @@
 import "./index.css";
 import "./App.css";
+import { useEffect } from "react";
+import { useFontSize } from "./contexts/FontSizeContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
@@ -46,6 +48,13 @@ import DiagnosisResult, {
 } from "./pages/dementiaDiagnosis/DiagnosisResult";
 
 function App() {
+  const { fontSize } = useFontSize();
+
+  useEffect(() => {
+    // 페이지 로드 시 폰트 크기 설정
+    document.documentElement.style.fontSize = fontSize;
+  }, [fontSize]);
+
   return (
     <MobileResponsiveLayout>
       <BrowserRouter>
