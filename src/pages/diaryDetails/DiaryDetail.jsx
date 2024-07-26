@@ -11,7 +11,7 @@ import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
 const DiaryDetail = () => {
-  let { handleClick, controlState, content, handleChangeInput } =
+  let { handleClick, controlState, content, handleChangeInput, textAreaRef } =
     useDiaryControl();
 
   const create = useCreateDiary();
@@ -23,6 +23,7 @@ const DiaryDetail = () => {
       <DiaryDate />
       <DiaryKeywordImagesSlider />
       <TextareaAutosize
+        ref={textAreaRef}
         value={content}
         disabled={isMutating || !controlState.isEditActive}
         className={

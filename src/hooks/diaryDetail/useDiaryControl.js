@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useFetchDiary from "../diary/queries/useFetchDiary";
 import { useInput } from "../inputs/useInput";
 
 const useDiaryControl = () => {
   let { isDiaryExist, diary } = useFetchDiary();
+  const textAreaRef = useRef(null);
 
   let { form, handleChangeInput } = useInput({
     content: diary?.content || "",
@@ -16,23 +17,25 @@ const useDiaryControl = () => {
   });
 
   // 저장이나 수정 버튼 클릭 이벤트
-  const handleClick = (whenDiaryAction) => {
+  const handleClick = async (whenDiaryAction) => {
     // 수정하기 버튼 클릭시 수정 완료 버튼으로 변경
     if (!controlState.isEditActive) {
-      setControlState({
+      await setControlState({
         ...controlState,
         isEditActive: true,
         controlButtonText: "수정 완료",
       });
+      textAreaRef.current.focus();
       return;
     }
 
     // 일기 입력한 내용이 없을 때
     if (form.content === "") {
-      setControlState({
+      await setControlState({
         ...controlState,
         controlButtonMessage: "일기를 입력해주세요.",
       });
+      textAreaRef.current.focus();
       return;
     }
 
@@ -53,6 +56,7 @@ const useDiaryControl = () => {
     handleChangeInput,
     controlState,
     handleClick,
+    textAreaRef,
   };
 };
 
