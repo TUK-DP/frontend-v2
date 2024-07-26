@@ -3,47 +3,15 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
-import Signup, { SIGNUP_PAGE_PATH } from "./pages/auths/Signup";
-import Signin, { SIGNIN_PAGE_PATH } from "./pages/auths/Signin";
-import DiagnosisGuide, {
-  DIAGNOSIS_GUIDE_PAGE_PATH,
-} from "./pages/dementiaDiagnosis/DiagnosisGuide";
-import Diagnosis, {
-  DIAGNOSIS_PAGE_PATH,
-} from "./pages/dementiaDiagnosis/Diagnosis";
-import DiaryDraw, { DIARY_DRAW_PAGE_PATH } from "./pages/draws/DiaryDraw";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
-import Diary, { DIARY_PAGE_PATH } from "./pages/diarys/Diary";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
-import PaperBackgroundWrapper from "./components/diary/PaperBackgroundWrapper";
 import React from "react";
-import MyPage, { MY_PAGE_PATH } from "./pages/mypage/MyPage";
-import NoDiaryRecall, {
-  NO_DIARY_RECALL_PAGE_PATH,
-} from "./pages/diarys/NoDiaryRecall";
-import RecentDiaries, {
-  RECENT_DIARIES_PAGE_PATH,
-} from "./pages/mypage/RecentDiaries";
-import HelpWithAi, { HELP_WITH_AI_PATH } from "./pages/draws/HelpWithAi";
-import DementiaCenter, {
-  DEMENTIA_CENTER_PAGE_PATH,
-} from "./pages/dementiaCenter/DementiaCenter";
-import ControlPhotoOpacity, {
-  CONTROL_PHOTO_OPACITY_PAGE_PATH,
-} from "./pages/draws/ControlPhotoOpacity";
-import KeywordReferenceImages, {
-  KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH,
-} from "./pages/draws/KeywordReferenceImages";
-import DiaryDetail, {
-  DIARY_DETAIL_PAGE_PATH,
-} from "./pages/diaryDetails/DiaryDetail";
-import DiaryRecall, {
-  DIARY_RECALL_PAGE_PATH,
-} from "./pages/diarys/DiaryRecall";
-import Gym, { GYM_PAGE_PATH } from "./pages/gym/Gym";
-import DiagnosisResult, {
-  DIAGNOSIS_RESULT_PAGE_PATH,
-} from "./pages/dementiaDiagnosis/DiagnosisResult";
+import DementiaDiagnosisRoutes from "./routes/DementiaDiagnosisRoutes";
+import AuthRoutes from "./routes/AuthRoutes";
+import DiaryAndRecallRoutes from "./routes/DiaryAndRecallRoutes";
+import DiaryAndDrawRoutes from "./routes/DiaryAndDrawRoutes";
+import MainPageFeatureRoutes from "./routes/MainPageFeatureRoutes";
+import MyPageFeatureRoutes from "./routes/MyPageFeatureRoutes";
 
 function App() {
   return (
@@ -54,53 +22,27 @@ function App() {
           <Route exact element={<NavigationBarLayout />}>
             <Route exact path={HOME_PAGE_PATH} element={<Home />} />
           </Route>
-
           {/* 헤더바 */}
           <Route element={<HeaderBarLayout />}>
-            <Route
-              path={DIAGNOSIS_GUIDE_PAGE_PATH}
-              element={<DiagnosisGuide />}
-            />
-            <Route path={MY_PAGE_PATH} element={<MyPage />} />
-            <Route path={SIGNIN_PAGE_PATH} element={<Signin />} />
-            <Route path={SIGNUP_PAGE_PATH} element={<Signup />} />
-            <Route path={DIARY_PAGE_PATH} element={<Diary />} />
-            <Route path={DIARY_RECALL_PAGE_PATH} element={<DiaryRecall />} />
-            <Route
-              path={NO_DIARY_RECALL_PAGE_PATH}
-              element={<NoDiaryRecall />}
-            />
-            <Route
-              path={CONTROL_PHOTO_OPACITY_PAGE_PATH}
-              element={<ControlPhotoOpacity />}
-            />
-            <Route
-              path={RECENT_DIARIES_PAGE_PATH}
-              element={<RecentDiaries />}
-            />
-            <Route path={GYM_PAGE_PATH} element={<Gym />} />
-            <Route path={DIAGNOSIS_PAGE_PATH} element={<Diagnosis />} />
-            <Route
-              path={KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH}
-              element={<KeywordReferenceImages />}
-            />
+            {/* 치매 진단 관련 라우팅 */}
+            {DementiaDiagnosisRoutes()}
 
-            <Route
-              path={DEMENTIA_CENTER_PAGE_PATH}
-              element={<DementiaCenter />}
-            />
+            {/* 로그인, 회원가입 관련 라우팅 */}
+            {AuthRoutes()}
 
-            <Route
-              path={DIAGNOSIS_RESULT_PAGE_PATH}
-              element={<DiagnosisResult />}
-            />
+            {/* 일기, 일기회상, 일기 작성 관련 라우팅 */}
+            {DiaryAndRecallRoutes()}
 
-            {/* 헤더바 + 종이 배경 */}
-            <Route element={<PaperBackgroundWrapper />}>
-              <Route path={DIARY_DETAIL_PAGE_PATH} element={<DiaryDetail />} />
-              <Route path={DIARY_DRAW_PAGE_PATH} element={<DiaryDraw />} />
-              <Route path={HELP_WITH_AI_PATH} element={<HelpWithAi />} />
-            </Route>
+            {/* 일기 그리기, 일기 그리기 도움, 키워드 참조 이미지 관련 라우팅 */}
+            {DiaryAndDrawRoutes()}
+
+            {/* 메인 페이지 기능 관련 라우팅 */}
+            {/* 운동, 치매센터, 게임 등 */}
+            {MainPageFeatureRoutes()}
+
+            {/*마이페이지 기능 관련 라우팅*/}
+            {/*최근 일기, 마이페이지, 글씨 크기 조절 등*/}
+            {MyPageFeatureRoutes()}
           </Route>
         </Routes>
       </BrowserRouter>
