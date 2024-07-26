@@ -12,6 +12,7 @@ import DiaryAndRecallRoutes from "./routes/DiaryAndRecallRoutes";
 import DiaryAndDrawRoutes from "./routes/DiaryAndDrawRoutes";
 import MainPageFeatureRoutes from "./routes/MainPageFeatureRoutes";
 import MyPageFeatureRoutes from "./routes/MyPageFeatureRoutes";
+import DementiaCenterRoutes from "./routes/DementiaCenterRoutes";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           <Route element={<HeaderBarLayout />}>
             {/* 치매 진단 관련 라우팅 */}
             {DementiaDiagnosisRoutes()}
+
+            {/* 치매 센터 관련 라우팅 */}
+            {DementiaCenterRoutes()}
 
             {/* 로그인, 회원가입 관련 라우팅 */}
             {AuthRoutes()}
