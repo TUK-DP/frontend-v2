@@ -13,6 +13,7 @@ import DiaryAndDrawRoutes from "./routes/DiaryAndDrawRoutes";
 import MainPageFeatureRoutes from "./routes/MainPageFeatureRoutes";
 import MyPageFeatureRoutes from "./routes/MyPageFeatureRoutes";
 import DementiaCenterRoutes from "./routes/DementiaCenterRoutes";
+import GameRoutes from "./routes/GameRoutes";
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
             {/*마이페이지 기능 관련 라우팅*/}
             {/*최근 일기, 마이페이지, 글씨 크기 조절 등*/}
             {MyPageFeatureRoutes()}
+
+            {/* 게임 관련 라우팅 */}
+            {GameRoutes()}
           </Route>
         </Routes>
       </BrowserRouter>
