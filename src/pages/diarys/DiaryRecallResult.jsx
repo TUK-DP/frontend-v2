@@ -97,10 +97,10 @@ const AnswerBox = ({ check, question }) => {
       }}
       className={`flex flex-col border-2 rounded-2xl overflow-clip ${isCorrected ? "border-[#24CA99]" : "border-[#F6517A]"}`}
     >
-      <div className={"flex items-center justify-center"}>
+      <div className={"flex px-4 items-center justify-center"}>
         <div className={"my-8 mobile:my-4"}>{question}</div>
         <img
-          className={"h-20 mobile:h-10"}
+          className={"h-16 ml-auto mobile:h-10"}
           src={check.isCorrected ? CollectIcon : FaultIcon}
           alt=""
         />
