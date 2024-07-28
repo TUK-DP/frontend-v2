@@ -22,7 +22,7 @@ const CanvasPalette = () => {
   return (
     <>
       <div
-        className="fixed bottom-0 transition-transform duration-500"
+        className="fixed bottom-0 transition-transform duration-500 bg-white rounded-ss-2xl"
         style={{
           transform: isOpen
             ? `translateY(9rem)`
