@@ -3,9 +3,11 @@ import rockIcon from "../../assets/game/rockIcon.png";
 import scissorIcon from "../../assets/game/scissorIcon.png";
 import paperIcon from "../../assets/game/paperIcon.png";
 import GameIntroModal from "../../components/game/GameIntroModal";
+import { useNavigate } from "react-router-dom";
+import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "./GameRockScissorPaper";
 
-export const ROCK_SCISSOR_PAPER_PAGE_PATH = "/game/rock-scissor-paper";
-const RockScissorPaper = () => {
+export const ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH = "/games/1";
+const RockScissorPaperIntro = () => {
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
   const handleModalState = () => {
     setIsGameModalOpen(!isGameModalOpen);
@@ -26,7 +28,7 @@ const RockScissorPaper = () => {
   );
 };
 
-export default RockScissorPaper;
+export default RockScissorPaperIntro;
 
 const Title = () => {
   return (
@@ -60,21 +62,32 @@ const RockSissorPaperImages = () => {
 };
 
 const GameButtons = ({ handleModalState }) => {
+  const navigate = useNavigate();
+  const goPlayGame = () => {
+    navigate(GAME_ROCK_SCISSOR_PAPER_PAGE_PATH);
+  };
   return (
     <div
       className={
         "w-full flex flex-col gap-8 text-xl text-white font-bold items-center"
       }
     >
-      <button
-        className="bg-primary-400 w-1/2 h-11 rounded-xl "
-        onClick={handleModalState}
-      >
-        설명 보기
-      </button>
-      <button className="bg-primary-300 w-1/2 h-11 rounded-xl ">
-        게임 시작
-      </button>
+      <PurpleButton
+        buttonName="설명 보기"
+        handleClickButton={handleModalState}
+      />
+      <PurpleButton buttonName="게임 시작" handleClickButton={goPlayGame} />
     </div>
+  );
+};
+
+const PurpleButton = ({ buttonName, handleClickButton }) => {
+  return (
+    <button
+      className="bg-primary-400 w-1/2 h-11 rounded-xl "
+      onClick={handleClickButton}
+    >
+      {buttonName}
+    </button>
   );
 };

@@ -1,5 +1,7 @@
 import React from "react";
 import ModalBackground from "../modals/ModalBackground";
+import { useNavigate } from "react-router-dom";
+import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "../../pages/games/GameRockScissorPaper";
 
 const GAME_DESCRIPTION = `지는 게 이기는 거다!
 
@@ -42,9 +44,13 @@ const GameIntro = () => {
 };
 
 const ModalButtons = ({ modalClose }) => {
+  const navigate = useNavigate();
+  const goPlayGame = () => {
+    navigate(GAME_ROCK_SCISSOR_PAPER_PAGE_PATH);
+  };
   return (
     <div className={"w-full flex gap-3"}>
-      <PurpleButton buttonName="시작" />
+      <PurpleButton buttonName="시작" handleClick={goPlayGame} />
       <PurpleButton buttonName="닫기" handleClick={modalClose} />
     </div>
   );
