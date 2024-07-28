@@ -1,7 +1,7 @@
 import "./index.css";
 import "./App.css";
 import { useEffect } from "react";
-import { useFontSize } from "./contexts/FontSizeContext";
+import useFontSizeStore from "./stores/FontSizeStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
@@ -48,7 +48,7 @@ import DiagnosisResult, {
 } from "./pages/dementiaDiagnosis/DiagnosisResult";
 
 function App() {
-  const { fontSize } = useFontSize();
+  const fontSize = useFontSizeStore((state) => state.fontSize);
 
   useEffect(() => {
     // 페이지 로드 시 폰트 크기 설정

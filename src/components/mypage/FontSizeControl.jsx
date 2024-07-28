@@ -2,6 +2,7 @@ import { useState } from "react";
 import AccordionWrapper from "../wrapper/AccordionWrapper";
 import Button from "../Button";
 import MyPageItem from "./MyPageItem";
+import useFontSizeStore from "../../stores/FontSizeStore";
 
 const FontSizeControl = ({ isOpen, onClick = () => {} }) => {
   const BUTTONS = [
@@ -12,12 +13,13 @@ const FontSizeControl = ({ isOpen, onClick = () => {} }) => {
 
   // 기본 선택 중인 폰트 크기 설정 (중간)
   const [selectedFontButton, setSelectedFontButton] = useState(BUTTONS[1]);
+  const setFontSize = useFontSizeStore((state) => state.setFontSize);
 
   const onClickButton = (size, title) => {
     setSelectedFontButton(
       BUTTONS.find(({ title: btnTitle }) => btnTitle === title)
     );
-    document.documentElement.style.fontSize = size;
+    setFontSize(size);
   };
 
   return (
