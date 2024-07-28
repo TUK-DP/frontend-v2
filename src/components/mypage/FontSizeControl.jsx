@@ -15,10 +15,8 @@ const FontSizeControl = ({ isOpen, onClick = () => {} }) => {
   const [selectedFontButton, setSelectedFontButton] = useState(BUTTONS[1]);
   const setFontSize = useFontSizeStore((state) => state.setFontSize);
 
-  const onClickButton = (size, title) => {
-    setSelectedFontButton(
-      BUTTONS.find(({ title: btnTitle }) => btnTitle === title)
-    );
+  const onClickButton = ({ title, size }) => {
+    setSelectedFontButton({ title, size });
     setFontSize(size);
   };
 
@@ -27,13 +25,13 @@ const FontSizeControl = ({ isOpen, onClick = () => {} }) => {
       <MyPageItem title={"글씨 크기 조절"} isOpen={isOpen} onClick={onClick} />
       <AccordionWrapper isOpen={isOpen}>
         <div className={"flex justify-between gap-3"}>
-          {BUTTONS.map(({ title, size }) => (
+          {BUTTONS.map((button) => (
             <Button
-              key={title}
+              key={button.title}
               className={`p-2 max-w-40 w-full text-nowrap cursor-pointer
-              ${size === selectedFontButton.size ? "bg-[#6100C1] text-white" : "border-[#6100C1] text-black"}`}
-              text={title}
-              onClick={() => onClickButton(size, title)}
+              ${button.size === selectedFontButton.size ? "bg-[#6100C1] text-white" : "border-[#6100C1] text-black"}`}
+              text={button.title}
+              onClick={() => onClickButton(button)}
             />
           ))}
         </div>
