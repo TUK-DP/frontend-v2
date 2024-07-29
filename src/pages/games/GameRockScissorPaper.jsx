@@ -7,8 +7,7 @@ const GameRockScissorPaper = () => {
     <iframe
       title="지는 가위바위보"
       src={`${baseURL}/LoosingRockScissorPaper/index.html`}
-      className={"w-full h-full"}
-      scrolling="no"
+      className={"w-full h-full "}
     ></iframe>
   );
 };

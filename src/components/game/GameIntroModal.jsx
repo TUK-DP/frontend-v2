@@ -20,7 +20,7 @@ const GAME_DESCRIPTION = `지는 게 이기는 거다!
 const GameIntroModal = ({ modalClose }) => {
   return (
     <ModalBackground>
-      <div className="relative col-start-2 row-start-2 h-full  bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[355px]">
+      <div className="relative col-start-2 row-start-2 h-full  bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[355px] tablet:w-[400px]">
         <GameIntro />
         <ModalButtons modalClose={modalClose} />
       </div>
@@ -33,9 +33,13 @@ export default GameIntroModal;
 const GameIntro = () => {
   return (
     <>
-      <div className={"font-bold text-2xl"}>지는 가위바위보란?</div>
+      <div className={"font-bold text-2xl tablet:text-4xl"}>
+        지는 가위바위보란?
+      </div>
       <div
-        className={"break-keep text-lg whitespace-pre-wrap text-center py-3"}
+        className={
+          "break-keep text-lg whitespace-pre-wrap text-center py-3 tablet:text-2xl"
+        }
       >
         {GAME_DESCRIPTION}
       </div>
@@ -61,7 +65,7 @@ const PurpleButton = ({ buttonName, handleClick }) => {
     <button
       onClick={handleClick}
       className={
-        "w-full h-11 bg-primary-300 text-white font-bold text-xl rounded-lg-xl"
+        "w-full h-11 bg-primary-300 text-white font-bold text-xl rounded-lg-xl tablet:text-xl tablet:h-14"
       }
     >
       {buttonName}

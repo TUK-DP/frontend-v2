@@ -33,8 +33,12 @@ export default RockScissorPaperIntro;
 const Title = () => {
   return (
     <div className={"font-bold font"}>
-      <div className={"text-6xl -rotate-12 absolute top-0 left-14"}>지는</div>
-      <div className={"text-7xl"}>가위바위보</div>
+      <div
+        className={"text-6xl -rotate-12 absolute top-0 left-14 tablet:text-7xl"}
+      >
+        지는
+      </div>
+      <div className={"text-7xl tablet:text-8xl"}>가위바위보</div>
     </div>
   );
 };
@@ -45,17 +49,17 @@ const RockSissorPaperImages = () => {
       <img
         src={scissorIcon}
         alt="scissorIcon"
-        className={"absolute inset-x-0 -translate-x-1/4"}
+        className={"absolute inset-x-0 -translate-x-1/4 tablet:w-1/3"}
       />
       <img
         src={paperIcon}
         alt="paperIcon"
-        className={"absolute right-0 translate-x-16"}
+        className={"absolute right-0 translate-x-16 tablet:w-1/3"}
       />
       <img
         src={rockIcon}
         alt="rockIcon"
-        className={"absolute bottom-0 translate-x-1/4"}
+        className={"absolute bottom-0 translate-x-1/4 tablet:w-1/3"}
       />
     </div>
   );
@@ -69,7 +73,7 @@ const GameButtons = ({ handleModalState }) => {
   return (
     <div
       className={
-        "w-full flex flex-col gap-8 text-xl text-white font-bold items-center"
+        "w-full flex flex-col gap-8 text-xl text-white font-bold items-center tablet:text-3xl"
       }
     >
       <PurpleButton
@@ -84,7 +88,7 @@ const GameButtons = ({ handleModalState }) => {
 const PurpleButton = ({ buttonName, handleClickButton }) => {
   return (
     <button
-      className="bg-primary-400 w-1/2 h-11 rounded-xl "
+      className="bg-primary-400 w-1/2 h-11 rounded-xl tablet:h-20"
       onClick={handleClickButton}
     >
       {buttonName}
