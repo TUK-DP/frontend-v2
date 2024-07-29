@@ -6,9 +6,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Spinner from "../Spinner";
+import DrawCanvas from "./DrawCanvas";
+import {
+  BottomSheetLayout,
+  BOTTOM_POSITION,
+  TOP_POSITION,
+} from "../../layouts/BottomSheetLayout";
+import CanvasPalette from "./CanvasPalette";
 
 const Canvas = ({ keywords, setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
+  const [position, setPosition] = useState(BOTTOM_POSITION);
+
   return (
     <>
       <CanvasSlider
@@ -18,6 +27,9 @@ const Canvas = ({ keywords, setCanvasSlider, canvasSlider }) => {
       />
       <CanvasTools setIsError={setIsError} />
       <ErrorMessage isError={isError} />
+      <BottomSheetLayout position={position} setPosition={setPosition}>
+        <CanvasPalette />
+      </BottomSheetLayout>
     </>
   );
 };
@@ -44,13 +56,18 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
       ref={(slider) => (canvasSliderRef = slider)}
       className={"w-full"}
     >
-      {keywords.map((keyword, index) => (
-        <canvas
-          key={index}
-          className={"w-full bg-white aspect-square"}
-        ></canvas>
-      ))}
+      {keywords.map((keyword, index) => {
+        return <CanvasSet keyword={keyword} key={index} />;
+      })}
     </Slider>
+  );
+};
+
+const CanvasSet = () => {
+  return (
+    <>
+      <DrawCanvas />
+    </>
   );
 };
 
