@@ -1,10 +1,7 @@
 import React from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const KakaoMap = () => {
-  const latitude = 37.340174;
-  const longitude = 126.7335933;
-
+const KakaoMap = ({ latitude, longitude }) => {
   return (
     <>
       <Map
