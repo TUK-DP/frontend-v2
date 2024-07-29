@@ -42,6 +42,10 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
   const canvasRefs = useRef(keywords.map((_) => React.createRef()));
   const canvasBgRefs = useRef(keywords.map((_) => React.createRef()));
 
+  const canvasWidth =
+    window.innerWidth > 640
+      ? `${window.innerWidth - 160}px`
+      : `${window.innerWidth - 40}px`;
   return (
     <Slider
       {...settings}
@@ -52,6 +56,7 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
       {keywords.map((keyword, index) => (
         <CanvasSet
           key={index}
+          canvasWidth={canvasWidth}
           canvasRef={canvasRefs.current[index]}
           canvasBgRef={canvasBgRefs.current[index]}
         />

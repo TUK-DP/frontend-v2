@@ -4,7 +4,7 @@ export const useDrawingToolStore = create((set) => ({
   drawingTools: {
     brushSize: 3,
     color: "#000000",
-    drawingMode: true,
+    drawingMode: false,
   },
 
   setDrawingTools: (drawingTools) => {
