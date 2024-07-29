@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import useChatLogStore from "../../stores/ChatLogStore";
+import useGenerateImage from "./query/useGenerateImage";
 
 const useChatWithAi = ({ keyword }) => {
   const chatContainerRef = useRef();
 
-  const { chatLog, setChatContainerRef, appendChatAiText } = useChatLogStore(
-    (state) => state
-  );
+  const { isMutating } = useGenerateImage();
+
+  const { chatLog, setChatContainerRef, appendChatAiText, chatScrollToBottom } =
+    useChatLogStore((state) => state);
 
   const ChatContainer = ({ className, ...props }) => {
     return (
@@ -19,6 +21,8 @@ const useChatWithAi = ({ keyword }) => {
   };
   const [isFirstUseEffect, setIsFirstUseEffect] = useState(true);
   useEffect(() => {
+    if (isMutating) return;
+
     if (isFirstUseEffect) {
       setIsFirstUseEffect(false);
       return;
@@ -26,6 +30,11 @@ const useChatWithAi = ({ keyword }) => {
     setChatContainerRef(chatContainerRef);
     appendChatAiText({ text: `현재 키워드는 "${keyword}" 입니다.` });
   }, [isFirstUseEffect]);
+
+  useEffect(() => {
+    if (!chatContainerRef) return;
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, []);
 
   return {
     ChatContainer,

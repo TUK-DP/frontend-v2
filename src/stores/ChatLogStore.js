@@ -60,6 +60,13 @@ const useChatLogStore = create((set, get) => ({
     }));
     get().chatScrollToBottom();
   },
+
+  popChatLog: () => {
+    const newChatLog = [...get().chatLog.slice(0, -1)];
+    set((state) => ({
+      chatLog: newChatLog,
+    }));
+  },
 }));
 
 export default useChatLogStore;
