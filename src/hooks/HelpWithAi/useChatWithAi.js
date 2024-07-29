@@ -1,20 +1,12 @@
-import React, { useRef, useState } from "react";
-import ChatUserText from "../../components/helpWithAi/ChatUserText";
-import ChatAiText from "../../components/helpWithAi/ChatAiText";
-import ChatAiImage from "../../components/helpWithAi/ChatAiImage";
+import React, { useEffect, useRef, useState } from "react";
+import useChatLogStore from "../../stores/ChatLogStore";
 
-const useChatWithAi = ({ initChatLog }) => {
-  const [chatLog, setChatLog] = useState(initChatLog);
+const useChatWithAi = ({ keyword }) => {
+  const chatContainerRef = useRef();
 
-  const chatContainerRef = useRef(null);
-
-  const chatScrollToBottom = () => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  };
-
-  const chatScrollToTop = () => {
-    chatContainerRef.current.scrollTop = 0;
-  };
+  const { chatLog, setChatContainerRef, appendChatAiText } = useChatLogStore(
+    (state) => state
+  );
 
   const ChatContainer = ({ className, ...props }) => {
     return (
@@ -25,29 +17,18 @@ const useChatWithAi = ({ initChatLog }) => {
       </div>
     );
   };
-
-  const appendChatUserText = async ({ text }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatUserText, text }]);
-    chatScrollToBottom();
-  };
-
-  const appendChatAiText = async ({ text }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatAiText, text }]);
-    chatScrollToBottom();
-  };
-
-  const appendChatAiImage = async ({ urls = [] }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatAiImage, urls }]);
-    chatScrollToBottom();
-  };
+  const [isFirstUseEffect, setIsFirstUseEffect] = useState(true);
+  useEffect(() => {
+    if (isFirstUseEffect) {
+      setIsFirstUseEffect(false);
+      return;
+    }
+    setChatContainerRef(chatContainerRef);
+    appendChatAiText({ text: `현재 키워드는 "${keyword}" 입니다.` });
+  }, [isFirstUseEffect]);
 
   return {
     ChatContainer,
-    appendChatUserText,
-    appendChatAiText,
-    appendChatAiImage,
-    chatScrollToTop,
-    chatScrollToBottom,
   };
 };
 
