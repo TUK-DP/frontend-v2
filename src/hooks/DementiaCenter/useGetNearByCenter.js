@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Center from "../api/center.controller";
+import Center from "../../apis/center.controller";
 
 export const useGetNearByCenter = ({ latitude, longitude }) => {
   const [position, setPosition] = useState({
@@ -18,7 +18,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
     setInputRadius(event.target.value);
   };
 
-  const [centers, setCenters] = useState(undefined); //주변 센터 목록
+  const [centers, setCenters] = useState([]); //주변 센터 목록
 
   const fetchNearbyCenters = async () => {
     if (!isPositionFetchingDone) {
@@ -56,7 +56,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
       latitude: center["위도"],
       longitude: center["경도"],
       address: center["소재지도로명주소"],
-      distance: center["나와의거리"],
+      distance: parseFloat(center["나와의거리"]).toFixed(1),
       callnumber: center["운영기관전화번호"],
     }));
 
