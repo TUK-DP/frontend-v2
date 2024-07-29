@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { ColorPicker } from "react-color-palette";
+import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 import { pickerHeight, mdPickerHeight } from "../../constants/size";
+import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
-const ColorPickerComp = ({
-  color,
-  setColor,
-  setSelectedColor,
-  setColorPickerOpen,
-}) => {
+const ColorPickerComp = ({ setColorPickerOpen }) => {
+  const { drawingTools, setDrawingTools } = useDrawingToolStore();
   const [colorPickerHeight, setColorPickerHeight] = useState(pickerHeight);
+  const [color, setColor] = useColor(drawingTools.color);
 
   useEffect(() => {
     const updateHeight = () => {
@@ -41,7 +39,7 @@ const ColorPickerComp = ({
           <button
             className="bg-[#6100C1] hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md shadow-md transition duration-300 md:text-2xl"
             onClick={() => {
-              setSelectedColor(color.hex);
+              setDrawingTools({ ...drawingTools, color: color.hex });
               setColorPickerOpen(false);
             }}
           >

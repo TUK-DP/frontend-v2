@@ -1,23 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useColor } from "react-color-palette";
 import BrushSizeControl from "./BrushSizeControl";
 import DrawingToolBar from "./DrawingToolBar";
 import ColorPickerComp from "./ColorPickerComp";
 import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
+import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 const CanvasPalette = () => {
-  const [selectedColor, setSelectedColor] = useState("#FF0900"); // 초기 색상 설정
   const [isOpen, setIsOpen] = useState(true);
   const paletteRef = useRef(null);
   const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
-  const [color, setColor] = useColor("hex", "#FF0900");
 
   useEffect(() => {
     if (paletteRef.current) {
       setPaletteHeight(paletteRef.current.clientHeight);
     }
   }, [paletteRef]);
+
+  useEffect(() => {});
 
   return (
     <>
@@ -31,20 +31,12 @@ const CanvasPalette = () => {
       >
         <PaletteToggle isOpen={isOpen} setIsOpen={setIsOpen} />
         <div ref={paletteRef}>
-          <BrushSizeControl selectedColor={selectedColor} />
-          <DrawingToolBar
-            setSelectedColor={setSelectedColor}
-            setColorPickerOpen={setColorPickerOpen}
-          />
+          <BrushSizeControl />
+          <DrawingToolBar setColorPickerOpen={setColorPickerOpen} />
         </div>
       </div>
       {colorPickerOpen && (
-        <ColorPickerComp
-          color={color}
-          setColor={setColor}
-          setSelectedColor={setSelectedColor}
-          setColorPickerOpen={setColorPickerOpen}
-        />
+        <ColorPickerComp setColorPickerOpen={setColorPickerOpen} />
       )}
     </>
   );
