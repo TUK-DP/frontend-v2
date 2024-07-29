@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "../../styles/inputCustum.css";
+import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
-const BrushSizeControl = ({ selectedColor }) => {
-  const [circleSize, setCircleSize] = useState(20); // 초기 원의 크기 설정
+const BrushSizeControl = () => {
+  const { drawingTools, setDrawingTools } = useDrawingToolStore(
+    (state) => state
+  );
 
   return (
     <div className="flex items-center mx-3">
@@ -11,11 +14,16 @@ const BrushSizeControl = ({ selectedColor }) => {
         min="10"
         max="40"
         step={1}
-        value={circleSize}
-        onChange={(event) => setCircleSize(parseInt(event.target.value))}
+        value={drawingTools.brushSize}
+        onChange={(event) =>
+          setDrawingTools({ brushSize: parseInt(event.target.value) })
+        }
         className="mr-4 flex-1"
       />
-      <BrushStateCircle selectedColor={selectedColor} circleSize={circleSize} />
+      <BrushStateCircle
+        selectedColor={drawingTools.color}
+        circleSize={drawingTools.brushSize}
+      />
     </div>
   );
 };

@@ -6,18 +6,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Spinner from "../Spinner";
-import DrawCanvas from "./DrawCanvas";
-import {
-  BottomSheetLayout,
-  BOTTOM_POSITION,
-  TOP_POSITION,
-} from "../../layouts/BottomSheetLayout";
-import CanvasPalette from "./CanvasPalette";
+import CanvasSet from "./CanvasSet";
 
-const Canvas = ({ keywords, setCanvasSlider, canvasSlider }) => {
+const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
-  const [position, setPosition] = useState(BOTTOM_POSITION);
-
   return (
     <>
       <CanvasSlider
@@ -27,14 +19,11 @@ const Canvas = ({ keywords, setCanvasSlider, canvasSlider }) => {
       />
       <CanvasTools setIsError={setIsError} />
       <ErrorMessage isError={isError} />
-      <BottomSheetLayout position={position} setPosition={setPosition}>
-        <CanvasPalette />
-      </BottomSheetLayout>
     </>
   );
 };
 
-export default Canvas;
+export default CanvasWrapper;
 
 const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
   const settings = {
@@ -49,6 +38,10 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
     setCanvasSlider(canvasSliderRef);
   }, []);
 
+  // 캔버스 ref들 생성
+  const canvasRefs = useRef(keywords.map((_) => React.createRef()));
+  const canvasBgRefs = useRef(keywords.map((_) => React.createRef()));
+
   return (
     <Slider
       {...settings}
@@ -56,18 +49,14 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
       ref={(slider) => (canvasSliderRef = slider)}
       className={"w-full"}
     >
-      {keywords.map((keyword, index) => {
-        return <CanvasSet keyword={keyword} key={index} />;
-      })}
+      {keywords.map((keyword, index) => (
+        <CanvasSet
+          key={index}
+          canvasRef={canvasRefs.current[index]}
+          canvasBgRef={canvasBgRefs.current[index]}
+        />
+      ))}
     </Slider>
-  );
-};
-
-const CanvasSet = () => {
-  return (
-    <>
-      <DrawCanvas />
-    </>
   );
 };
 
