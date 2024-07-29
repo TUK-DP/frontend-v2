@@ -57,12 +57,24 @@ const DrawCanvas = ({ canvasWidth }) => {
   };
 
   // 실제 그리기 함수
-  const draw = (e) => {
+  const draw = (event) => {
     if (!context) return;
-    let canvas = canvasRef.current;
-    let rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left + window.scrollX;
-    const y = e.clientY - rect.top;
+
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+
+    // 터치 이벤트
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+
+    // 터치 이벤트
+    if (event.touches) {
+      const touch = event.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      x = touch.clientX - rect.left;
+      y = touch.clientY - rect.top;
+    }
+
     // 지우기
     if (!drawingMode) {
       context.clearRect(
@@ -72,8 +84,13 @@ const DrawCanvas = ({ canvasWidth }) => {
         brushSize
       );
     }
+
     // 그리기
     if (drawingMode && isDrawing) {
+      context.lineWidth = brushSize;
+      context.lineCap = "round";
+      context.strokeStyle = color;
+
       context.lineTo(x, y);
       context.stroke();
       context.beginPath();
@@ -133,6 +150,10 @@ const DrawCanvas = ({ canvasWidth }) => {
       onMouseLeave={endDrawing}
       width={canvasWidth}
       height={canvasWidth}
+      onTouchStart={startDrawing}
+      onTouchEnd={endDrawing}
+      onTouchMove={draw}
+      className={"touch-none"}
     />
   );
 };
