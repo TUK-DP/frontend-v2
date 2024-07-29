@@ -3,7 +3,8 @@ import btn_gymnastics from "../../assets/home/button/btn_gymnastics.png";
 import btn_rockScissorsPaper from "../../assets/home/button/btn_rockScissorsPaper.png";
 import btn_colorMatch from "../../assets/home/button/btn_colorMatch.png";
 import useGoGym from "../../hooks/gym/useGoGym";
-
+import { ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH } from "../../pages/games/RockScissorPaperIntro";
+import { useNavigate } from "react-router-dom";
 const SubDementiaPreventionSection = () => {
   const { goGymPage } = useGoGym();
   return (
@@ -38,9 +39,16 @@ const GymnasticsButton = ({ goGymPage }) => {
 
 //미니게임 리스트 컴포넌트
 const GameButtonList = () => {
+  const navigate = useNavigate();
   //게임 데이터
   const games = [
-    { imgsrc: btn_rockScissorsPaper, name: "지는 가위바위보" },
+    {
+      imgsrc: btn_rockScissorsPaper,
+      name: "지는 가위바위보",
+      onClick: () => {
+        navigate(ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH);
+      },
+    },
     { imgsrc: btn_colorMatch, name: "컬러매치" },
   ];
 
@@ -50,6 +58,7 @@ const GameButtonList = () => {
         <div
           key={index}
           className="h-[4rem] flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg md:text-2xl cursor-pointer"
+          onClick={game.onClick}
         >
           <img src={game.imgsrc} alt={game.name} width={"50px"} />
           {game.name}

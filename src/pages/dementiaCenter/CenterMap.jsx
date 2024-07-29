@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRegBuilding } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
+import KakaoMap from "../../components/dementiaCenter/KakaoMap";
 
 export const CENTER_MAP_PAGE_PATH = "/dementia/center/map";
 
@@ -10,7 +11,9 @@ const CenterMap = () => {
       <div className="text-center text-2xl tablet:text-4xl font-bold mb-6 tablet:mb-10">
         center.name
       </div>
-      <div className="bg-[#d9d9d9] h-[30rem] tablet:h-[45rem]">kakaoMap</div>
+      <div className="h-[30rem] tablet:h-[45rem]">
+        <KakaoMap />
+      </div>
       <CenterInfo address={"center.address"} time={"center.time"} />
     </div>
   );
