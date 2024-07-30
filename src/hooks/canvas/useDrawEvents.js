@@ -3,9 +3,11 @@ import { useDrawStateStore } from "../../stores/DrawState";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 export const useDrawEvents = (canvasRef, keyword) => {
-  const { drawingTools } = useDrawingToolStore();
-  const { brushSize, color, drawingMode } = drawingTools;
   const { setDrawState } = useDrawStateStore();
+  const { drawingTools } = useDrawingToolStore();
+
+  const { brushSize, color, drawingMode } = drawingTools;
+
   const [context, setContext] = useState(null);
   const [isDrawing, setIsDrawing] = useState(false);
 

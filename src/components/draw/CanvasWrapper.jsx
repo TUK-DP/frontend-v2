@@ -47,6 +47,7 @@ const CanvasSlider = ({
       setIndex(newIndex);
     },
   };
+
   let canvasSliderRef = useRef(null);
   useEffect(() => {
     setCanvasSlider(canvasSliderRef);

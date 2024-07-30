@@ -1,9 +1,10 @@
 import { create } from "zustand";
 
 export const useDrawStateStore = create((set) => ({
-  drawState: {}, // { keyword: { canvasState: null, history: [], redoList: [] } }
+  // { keyword: { canvasState: 현재상태, history: [현재상태를 제외한 상태들], redoList: [되돌리기 상태] }}
+  drawState: {},
 
-  // drawState 저장
+  // 캔버스 상태 저장
   setDrawState: (keyword, canvasRef) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -68,7 +69,7 @@ export const useDrawStateStore = create((set) => ({
         ...currentKeywordState.redoList,
       ];
 
-      // 이전 상태를 그리기
+      // 이전 상태 그리기
       ctx.putImageData(lastHistory, 0, 0);
 
       return {
