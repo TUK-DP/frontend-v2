@@ -1,5 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DiaryRecallImg from "../../assets/diary/questionPeople.png";
+import { DIARY_RECALL_TEST_PAGE_PATH } from "./DiaryRecallTest";
 
 export const DIARY_RECALL_PAGE_PATH = "/diary/recall";
 const DiaryRecall = () => {
@@ -59,8 +61,15 @@ const ExplainSection = () => {
 };
 
 const GoRecallTestButton = () => {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(DIARY_RECALL_TEST_PAGE_PATH);
+  };
+
   return (
     <button
+      onClick={onClick}
       className={
         "text-xl border-2 tablet:border-4 tablet:h-20 w-4/5 h-12 rounded-xl shrink-0 mb-10 tablet:text-4xl"
       }
