@@ -8,10 +8,16 @@ import "slick-carousel/slick/slick-theme.css";
 import Spinner from "../Spinner";
 import CanvasSet from "./CanvasSet";
 import { useDrawStateStore } from "../../stores/DrawState";
+import { useKeywordStore } from "../../stores/Keyword";
 
 const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
   const [index, setIndex] = useState(0);
+  const { setSelectedKeyword } = useKeywordStore();
+
+  useEffect(() => {
+    setSelectedKeyword(keywords[index]);
+  }, [index]);
   return (
     <>
       <CanvasSlider
