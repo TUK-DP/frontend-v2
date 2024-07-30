@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import useGetDiagnosisQuiz from "../../hooks/Diagnosis/queries/useGetDiagnosisQuiz";
+
 import {
   TbNumber10Small,
   TbNumber11Small,
@@ -16,23 +18,6 @@ import {
   TbNumber8Small,
   TbNumber9Small,
 } from "react-icons/tb";
-
-const DIAGNOSIS_DATA = [
-  "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다.",
-  // "과거에 쓰던 기구의 사용이 서툴러졌다. 과거에 쓰던 기구의 사용이 서툴러졌다.",
-];
 
 export const STEP_BAR_ICONS = [
   TbNumber1Small,
@@ -82,11 +67,12 @@ export const BUTTON_TEXTS = [
  */
 const useDiagnosisSlider = () => {
   const sliderRef = useRef(null);
+  const { diagnosisQuiz } = useGetDiagnosisQuiz();
 
   const [sliderItems, setSliderItems] = useState(
-    DIAGNOSIS_DATA.map((question, index) => ({
+    diagnosisQuiz.map((diagQuiz, index) => ({
       id: index,
-      question,
+      question: diagQuiz.question,
       stepIcon: STEP_BAR_ICONS[index],
       selectedButtonId: null,
     }))
