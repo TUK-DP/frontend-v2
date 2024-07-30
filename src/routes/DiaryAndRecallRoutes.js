@@ -14,6 +14,9 @@ import PaperBackgroundWrapper from "../components/diary/PaperBackgroundWrapper";
 import DiaryRecallResult, {
   DIARY_RECALL_RESULT_PAGE_PATH,
 } from "../pages/diarys/DiaryRecallResult";
+import DiaryRecallTest, {
+  DIARY_RECALL_TEST_PAGE_PATH,
+} from "../pages/diarys/DiaryRecallTest";
 
 const DiaryAndRecallRoutes = () => {
   return (
@@ -25,6 +28,7 @@ const DiaryAndRecallRoutes = () => {
         path={DIARY_RECALL_RESULT_PAGE_PATH}
         element={<DiaryRecallResult />}
       />
+      <Route path={DIARY_RECALL_TEST_PAGE_PATH} element={<DiaryRecallTest />} />
       <Route element={<PaperBackgroundWrapper />}>
         <Route path={DIARY_DETAIL_PAGE_PATH} element={<DiaryDetail />} />
       </Route>
