@@ -24,14 +24,8 @@ class UserController extends Api {
    * 회원 가입
    * @return {Promise<AxiosResponse<ApiResponse<User>>>}
    * */
-  signUp = async ({ username, nickname, email, password, birth }) => {
-    return await this.post("/users/signup", {
-      username,
-      nickname,
-      email,
-      password,
-      birth,
-    });
+  signUp = async ({ accountId, password, username }) => {
+    return await this.post("/users/signup", { accountId, password, username });
   };
 
   // 로그인
@@ -41,6 +35,13 @@ class UserController extends Api {
    * */
   signIn = async ({ accountId, password }) => {
     return await this.post("/users/login", { accountId, password });
+  };
+
+  /**
+   * @return {Promise<AxiosResponse<ApiResponse>>}
+   */
+  checkAccountId = async ({ accountId }) => {
+    return await this.post(`/users/validate/accountId`, { accountId });
   };
 
   // 자동 로그인
