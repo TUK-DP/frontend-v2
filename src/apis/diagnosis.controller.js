@@ -13,7 +13,7 @@ class DiagnosisController extends Api {
 
   //최근 진단 결과 조회
   getRecentDiagnosis = async ({ userId }) => {
-    return await this.get("/diag/record", { params: { userId: userId } });
+    return await this.get("/diag/record", { userId });
   };
 }
 export default new DiagnosisController();

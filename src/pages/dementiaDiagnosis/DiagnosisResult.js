@@ -3,13 +3,25 @@ import CompareBarChart from "../../components/diagnosis/CompareBarChart";
 import { getDiagnosisState } from "../../utils/diagnosis/getDiagnosisState";
 import { useNavigate } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../Home";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import DiagnosisController from "../../apis/diagnosis.controller";
 
 export const DIAGNOSIS_RESULT_PAGE_PATH = "/diagnosis/result";
 
 const DiagnosisResult = () => {
-  const number = 10;
+  const { state } = useLocation();
+  const { text, textColor } = getDiagnosisState(state.totalScore);
+  const [recentResult, setRecentResult] = useState(0);
 
-  const { text, textColor } = getDiagnosisState(number);
+  useEffect(() => {
+    const fetchResult = async () => {
+      //userId 바꿔야함
+      const res = await DiagnosisController.getRecentDiagnosis({ userId: 2 });
+      setRecentResult(res.data.result[1].totalScore ?? 0);
+    };
+    fetchResult();
+  }, []);
 
   return (
     <div className={"text-5xl px-32 pb-10 mobile:px-4 mobile:text-2xl"}>
@@ -19,7 +31,7 @@ const DiagnosisResult = () => {
         {text}
       </div>
       <RecentDiagnosisGraph
-        number={number}
+        number={state.totalScore}
         className={"mx-20 mobile:-my-0 mobile:mx-10"}
       />
       <div
@@ -31,7 +43,7 @@ const DiagnosisResult = () => {
         <span>전문가와의 상담을 권장합니다.</span>
       </div>
       <div className={"my-20 font-bold"}>진단 결과 비교</div>
-      <CompareBarChart pre={5} now={number} />
+      <CompareBarChart pre={recentResult} now={state.totalScore} />
       <GoHomeButton />
     </div>
   );

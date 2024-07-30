@@ -81,9 +81,6 @@ const useDiagnosisSlider = () => {
     }))
   );
 
-  useEffect(() => {
-    console.log(sliderItems);
-  }, [sliderItems]);
   const [currentSlide, setCurrentSlide] = useState(sliderItems[0]);
 
   const handlePrevClick = () => {
@@ -114,7 +111,8 @@ const useDiagnosisSlider = () => {
       userId: 2,
       diagAnswer: sliderItems.map((item) => item.selectedButtonId),
     });
-    if (res.data.isSuccess) navigate(DIAGNOSIS_RESULT_PAGE_PATH);
+    if (res.data.isSuccess)
+      navigate(DIAGNOSIS_RESULT_PAGE_PATH, { state: res.data.result });
   };
 
   const handleResponse = (slideId, buttonId) => {
