@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDrawStateStore } from "../../stores/DrawState";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
-export const useDrawEvents = (canvasRef) => {
+export const useDrawEvents = (canvasRef, keyword) => {
   const { drawingTools } = useDrawingToolStore();
   const { brushSize, color, drawingMode } = drawingTools;
   const { setDrawState } = useDrawStateStore();
@@ -13,18 +13,8 @@ export const useDrawEvents = (canvasRef) => {
   useEffect(() => {
     if (canvasRef && canvasRef.current) {
       const canvas = canvasRef.current;
-      console.log(canvas);
       const ctx = canvas.getContext("2d");
       setContext(ctx);
-      console.log(canvas);
-    }
-  }, [canvasRef]);
-
-  useEffect(() => {
-    console.log("CanvasRef:", canvasRef.current);
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d");
-      console.log("Canvas Context:", ctx);
     }
   }, [canvasRef]);
 
@@ -47,7 +37,7 @@ export const useDrawEvents = (canvasRef) => {
     if (!context) return;
     setIsDrawing(false);
     context?.beginPath();
-    setDrawState(canvasRef);
+    setDrawState(keyword, canvasRef);
   };
 
   // 실제 그리기 함수

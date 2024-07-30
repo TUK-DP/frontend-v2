@@ -1,57 +1,122 @@
 import { create } from "zustand";
 
 export const useDrawStateStore = create((set) => ({
-  drawStates: [],
-  history: [],
-  redoList: [],
+  drawState: {}, // { keyword: { canvasState: null, history: [], redoList: [] } }
+
   // drawState 저장
-  setDrawState: (canvasRef) => {
-    let canvas = canvasRef.current;
-    let ctx = canvas.getContext("2d");
+  setDrawState: (keyword, canvasRef) => {
+    console.log(keyword, canvasRef);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
     const currentState = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
     set((state) => {
-      console.log(state.drawStates);
+      // 이전 상태
+      const currentKeywordState = state.drawState[keyword] || {
+        canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height), // 초기값 설정
+        history: [],
+        redoList: [],
+      };
+
+      // 새로운 상태
       return {
-        drawStates: [...state.drawStates, currentState],
-        redoList: [], // 상태가 변경되면 리두 리스트를 비워줍니다.
+        drawState: {
+          ...state.drawState,
+          [keyword]: {
+            canvasState: currentState,
+            history: [
+              ...currentKeywordState.history,
+              currentKeywordState.canvasState,
+            ],
+            redoList: [], // 새 상태 저장 후 redoList를 비웁니다.
+          },
+        },
       };
     });
   },
+
   // 뒤로 되돌리기
-  undo: (context, canvasRef) => {
+  undo: (keyword, canvasRef) => {
     set((state) => {
-      if (state.history.length > 0) {
-        const previousState = state.history[state.history.length - 1];
-        const newRedoList = [state.drawStates, ...state.redoList];
+      console.log(keyword, canvasRef);
+      const currentKeywordState = state.drawState[keyword];
 
-        context.putImageData(previousState, 0, 0);
+      if (!currentKeywordState) return state;
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
 
+      if (currentKeywordState.history.length === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스를 지우기
         return {
-          drawStates: previousState,
-          history: state.history.slice(0, -1),
-          redoList: newRedoList,
+          drawState: {
+            ...state.drawState,
+            [keyword]: {
+              ...currentKeywordState,
+              canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height), // 지운 후의 상태를 캡처
+              history: [],
+              redoList: [
+                currentKeywordState.canvasState,
+                ...currentKeywordState.redoList,
+              ],
+            },
+          },
         };
       }
-      return state;
+      const lastHistory =
+        currentKeywordState.history[currentKeywordState.history.length - 1];
+      const newRedoList = [
+        currentKeywordState.canvasState,
+        ...currentKeywordState.redoList,
+      ];
+
+      // 이전 상태를 그리기
+      ctx.putImageData(lastHistory, 0, 0);
+
+      return {
+        drawState: {
+          ...state.drawState,
+          [keyword]: {
+            ...currentKeywordState,
+            canvasState: lastHistory,
+            history: currentKeywordState.history.slice(0, -1),
+            redoList: newRedoList,
+          },
+        },
+      };
     });
   },
+
   // 앞으로 되돌리기
-  redo: (context, canvasRef) => {
+  redo: (keyword, canvasRef) => {
     set((state) => {
-      if (state.redoList.length > 0) {
-        const nextState = state.redoList[0];
-        const newHistory = [state.drawStates, ...state.history];
+      const currentKeywordState = state.drawState[keyword];
 
-        context.putImageData(nextState, 0, 0);
+      if (!currentKeywordState || currentKeywordState.redoList.length === 0)
+        return state;
 
-        return {
-          drawStates: nextState,
-          history: newHistory,
-          redoList: state.redoList.slice(1),
-        };
-      }
-      return state;
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+
+      const redoState = currentKeywordState.redoList[0];
+      const newHistory = [
+        currentKeywordState.canvasState,
+        ...currentKeywordState.history,
+      ];
+
+      // redo 상태를 그리기
+      ctx.putImageData(redoState, 0, 0);
+
+      return {
+        drawState: {
+          ...state.drawState,
+          [keyword]: {
+            ...currentKeywordState,
+            canvasState: redoState,
+            history: newHistory,
+            redoList: currentKeywordState.redoList.slice(1),
+          },
+        },
+      };
     });
   },
 }));

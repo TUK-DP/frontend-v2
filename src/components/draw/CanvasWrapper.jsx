@@ -7,17 +7,22 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Spinner from "../Spinner";
 import CanvasSet from "./CanvasSet";
+import { useDrawStateStore } from "../../stores/DrawState";
 
 const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
+  const [index, setIndex] = useState(0);
   return (
     <>
       <CanvasSlider
         keywords={keywords}
         setCanvasSlider={setCanvasSlider}
         canvasSlider={canvasSlider}
+        setIndex={setIndex}
+        setIsError={setIsError}
+        index={index}
       />
-      <CanvasTools setIsError={setIsError} />
+      {/* <CanvasTools setIsError={setIsError} index={index} /> */}
       <ErrorMessage isError={isError} />
     </>
   );
@@ -25,13 +30,23 @@ const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
 
 export default CanvasWrapper;
 
-const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
+const CanvasSlider = ({
+  keywords,
+  setCanvasSlider,
+  keywordSlider,
+  setIndex,
+  setIsError,
+  index,
+}) => {
   const settings = {
     slidesToShow: 1,
     infinite: false,
     arrows: false,
     dots: true,
     swipe: false,
+    beforeChange: (oldIndex, newIndex) => {
+      setIndex(newIndex);
+    },
   };
   let canvasSliderRef = useRef(null);
   useEffect(() => {
@@ -47,38 +62,59 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
       ? `${window.innerWidth - 160}px`
       : `${window.innerWidth - 40}px`;
   return (
-    <Slider
-      {...settings}
-      asNavFor={keywordSlider}
-      ref={(slider) => (canvasSliderRef = slider)}
-      className={"w-full"}
-    >
-      {keywords.map((keyword, index) => (
-        <CanvasSet
-          key={index}
-          keyword={keyword}
-          canvasWidth={canvasWidth}
-          canvasRef={canvasRefs.current[index]}
-          canvasBgRef={canvasBgRefs.current[index]}
-        />
-      ))}
-    </Slider>
+    <>
+      <Slider
+        {...settings}
+        asNavFor={keywordSlider}
+        ref={(slider) => (canvasSliderRef = slider)}
+        className={"w-full"}
+      >
+        {keywords.map((keyword, index) => (
+          <CanvasSet
+            key={index}
+            keyword={keyword}
+            canvasWidth={canvasWidth}
+            canvasRef={canvasRefs.current[index]}
+            canvasBgRef={canvasBgRefs.current[index]}
+          />
+        ))}
+      </Slider>
+      <CanvasTools
+        setIsError={setIsError}
+        index={index}
+        canvasRefs={canvasRefs.current}
+        keywords={keywords}
+      />
+    </>
   );
 };
 
-const CanvasTools = ({ setIsError }) => {
+const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
+  const { undo, redo } = useDrawStateStore();
+  const handleClickUndoButton = () => {
+    undo(keywords[index], canvasRefs[index]);
+    console.log(keywords[index]);
+    console.log(canvasRefs[index].current);
+  };
+  const handleClickRedoButton = () => {
+    redo(keywords[index], canvasRefs[index]);
+    console.log(keywords[index]);
+    console.log(canvasRefs);
+  };
   return (
     <div className={"flex flex-row gap-10 justify-evenly items-center pt-10"}>
       <HiMiniArrowUturnLeft
         size={44}
         color="#838383"
         className={"cursor-pointer"}
+        onClick={handleClickUndoButton}
       />
       <CompleteButton setIsError={setIsError} />
       <HiMiniArrowUturnRight
         size={44}
         color="#838383"
         className={"cursor-pointer"}
+        onClick={handleClickRedoButton}
       />
     </div>
   );

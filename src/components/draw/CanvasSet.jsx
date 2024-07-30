@@ -1,30 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { useDrawEvents } from "../../hooks/canvas/useDrawEvents";
-import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
-const CanvasSet = ({ canvasWidth }) => {
-  const canvasRef = useRef(null);
-
+const CanvasSet = ({ canvasWidth, keyword, canvasRef }) => {
   return (
     <div className="w-full aspect-square bg-white">
-      <DrawCanvas canvasWidth={canvasWidth} canvasRef={canvasRef} />
-      {/* <BackgroundCanvas ref={canvasBgRef}/> */}
+      <DrawCanvas
+        canvasWidth={canvasWidth}
+        canvasRef={canvasRef}
+        keyword={keyword}
+      />
+      {/* <BackgroundCanvas /> */}
     </div>
   );
 };
 
 export default CanvasSet;
 
-const DrawCanvas = ({ canvasWidth, canvasRef }) => {
-  const { startDrawing, endDrawing, draw } = useDrawEvents(canvasRef);
-
-  useEffect(() => {
-    console.log("CanvasRef:", canvasRef.current);
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d");
-      console.log("Canvas Context:", ctx);
-    }
-  }, [canvasRef]);
+const DrawCanvas = ({ canvasWidth, canvasRef, keyword }) => {
+  const { startDrawing, endDrawing, draw } = useDrawEvents(canvasRef, keyword);
 
   return (
     <canvas
@@ -32,7 +25,6 @@ const DrawCanvas = ({ canvasWidth, canvasRef }) => {
       onMouseDown={startDrawing}
       onMouseUp={endDrawing}
       onMouseMove={draw}
-      onMouseLeave={endDrawing}
       width={canvasWidth}
       height={canvasWidth}
       onTouchStart={startDrawing}
