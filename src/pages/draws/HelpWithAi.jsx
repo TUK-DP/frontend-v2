@@ -2,10 +2,14 @@ import ChatSendIcon from "../../components/helpWithAi/icon/ChatSendIcon";
 import { useInput } from "../../hooks/inputs/useInput";
 import useChatWithAi from "../../hooks/HelpWithAi/useChatWithAi";
 import useGenerateImage from "../../hooks/HelpWithAi/query/useGenerateImage";
+import React, { useState } from "react";
 
 export const HELP_WITH_AI_PATH = "/helpwithai";
 
-const HelpWithAi = ({ keyword = "바나나" }) => {
+const HelpWithAi = () => {
+  // 이 키워드는 나중에 일기에서 가져올 예정
+  const [keyword, setKeyword] = useState("바나나");
+
   let { ChatContainer } = useChatWithAi({ keyword });
 
   return (
