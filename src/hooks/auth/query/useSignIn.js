@@ -3,6 +3,7 @@ import UserController from "../../../apis/user.controller";
 import useUserStore from "../../../stores/UserStore";
 import { useNavigate } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../../../pages/Home";
+import { setTokenInLocalStorage } from "../../../utils/auth/tokenController";
 
 const useSignIn = () => {
   let navigate = useNavigate();
@@ -20,8 +21,9 @@ const useSignIn = () => {
      */
     onSuccess: (data) => {
       const { AccessToken, RefreshToken } = data.token;
-      setUserLogin({ userId: data?.user?.id, AccessToken, RefreshToken });
+      setUserLogin({ userId: data?.user?.id });
       navigate(HOME_PAGE_PATH);
+      setTokenInLocalStorage({ AccessToken, RefreshToken });
     },
   });
 
