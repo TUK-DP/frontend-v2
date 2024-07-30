@@ -22,7 +22,6 @@ const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
         setIsError={setIsError}
         index={index}
       />
-      {/* <CanvasTools setIsError={setIsError} index={index} /> */}
       <ErrorMessage isError={isError} />
     </>
   );
@@ -93,13 +92,9 @@ const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
   const { undo, redo } = useDrawStateStore();
   const handleClickUndoButton = () => {
     undo(keywords[index], canvasRefs[index]);
-    console.log(keywords[index]);
-    console.log(canvasRefs[index].current);
   };
   const handleClickRedoButton = () => {
     redo(keywords[index], canvasRefs[index]);
-    console.log(keywords[index]);
-    console.log(canvasRefs);
   };
   return (
     <div className={"flex flex-row gap-10 justify-evenly items-center pt-10"}>

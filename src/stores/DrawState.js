@@ -5,7 +5,6 @@ export const useDrawStateStore = create((set) => ({
 
   // drawState 저장
   setDrawState: (keyword, canvasRef) => {
-    console.log(keyword, canvasRef);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const currentState = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -13,7 +12,7 @@ export const useDrawStateStore = create((set) => ({
     set((state) => {
       // 이전 상태
       const currentKeywordState = state.drawState[keyword] || {
-        canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height), // 초기값 설정
+        canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height),
         history: [],
         redoList: [],
       };
@@ -28,7 +27,7 @@ export const useDrawStateStore = create((set) => ({
               ...currentKeywordState.history,
               currentKeywordState.canvasState,
             ],
-            redoList: [], // 새 상태 저장 후 redoList를 비웁니다.
+            redoList: [],
           },
         },
       };
@@ -38,21 +37,21 @@ export const useDrawStateStore = create((set) => ({
   // 뒤로 되돌리기
   undo: (keyword, canvasRef) => {
     set((state) => {
-      console.log(keyword, canvasRef);
       const currentKeywordState = state.drawState[keyword];
 
-      if (!currentKeywordState) return state;
+      if (!currentKeywordState || currentKeywordState.history.length === 0)
+        return state;
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
 
-      if (currentKeywordState.history.length === 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스를 지우기
+      if (currentKeywordState.history.length === 1) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         return {
           drawState: {
             ...state.drawState,
             [keyword]: {
               ...currentKeywordState,
-              canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height), // 지운 후의 상태를 캡처
+              canvasState: ctx.getImageData(0, 0, canvas.width, canvas.height),
               history: [],
               redoList: [
                 currentKeywordState.canvasState,
