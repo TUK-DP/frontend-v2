@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetDiagnosisQuiz = () => {
   const { data, isFetching, isSuccess } = useQuery({
-    queryKey: "diagnosisQuiz",
+    queryKey: ["diagnosisQuiz"],
     queryFn: async () => {
       const res = await DiagnosisController.getDiagnosis();
       return res.data.result;

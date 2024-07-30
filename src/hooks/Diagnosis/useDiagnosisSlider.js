@@ -1,6 +1,3 @@
-import { useRef, useState } from "react";
-import useGetDiagnosisQuiz from "../../hooks/Diagnosis/queries/useGetDiagnosisQuiz";
-
 import {
   TbNumber10Small,
   TbNumber11Small,
@@ -18,6 +15,11 @@ import {
   TbNumber8Small,
   TbNumber9Small,
 } from "react-icons/tb";
+import { useEffect, useRef, useState } from "react";
+import useGetDiagnosisQuiz from "../../hooks/Diagnosis/queries/useGetDiagnosisQuiz";
+import diagnosisController from "../../apis/diagnosis.controller";
+import { useNavigate } from "react-router-dom";
+import { DIAGNOSIS_RESULT_PAGE_PATH } from "../../pages/dementiaDiagnosis/DiagnosisResult";
 
 export const STEP_BAR_ICONS = [
   TbNumber1Small,
@@ -68,6 +70,7 @@ export const BUTTON_TEXTS = [
 const useDiagnosisSlider = () => {
   const sliderRef = useRef(null);
   const { diagnosisQuiz } = useGetDiagnosisQuiz();
+  const navigate = useNavigate();
 
   const [sliderItems, setSliderItems] = useState(
     diagnosisQuiz.map((diagQuiz, index) => ({
@@ -78,13 +81,16 @@ const useDiagnosisSlider = () => {
     }))
   );
 
+  useEffect(() => {
+    console.log(sliderItems);
+  }, [sliderItems]);
   const [currentSlide, setCurrentSlide] = useState(sliderItems[0]);
 
   const handlePrevClick = () => {
     sliderRef.current.slickPrev();
   };
 
-  const handleNextClick = (whenAllResponseCallback) => {
+  const handleNextClick = async () => {
     // 마지막 슬라이드가 아닐 경우 다음 슬라이드로 이동
     if (currentSlide.id !== sliderItems.at(-1).id) {
       sliderRef.current.slickNext();
@@ -103,7 +109,12 @@ const useDiagnosisSlider = () => {
     }
 
     // 모든 질문에 응답했을 경우 콜백 실행
-    whenAllResponseCallback();
+    const res = await diagnosisController.saveDiagnosisResult({
+      // userId 나중에 바꿔야함
+      userId: 2,
+      diagAnswer: sliderItems.map((item) => item.selectedButtonId),
+    });
+    if (res.data.isSuccess) navigate(DIAGNOSIS_RESULT_PAGE_PATH);
   };
 
   const handleResponse = (slideId, buttonId) => {

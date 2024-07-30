@@ -7,7 +7,7 @@ class DiagnosisController extends Api {
   };
 
   //치매 진단 결과 저장
-  getDiagnosisResult = async ({ userId, diagAnswer }) => {
+  saveDiagnosisResult = async ({ userId, diagAnswer }) => {
     return await this.post(`/diag`, { userId, diagAnswer });
   };
 
