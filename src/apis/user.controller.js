@@ -3,12 +3,10 @@ import { Api } from "./common.controller";
 /**
  * @typedef {Object} User
  * @property {number} id
+ * @property {string} accountId
  * @property {string} username
- * @property {string} email
- * @property {string} nickname
- * @property {string} birth - 2024-07-03
- * @property {string} created_at
- * @property {string} updated_at
+ * @property {string} createdAt
+ * @property {string} updatedAt
  *
  *
  * @typedef {{
@@ -26,14 +24,8 @@ class UserController extends Api {
    * 회원 가입
    * @return {Promise<AxiosResponse<ApiResponse<User>>>}
    * */
-  signUp = async ({ username, nickname, email, password, birth }) => {
-    return await this.post("/users/signup", {
-      username,
-      nickname,
-      email,
-      password,
-      birth,
-    });
+  signUp = async ({ accountId, password, username }) => {
+    return await this.post("/users/signup", { accountId, password, username });
   };
 
   // 로그인
@@ -41,8 +33,15 @@ class UserController extends Api {
    * 로그인
    * @return {Promise<AxiosResponse<ApiResponse<LoginResponse>>>}
    * */
-  signIn = async ({ email, password }) => {
-    return await this.post("/users/login", { email, password });
+  signIn = async ({ accountId, password }) => {
+    return await this.post("/users/login", { accountId, password });
+  };
+
+  /**
+   * @return {Promise<AxiosResponse<ApiResponse>>}
+   */
+  checkAccountId = async ({ accountId }) => {
+    return await this.post(`/users/validate/accountId`, { accountId });
   };
 
   // 자동 로그인
@@ -51,15 +50,16 @@ class UserController extends Api {
    * @return {Promise<AxiosResponse<ApiResponse<LoginResponse>>>}
    */
   autoLogin = async ({ userId, AccessToken, RefreshToken }) => {
-    return await this.get(`/users/${userId}/auto/login`, {
-      data: {
+    return await this.get(
+      `/users/${userId}/auto/login`,
+      {},
+      {
         headers: {
           AccessToken,
           RefreshToken,
-          "Content-Type": "application/json",
         },
-      },
-    });
+      }
+    );
   };
 
   // 회원 정보 수정

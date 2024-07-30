@@ -1,30 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PurpleButton from "./PurpleButton";
 import Spinner from "../Spinner";
 import { SignInOrUpInput } from "./SignInOrUpInput";
 import { SIGH_UP_FORM_KEY } from "../../pages/auths/Signup";
 import { LOGIN_ID_FORMAT, NOT_EMPTY } from "../../utils/validator/input";
+import useSignUp from "../../hooks/auth/query/useSignUp";
+import useCheckAccountId from "../../hooks/auth/query/useCheckAccountId";
+import ErrorMessage from "./ErrorMessage";
 
-const InputStep1 = ({ signUpForm, handleChangeInput, goNextStep }) => {
-  const [isEmailError, setIsEmailError] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+const InputStep1 = ({
+  signUpForm,
+  handleChangeInput,
+  goNextStep,
+  isErrorExist,
+  setIsErrorExist,
+}) => {
+  const { isMutating } = useSignUp();
 
-  const handleClickNextButton = () => {
-    //중복확인 추가해야함
-    if (isEmailError) return;
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      goNextStep();
-    }, 1000);
-  };
+  const {
+    mutate,
+    isMutating: isChecking,
+    isRenderErrorMessage,
+    message,
+  } = useCheckAccountId(() => {
+    setIsErrorExist({
+      ...isErrorExist,
+      duplicateCheck: false,
+    });
+    goNextStep();
+  });
 
   const inputProps = {
-    value: signUpForm[SIGH_UP_FORM_KEY.LOGIN_ID],
-    inputTagName: SIGH_UP_FORM_KEY.LOGIN_ID,
+    value: signUpForm[SIGH_UP_FORM_KEY.ACCOUNT_ID],
+    inputTagName: SIGH_UP_FORM_KEY.ACCOUNT_ID,
     inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
-    setIsError: setIsEmailError,
+    setIsError: (nextValid) => {
+      setIsErrorExist({
+        ...isErrorExist,
+        [SIGH_UP_FORM_KEY.ACCOUNT_ID]: nextValid,
+      });
+    },
     handleChangeInput,
   };
 
@@ -33,9 +48,15 @@ const InputStep1 = ({ signUpForm, handleChangeInput, goNextStep }) => {
       <div className="w-5/6 h-full flex flex-col justify-center items-center">
         <SignInOrUpInput name={"아이디"} className={"flex-1"} {...inputProps} />
         <PurpleButton
-          text={isLoading ? <Spinner /> : "중복확인"}
-          handleClickButton={handleClickNextButton}
+          text={isChecking || isMutating ? <Spinner /> : "중복확인"}
+          handleClickButton={() => {
+            if (isErrorExist.accountId) return;
+            mutate({
+              accountId: signUpForm[SIGH_UP_FORM_KEY.ACCOUNT_ID],
+            });
+          }}
         />
+        {isRenderErrorMessage && <ErrorMessage errorMessage={message} />}
       </div>
     </div>
   );

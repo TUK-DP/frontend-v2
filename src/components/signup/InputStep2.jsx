@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PurpleButton from "./PurpleButton";
 
 import {
@@ -9,16 +9,21 @@ import {
 } from "../../utils/validator/input";
 import { SignInOrUpInput } from "./SignInOrUpInput";
 import { SIGH_UP_FORM_KEY } from "../../pages/auths/Signup";
+import useSignUp from "../../hooks/auth/query/useSignUp";
+import Spinner from "../Spinner";
 
-const InputStep2 = ({ signUpForm, handleChangeInput }) => {
+const InputStep2 = ({
+  signUpForm,
+  handleChangeInput,
+  isErrorExist,
+  setIsErrorExist,
+}) => {
   // 버튼 활성화 여부를 위한 변수
-  const [isErrorExist, setIsErrorExist] = useState(false);
-
   const SIGN_UP_FORM_INPUT_LIST = [
     {
       name: "이름",
       type: "text",
-      inputTagName: SIGH_UP_FORM_KEY.NAME,
+      inputTagName: SIGH_UP_FORM_KEY.USERNAME,
       inputShould: [NOT_EMPTY, GREATER_EQUAL_THAN({ num: 2 })],
     },
     {
@@ -37,24 +42,37 @@ const InputStep2 = ({ signUpForm, handleChangeInput }) => {
     },
   ];
 
+  const { isMutating, mutate } = useSignUp();
+
   return (
     <div className={"h-full flex justify-center min-w-full overflow-y-scroll"}>
       <div
         className={"flex flex-col h-full justify-center items-center w-5/6 "}
       >
         <div className={"flex flex-col flex-1 justify-center w-full"}>
-          {SIGN_UP_FORM_INPUT_LIST.map(({ inputTagName, ...props }) => {
+          {SIGN_UP_FORM_INPUT_LIST.map(({ inputTagName, ...props }, index) => {
             return (
               <SignInOrUpInput
-                key={inputTagName}
+                key={index}
                 {...{ inputTagName, handleChangeInput, ...props }}
                 value={signUpForm[inputTagName]}
-                setIsError={setIsErrorExist}
+                setIsError={(nextValid) => {
+                  setIsErrorExist({
+                    ...isErrorExist,
+                    [inputTagName]: nextValid,
+                  });
+                }}
               />
             );
           })}
         </div>
-        <PurpleButton text="완료" />
+        <PurpleButton
+          text={isMutating ? <Spinner /> : "완료"}
+          handleClickButton={() => {
+            if (Object.values(isErrorExist).includes(true)) return;
+            mutate(signUpForm);
+          }}
+        />
       </div>
     </div>
   );

@@ -10,40 +10,28 @@ import {
 } from "../../utils/validator/input";
 import { useInput } from "../../hooks/inputs/useInput";
 import { SignInOrUpInput } from "../../components/signup/SignInOrUpInput";
+import useSignIn from "../../hooks/auth/query/useSignIn";
+import Spinner from "../../components/Spinner";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
 export const SIGN_IN_FORM_KEY = {
-  LOGIN_ID: "loginId",
+  ACCOUNT_ID: "accountId",
   PASSWORD: "password",
 };
 
 const Signin = () => {
-  const {
-    form: signInForm,
-    handleChangeInput,
-    setForm: setSignInForm,
-  } = useInput({
-    [SIGN_IN_FORM_KEY.LOGIN_ID]: "",
+  const { form: signInForm, handleChangeInput } = useInput({
+    [SIGN_IN_FORM_KEY.ACCOUNT_ID]: "",
     [SIGN_IN_FORM_KEY.PASSWORD]: "",
   });
 
-  const [isErrorExist, setIsErrorExist] = useState(true);
+  const [isErrorExist, setIsErrorExist] = useState({
+    [SIGN_IN_FORM_KEY.ACCOUNT_ID]: true,
+    [SIGN_IN_FORM_KEY.PASSWORD]: true,
+  });
 
-  const SIGN_IN_INPUT_LIST = [
-    {
-      name: "아이디",
-      type: "text",
-      inputTagName: SIGN_IN_FORM_KEY.LOGIN_ID,
-      inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
-    },
-    {
-      name: "비밀번호",
-      type: "password",
-      inputTagName: SIGN_IN_FORM_KEY.PASSWORD,
-      inputShould: [NOT_EMPTY, PASSWORD_FORMAT],
-    },
-  ];
+  const { mutate, isMutating } = useSignIn();
 
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
@@ -55,11 +43,25 @@ const Signin = () => {
               key={inputTagName}
               {...{ handleChangeInput, inputTagName, ...props }}
               value={signInForm[inputTagName]}
-              setIsError={setIsErrorExist}
+              setIsError={(nextValid) => {
+                setIsErrorExist({
+                  ...isErrorExist,
+                  [inputTagName]: nextValid,
+                });
+              }}
             />
           ))}
         </div>
-        <PurpleButton text="로그인" />
+        <PurpleButton
+          handleClickButton={() => {
+            const [v1, v2] = Object.values(isErrorExist);
+            // 모든 input이 유효한지 확인후 로그인 요청
+            if (v1 === false && v2 === false) {
+              mutate(signInForm);
+            }
+          }}
+          text={isMutating ? <Spinner /> : "로그인"}
+        />
       </div>
       <MoveToSignUp />
     </div>
@@ -67,6 +69,21 @@ const Signin = () => {
 };
 
 export default Signin;
+
+const SIGN_IN_INPUT_LIST = [
+  {
+    name: "아이디",
+    type: "text",
+    inputTagName: SIGN_IN_FORM_KEY.ACCOUNT_ID,
+    inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
+  },
+  {
+    name: "비밀번호",
+    type: "password",
+    inputTagName: SIGN_IN_FORM_KEY.PASSWORD,
+    inputShould: [NOT_EMPTY, PASSWORD_FORMAT],
+  },
+];
 
 const MoveToSignUp = () => {
   const navigate = useNavigate();

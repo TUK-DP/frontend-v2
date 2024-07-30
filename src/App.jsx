@@ -1,13 +1,12 @@
 import "./index.css";
 import "./App.css";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import useFontSizeStore from "./stores/FontSizeStore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavigationBarLayout from "./layouts/NavigationBarLayout";
 import { MobileResponsiveLayout } from "./layouts/MobileResponsiveLayout";
 import Home, { HOME_PAGE_PATH } from "./pages/Home";
 import HeaderBarLayout from "./layouts/HeaderBarLayout";
-import React from "react";
 import DementiaDiagnosisRoutes from "./routes/DementiaDiagnosisRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import DiaryAndRecallRoutes from "./routes/DiaryAndRecallRoutes";
@@ -15,9 +14,12 @@ import DiaryAndDrawRoutes from "./routes/DiaryAndDrawRoutes";
 import MainPageFeatureRoutes from "./routes/MainPageFeatureRoutes";
 import MyPageFeatureRoutes from "./routes/MyPageFeatureRoutes";
 import DementiaCenterRoutes from "./routes/DementiaCenterRoutes";
+import useAutoLogin from "./hooks/auth/query/useAutoLogin";
 
 function App() {
   const fontSize = useFontSizeStore((state) => state.fontSize);
+
+  useAutoLogin();
 
   useEffect(() => {
     // 페이지 로드 시 폰트 크기 설정
