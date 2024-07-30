@@ -56,6 +56,7 @@ const CanvasSlider = ({ keywords, setCanvasSlider, keywordSlider }) => {
       {keywords.map((keyword, index) => (
         <CanvasSet
           key={index}
+          keyword={keyword}
           canvasWidth={canvasWidth}
           canvasRef={canvasRefs.current[index]}
           canvasBgRef={canvasBgRefs.current[index]}
