@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import BrushSizeControl from "./BrushSizeControl";
 import DrawingToolBar from "./DrawingToolBar";
 import ColorPickerComp from "./ColorPickerComp";
@@ -6,18 +6,9 @@ import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 const CanvasPalette = () => {
+  const PALETTE_HEIGHT = 330;
   const [isOpen, setIsOpen] = useState(true);
-  const paletteRef = useRef(null);
-  const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
-
-  useEffect(() => {
-    if (paletteRef.current) {
-      setPaletteHeight(paletteRef.current.clientHeight);
-    }
-  }, [paletteRef]);
-
-  useEffect(() => {});
 
   return (
     <>
@@ -26,11 +17,11 @@ const CanvasPalette = () => {
         style={{
           transform: isOpen
             ? `translateY(9rem)`
-            : `translateY(${paletteHeight}px)`,
+            : `translateY(${PALETTE_HEIGHT}px)`,
         }}
       >
         <PaletteToggle isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div ref={paletteRef}>
+        <div>
           <BrushSizeControl />
           <DrawingToolBar setColorPickerOpen={setColorPickerOpen} />
         </div>
