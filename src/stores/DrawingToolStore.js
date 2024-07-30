@@ -10,8 +10,6 @@ export const useDrawingToolStore = create((set) => ({
   setDrawingTools: (drawingTools) => {
     set((state) => {
       const updatedDrawingTools = { ...state.drawingTools, ...drawingTools };
-      console.log("Previous state:", state.drawingTools);
-      console.log("Updated state:", updatedDrawingTools);
       return { drawingTools: updatedDrawingTools };
     });
   },
