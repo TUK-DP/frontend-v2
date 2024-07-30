@@ -1,28 +1,14 @@
 import React from "react";
 import ModalBackground from "../modals/ModalBackground";
 import { useNavigate } from "react-router-dom";
-import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "../../pages/games/GameRockScissorPaper";
+import { GAME_INFO } from "../../constants/gameInfo";
 
-const GAME_DESCRIPTION = `지는 게 이기는 거다!
-
-가위바위보를 했을 때 지는 사람이 
-이기는 게임입니다!
-
-만약 컴퓨터가 보를 냈을 때, 
-주먹을 낸다면 이길 수 있습니다!
-
-단, 같이 내는 것이 아니라, 
-컴퓨터가 낸 것을 보고 난 후 내면 됩니다!
-
-자, 그럼 지러 가볼까요~?!!
-`;
-
-const GameIntroModal = ({ modalClose }) => {
+const GameIntroModal = ({ modalClose, gamePath, type }) => {
   return (
     <ModalBackground>
       <div className="relative col-start-2 row-start-2 h-full  bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[355px] tablet:w-[400px]">
-        <GameIntro />
-        <ModalButtons modalClose={modalClose} />
+        <GameIntro type={type} />
+        <ModalButtons modalClose={modalClose} gamePath={gamePath} />
       </div>
     </ModalBackground>
   );
@@ -30,27 +16,27 @@ const GameIntroModal = ({ modalClose }) => {
 
 export default GameIntroModal;
 
-const GameIntro = () => {
+const GameIntro = ({ type }) => {
   return (
     <>
       <div className={"font-bold text-2xl tablet:text-4xl"}>
-        지는 가위바위보란?
+        {GAME_INFO[type].title}
       </div>
       <div
         className={
           "break-keep text-lg whitespace-pre-wrap text-center py-3 tablet:text-2xl"
         }
       >
-        {GAME_DESCRIPTION}
+        {GAME_INFO[type].content}
       </div>
     </>
   );
 };
 
-const ModalButtons = ({ modalClose }) => {
+const ModalButtons = ({ modalClose, gamePath }) => {
   const navigate = useNavigate();
   const goPlayGame = () => {
-    navigate(GAME_ROCK_SCISSOR_PAPER_PAGE_PATH);
+    navigate(gamePath);
   };
   return (
     <div className={"w-full flex gap-3"}>

@@ -4,6 +4,8 @@ import btn_rockScissorsPaper from "../../assets/home/button/btn_rockScissorsPape
 import btn_colorMatch from "../../assets/home/button/btn_colorMatch.png";
 import useGoGym from "../../hooks/gym/useGoGym";
 import { ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH } from "../../pages/games/RockScissorPaperIntro";
+import { COLOR_MTACH_INTRO_PAGE_PATH } from "../../pages/games/ColorMatchIntro";
+
 import { useNavigate } from "react-router-dom";
 const SubDementiaPreventionSection = () => {
   const { goGymPage } = useGoGym();
@@ -38,7 +40,7 @@ const GymnasticsButton = ({ goGymPage }) => {
 };
 
 //미니게임 리스트 컴포넌트
-const GameButtonList = () => {
+export const GameButtonList = () => {
   const navigate = useNavigate();
   //게임 데이터
   const games = [
@@ -49,7 +51,13 @@ const GameButtonList = () => {
         navigate(ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH);
       },
     },
-    { imgsrc: btn_colorMatch, name: "컬러매치" },
+    {
+      imgsrc: btn_colorMatch,
+      name: "컬러매치",
+      onClick: () => {
+        navigate(COLOR_MTACH_INTRO_PAGE_PATH);
+      },
+    },
   ];
 
   return (
