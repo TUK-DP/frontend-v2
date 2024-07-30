@@ -10,7 +10,7 @@ import {
 } from "../../utils/validator/input";
 import { useInput } from "../../hooks/inputs/useInput";
 import { SignInOrUpInput } from "../../components/signup/SignInOrUpInput";
-import useSignIn from "../../hooks/auth/query/useLogin";
+import useSignIn from "../../hooks/auth/query/useSignIn";
 import Spinner from "../../components/Spinner";
 
 export const SIGNIN_PAGE_PATH = "/signin";
