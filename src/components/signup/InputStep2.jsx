@@ -43,10 +43,11 @@ const InputStep2 = ({ signUpForm, handleChangeInput }) => {
         className={"flex flex-col h-full justify-center items-center w-5/6 "}
       >
         <div className={"flex flex-col flex-1 justify-center w-full"}>
-          {SIGN_UP_FORM_INPUT_LIST.map(({ inputTagName, ...props }) => {
+          x{" "}
+          {SIGN_UP_FORM_INPUT_LIST.map(({ inputTagName, ...props }, index) => {
             return (
               <SignInOrUpInput
-                key={inputTagName}
+                key={index}
                 {...{ inputTagName, handleChangeInput, ...props }}
                 value={signUpForm[inputTagName]}
                 setIsError={setIsErrorExist}

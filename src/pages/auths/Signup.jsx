@@ -7,20 +7,16 @@ import InputStep2 from "../../components/signup/InputStep2";
 export const SIGNUP_PAGE_PATH = "/signup";
 
 export const SIGH_UP_FORM_KEY = {
-  LOGIN_ID: "loginId",
-  NAME: "name",
+  ACCOUNT_ID: "accountId",
+  USERNAME: "username",
   PASSWORD: "password",
 };
 
 const Signup = () => {
-  const {
-    form: signUpForm,
-    setForm: setSignUpForm,
-    handleChangeInput,
-  } = useInput({
-    [SIGH_UP_FORM_KEY.LOGIN_ID]: "",
+  const { form: signUpForm, handleChangeInput } = useInput({
+    [SIGH_UP_FORM_KEY.ACCOUNT_ID]: "",
     [SIGH_UP_FORM_KEY.PASSWORD]: "",
-    [SIGH_UP_FORM_KEY.NAME]: "",
+    [SIGH_UP_FORM_KEY.USERNAME]: "",
   });
 
   const sliderRef = useRef(null);

@@ -3,12 +3,10 @@ import { Api } from "./common.controller";
 /**
  * @typedef {Object} User
  * @property {number} id
+ * @property {string} accountId
  * @property {string} username
- * @property {string} email
- * @property {string} nickname
- * @property {string} birth - 2024-07-03
- * @property {string} created_at
- * @property {string} updated_at
+ * @property {string} createdAt
+ * @property {string} updatedAt
  *
  *
  * @typedef {{
@@ -41,8 +39,8 @@ class UserController extends Api {
    * 로그인
    * @return {Promise<AxiosResponse<ApiResponse<LoginResponse>>>}
    * */
-  signIn = async ({ email, password }) => {
-    return await this.post("/users/login", { email, password });
+  signIn = async ({ accountId, password }) => {
+    return await this.post("/users/login", { accountId, password });
   };
 
   // 자동 로그인

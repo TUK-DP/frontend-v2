@@ -21,8 +21,8 @@ const InputStep1 = ({ signUpForm, handleChangeInput, goNextStep }) => {
   };
 
   const inputProps = {
-    value: signUpForm[SIGH_UP_FORM_KEY.LOGIN_ID],
-    inputTagName: SIGH_UP_FORM_KEY.LOGIN_ID,
+    value: signUpForm[SIGH_UP_FORM_KEY.ACCOUNT_ID],
+    inputTagName: SIGH_UP_FORM_KEY.ACCOUNT_ID,
     inputShould: [NOT_EMPTY, LOGIN_ID_FORMAT],
     setIsError: setIsEmailError,
     handleChangeInput,
