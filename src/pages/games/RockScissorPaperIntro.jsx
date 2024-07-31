@@ -4,7 +4,8 @@ import scissorIcon from "../../assets/game/scissorIcon.png";
 import paperIcon from "../../assets/game/paperIcon.png";
 import GameIntroModal from "../../components/game/GameIntroModal";
 import { useNavigate } from "react-router-dom";
-import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "./GameRockScissorPaper";
+import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "./RockScissorPaper";
+import { PurpleButton } from "./ColorMatchIntro";
 
 export const ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH = "/games/1";
 const RockScissorPaperIntro = () => {
@@ -16,14 +17,20 @@ const RockScissorPaperIntro = () => {
     <>
       <div
         className={
-          "w-full h-full relative flex flex-col  items-center py-16 overflow-hidden justify-between"
+          "w-full h-full relative flex flex-col  items-center py-16 overflow-hidden"
         }
       >
         <Title />
         <RockSissorPaperImages />
         <GameButtons handleModalState={handleModalState} />
       </div>
-      {isGameModalOpen && <GameIntroModal modalClose={handleModalState} />}
+      {isGameModalOpen && (
+        <GameIntroModal
+          modalClose={handleModalState}
+          gamePath={GAME_ROCK_SCISSOR_PAPER_PAGE_PATH}
+          type="ROCK-SCISSOR-PAPER"
+        />
+      )}
     </>
   );
 };
@@ -71,27 +78,12 @@ const GameButtons = ({ handleModalState }) => {
     navigate(GAME_ROCK_SCISSOR_PAPER_PAGE_PATH);
   };
   return (
-    <div
-      className={
-        "w-full flex flex-col gap-8 text-xl text-white font-bold items-center tablet:text-3xl"
-      }
-    >
+    <div className="w-full flex flex-col gap-8 mt-5 px-14 items-center">
       <PurpleButton
         buttonName="설명 보기"
         handleClickButton={handleModalState}
       />
       <PurpleButton buttonName="게임 시작" handleClickButton={goPlayGame} />
     </div>
-  );
-};
-
-const PurpleButton = ({ buttonName, handleClickButton }) => {
-  return (
-    <button
-      className="bg-primary-400 w-1/2 h-11 rounded-xl tablet:h-20"
-      onClick={handleClickButton}
-    >
-      {buttonName}
-    </button>
   );
 };
