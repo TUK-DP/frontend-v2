@@ -43,7 +43,7 @@ const DiaryRecallTest = () => {
           {...{ sliderRef, sliderItems, setCurrentSlide, handleResponse }}
         />
       </div>
-      <div className="w-full px-6 md:px-16 flex justify-between fixed bottom-10">
+      <div className="w-full px-6 md:px-16 flex gap-10 fixed bottom-10">
         <SliderPrevButton onClick={handlePrevClick} />
         <SliderNextButton
           onClick={handleNextButtonClick}
@@ -60,7 +60,7 @@ const SliderPrevButton = ({ onClick }) => (
   <Button
     text="이전"
     onClick={onClick}
-    className="w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
+    className="w-full md:h-[5rem] md:text-3xl cursor-pointer"
   />
 );
 
@@ -68,6 +68,6 @@ const SliderNextButton = ({ onClick, isLastSlide }) => (
   <Button
     text={isLastSlide ? "완료" : "다음"}
     onClick={onClick}
-    className="bg-[#6100C1] text-white w-[10rem] md:w-[18rem] md:h-[5rem] md:text-3xl cursor-pointer"
+    className="bg-[#6100C1] text-white w-full md:h-[5rem] md:text-3xl cursor-pointer"
   />
 );
