@@ -6,6 +6,7 @@ import {
   TbNumber4Small,
   TbNumber5Small,
 } from "react-icons/tb";
+import useFetchDiaryRecallQuiz from "./queries/useFetchRecallQuiz";
 
 const RECALL_TEST_DATA = [
   "나는 오늘 __에 갔다.",
@@ -44,11 +45,13 @@ export const STEP_BAR_ICONS = [
  */
 const useRecallTestSlider = () => {
   const sliderRef = useRef(null);
+  // 196 -> diaryId로 바꿔야함
+  const { quizData } = useFetchDiaryRecallQuiz(196);
 
   const [sliderItems, setSliderItems] = useState(
-    RECALL_TEST_DATA.map((question, index) => ({
+    quizData.map((quiz, index) => ({
       id: index,
-      question,
+      question: quiz.question,
       stepIcon: STEP_BAR_ICONS[index],
       inputValue: "",
     }))

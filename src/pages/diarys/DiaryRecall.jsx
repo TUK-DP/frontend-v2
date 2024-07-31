@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DiaryRecallImg from "../../assets/diary/questionPeople.png";
 import { DIARY_RECALL_TEST_PAGE_PATH } from "./DiaryRecallTest";
+import useFetchDiaryRecallQuiz from "../../hooks/diary/queries/useFetchRecallQuiz";
 
 export const DIARY_RECALL_PAGE_PATH = "/diary/recall";
 const DiaryRecall = () => {
@@ -62,8 +63,11 @@ const ExplainSection = () => {
 
 const GoRecallTestButton = () => {
   const navigate = useNavigate();
+  //196 -> diaryId로 바꿔야함
+  const { isFetching } = useFetchDiaryRecallQuiz(196);
 
   const onClick = () => {
+    if (isFetching) return;
     navigate(DIARY_RECALL_TEST_PAGE_PATH);
   };
 

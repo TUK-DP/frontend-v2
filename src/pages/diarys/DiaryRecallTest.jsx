@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../styles/sliderStyles.css";
@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 import RecallTestSlider from "../../components/diary/RecallTestSlider";
 import Stepper from "../../components/diary/Stepper";
 import useRecallTestSlider from "../../hooks/diary/useRecallTestSlider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DIARY_RECALL_RESULT_PAGE_PATH } from "./DiaryRecallResult";
 
 export const DIARY_RECALL_TEST_PAGE_PATH = "/diary/recall/test";
