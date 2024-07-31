@@ -17,8 +17,9 @@ import apricotPencil from "../../assets/drawingTools/colorPencil_apricot.png";
 import brownPencil from "../../assets/drawingTools/colorPencil_brown.png";
 import grayPencil from "../../assets/drawingTools/colorPencil_gray.png";
 import rainbowPencil from "../../assets/drawingTools/colorPencil_rainbow.png";
+import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
-const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
+const DrawingToolBar = ({ setColorPickerOpen }) => {
   const TOOL_LIST = [
     { id: "eraser", image: eraser, color: "transparent" },
     { id: "black", image: blackPencil, color: "#000000" },
@@ -44,15 +45,19 @@ const DrawingToolBar = ({ setSelectedColor, setColorPickerOpen }) => {
   ];
 
   const [selectedTool, setSelectedTool] = useState(TOOL_LIST[1]);
+  const setDrawingTools = useDrawingToolStore((state) => state.setDrawingTools);
 
   // rainbowPencil 클릭 시 컬러피커 표시
   const handleToolSelect = (tool) => {
     setSelectedTool(tool);
     if (tool.id === "rainbow") {
       setColorPickerOpen(true);
-    } else {
-      setSelectedColor(tool.color);
+    } else if (tool.id === "eraser") {
       setColorPickerOpen(false);
+      setDrawingTools({ color: tool.color, drawingMode: false });
+    } else {
+      setColorPickerOpen(false);
+      setDrawingTools({ color: tool.color, drawingMode: true });
     }
   };
 

@@ -1,50 +1,33 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useColor } from "react-color-palette";
+import React, { useState, useEffect } from "react";
 import BrushSizeControl from "./BrushSizeControl";
 import DrawingToolBar from "./DrawingToolBar";
 import ColorPickerComp from "./ColorPickerComp";
 import { TbTriangleFilled, TbTriangleInvertedFilled } from "react-icons/tb";
+import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 const CanvasPalette = () => {
-  const [selectedColor, setSelectedColor] = useState("#FF0900"); // 초기 색상 설정
+  const PALETTE_HEIGHT = 330;
   const [isOpen, setIsOpen] = useState(true);
-  const paletteRef = useRef(null);
-  const [paletteHeight, setPaletteHeight] = useState(0); // 팔레트의 높이
   const [colorPickerOpen, setColorPickerOpen] = useState(false);
-  const [color, setColor] = useColor("hex", "#FF0900");
-
-  useEffect(() => {
-    if (paletteRef.current) {
-      setPaletteHeight(paletteRef.current.clientHeight);
-    }
-  }, [paletteRef]);
 
   return (
     <>
       <div
-        className="fixed bottom-0 transition-transform duration-500"
+        className="fixed bottom-0 transition-transform duration-500 bg-white rounded-t-2xl"
         style={{
           transform: isOpen
             ? `translateY(9rem)`
-            : `translateY(${paletteHeight}px)`,
+            : `translateY(${PALETTE_HEIGHT}px)`,
         }}
       >
         <PaletteToggle isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div ref={paletteRef}>
-          <BrushSizeControl selectedColor={selectedColor} />
-          <DrawingToolBar
-            setSelectedColor={setSelectedColor}
-            setColorPickerOpen={setColorPickerOpen}
-          />
+        <div>
+          <BrushSizeControl />
+          <DrawingToolBar setColorPickerOpen={setColorPickerOpen} />
         </div>
       </div>
       {colorPickerOpen && (
-        <ColorPickerComp
-          color={color}
-          setColor={setColor}
-          setSelectedColor={setSelectedColor}
-          setColorPickerOpen={setColorPickerOpen}
-        />
+        <ColorPickerComp setColorPickerOpen={setColorPickerOpen} />
       )}
     </>
   );
