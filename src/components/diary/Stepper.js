@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { TbCircleCheck } from "react-icons/tb";
 import { STEP_BAR_ICONS } from "../../hooks/diary/useRecallTestSlider";
 
@@ -8,46 +8,18 @@ import { STEP_BAR_ICONS } from "../../hooks/diary/useRecallTestSlider";
  * @param handleStepClick
  */
 const Stepper = ({ currentSlide, sliderItems, handleStepClick }) => {
-  const scrollerRef = useRef(null);
-
-  useEffect(() => {
-    if (scrollerRef.current) {
-      moveStepper();
-    }
-  }, [currentSlide]);
-
-  const moveStepper = () => {
-    const selectedStepElement = scrollerRef.current?.children[currentSlide.id];
-
-    if (!selectedStepElement) return;
-
-    const containerWidth = scrollerRef.current.offsetWidth;
-    const iconWidth = selectedStepElement.offsetWidth;
-    const iconOffsetLeft = selectedStepElement.offsetLeft;
-
-    const scrollPosition = iconOffsetLeft - containerWidth / 2 + iconWidth / 2;
-
-    scrollerRef.current.scrollTo({
-      left: scrollPosition,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <div
-      className="w-full flex items-center overflow-x-scroll scrollbar-hide px-5 md:px-10"
-      ref={scrollerRef}
-    >
+    <div className="w-full flex items-center justify-center">
       {sliderItems.map((slide, index) => (
         <div key={index} className="flex items-center">
           <StepperIcon
             index={index}
-            isSelected={slide.selectedButtonId !== null}
+            isSelected={slide.inputValue && slide.inputValue.trim() !== ""}
             onClick={handleStepClick}
           />
           {index < sliderItems.length - 1 && (
             <div
-              className={`w-12 md:w-20 h-2
+              className={`w-10 md:w-20 h-2
               ${currentSlide.id > index ? "bg-purple-700" : "bg-gray-400"}`}
             />
           )}
