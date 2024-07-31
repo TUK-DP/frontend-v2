@@ -8,23 +8,6 @@ import { GAME_ROCK_SCISSOR_PAPER_PAGE_PATH } from "./RockScissorPaper";
 import { PurpleButton } from "./ColorMatchIntro";
 
 export const ROCK_SCISSOR_PAPER_INTRO_PAGE_PATH = "/games/1";
-const GAME_INFO = {
-  title: "지는 가위바위보란?",
-  content: `지는 게 이기는 거다!
-
-가위바위보를 했을 때 지는 사람이 
-이기는 게임입니다!
-
-만약 컴퓨터가 보를 냈을 때, 
-주먹을 낸다면 이길 수 있습니다!
-
-단, 같이 내는 것이 아니라, 
-컴퓨터가 낸 것을 보고 난 후 내면 됩니다!
-
-자, 그럼 지러 가볼까요~?!!
-`,
-};
-
 const RockScissorPaperIntro = () => {
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
   const handleModalState = () => {
