@@ -2,12 +2,17 @@ import React from "react";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { DIAGNOSIS_PAGE_PATH } from "./Diagnosis";
+import useGetDiagnosisQuiz from "../../hooks/Diagnosis/queries/useGetDiagnosisQuiz";
 
 export const DIAGNOSIS_GUIDE_PAGE_PATH = "/diagnosisguide";
 
 const DiagnosisGuide = () => {
   let navigate = useNavigate();
-
+  const { isFetching } = useGetDiagnosisQuiz();
+  const handleClickStartDiagButton = () => {
+    if (isFetching) return;
+    navigate(DIAGNOSIS_PAGE_PATH);
+  };
   return (
     <div className="flex flex-col">
       <DiagnosisIntro />
@@ -18,9 +23,7 @@ const DiagnosisGuide = () => {
       <Button
         text="진단시작"
         className={"mx-4 md:mx-7 md:h-16 md:text-3xl"}
-        onClick={() => {
-          navigate(DIAGNOSIS_PAGE_PATH);
-        }}
+        onClick={handleClickStartDiagButton}
       />
     </div>
   );
