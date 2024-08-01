@@ -1,9 +1,9 @@
-import { range } from "../../utils/array/range";
 import AccordionWrapper from "../../components/wrapper/AccordionWrapper";
 import CollectIcon from "../../assets/diaryRecall/collect_icon.png";
 import FaultIcon from "../../assets/diaryRecall/fault_icon.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import useGoHome from "../../hooks/home/useGoHome";
 
 export const DIARY_RECALL_RESULT_PAGE_PATH = "/diary/recall/result";
 /**
@@ -33,6 +33,7 @@ const DiaryRecallResult = () => {
   const questions = state.question;
 
   const check = state.result;
+  const { goHomePage } = useGoHome();
 
   return (
     <div
@@ -53,7 +54,10 @@ const DiaryRecallResult = () => {
           />
         ))}
       </div>
-      <button className={"block border-2 rounded-xl py-6 mb-20"}>
+      <button
+        className={"block border-2 rounded-xl py-6 mb-20"}
+        onClick={goHomePage}
+      >
         홈으로 가기
       </button>
     </div>
