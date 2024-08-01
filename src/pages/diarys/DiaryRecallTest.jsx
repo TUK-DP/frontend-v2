@@ -6,8 +6,6 @@ import Button from "../../components/Button";
 import RecallTestSlider from "../../components/diary/RecallTestSlider";
 import Stepper from "../../components/diary/Stepper";
 import useRecallTestSlider from "../../hooks/diary/useRecallTestSlider";
-import { useLocation, useNavigate } from "react-router-dom";
-import { DIARY_RECALL_RESULT_PAGE_PATH } from "./DiaryRecallResult";
 
 export const DIARY_RECALL_TEST_PAGE_PATH = "/diary/recall/test";
 
@@ -25,16 +23,6 @@ const DiaryRecallTest = () => {
 
   const isLastSlide = currentSlide.id === sliderItems.length - 1;
 
-  let navigate = useNavigate();
-
-  const handleNextButtonClick = () => {
-    handleNextClick(() => {
-      if (isLastSlide) {
-        navigate(DIARY_RECALL_RESULT_PAGE_PATH);
-      }
-    });
-  };
-
   return (
     <div className="py-6 md:py-10 relative">
       <div className="px-6 md:px-16">
@@ -45,10 +33,7 @@ const DiaryRecallTest = () => {
       </div>
       <div className="w-full px-6 md:px-16 flex gap-10 fixed bottom-10">
         <SliderPrevButton onClick={handlePrevClick} />
-        <SliderNextButton
-          onClick={handleNextButtonClick}
-          isLastSlide={isLastSlide}
-        />
+        <SliderNextButton onClick={handleNextClick} isLastSlide={isLastSlide} />
       </div>
     </div>
   );

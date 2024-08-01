@@ -7,14 +7,9 @@ import {
   TbNumber5Small,
 } from "react-icons/tb";
 import useFetchDiaryRecallQuiz from "./queries/useFetchRecallQuiz";
-
-const RECALL_TEST_DATA = [
-  "나는 오늘 __에 갔다.",
-  "나는 오늘 __에 갔다.",
-  "나는 오늘 __에 갔다.",
-  "나는 오늘 __에 갔다.",
-  "나는 오늘 __에 갔다.",
-];
+import DiaryRecallController from "../../apis/diary.recall.controller";
+import { useNavigate } from "react-router-dom";
+import { DIARY_RECALL_RESULT_PAGE_PATH } from "../../pages/diarys/DiaryRecallResult";
 
 export const STEP_BAR_ICONS = [
   TbNumber1Small,
@@ -44,6 +39,7 @@ export const STEP_BAR_ICONS = [
  * }}
  */
 const useRecallTestSlider = () => {
+  const navigate = useNavigate();
   const sliderRef = useRef(null);
   // 196 -> diaryId로 바꿔야함
   const { quizData } = useFetchDiaryRecallQuiz(196);
@@ -52,6 +48,7 @@ const useRecallTestSlider = () => {
     quizData.map((quiz, index) => ({
       id: index,
       question: quiz.question,
+      keywordId: quiz.keywordId,
       stepIcon: STEP_BAR_ICONS[index],
       inputValue: "",
     }))
@@ -63,7 +60,7 @@ const useRecallTestSlider = () => {
     sliderRef.current.slickPrev();
   };
 
-  const handleNextClick = (whenAllResponseCallback) => {
+  const handleNextClick = async () => {
     if (currentSlide.id !== sliderItems.at(-1).id) {
       sliderRef.current.slickNext();
       return;
@@ -78,7 +75,23 @@ const useRecallTestSlider = () => {
       return;
     }
 
-    whenAllResponseCallback();
+    if (currentSlide.id === sliderItems.at(-1).id) {
+      // 모든 퀴즈에 답변 입력함
+      const res = await DiaryRecallController.checkAnswer({
+        answers: sliderItems.map(({ keywordId, inputValue }) => ({
+          keywordId,
+          answer: inputValue,
+        })),
+      });
+      if (res.data.isSuccess) {
+        navigate(DIARY_RECALL_RESULT_PAGE_PATH, {
+          state: {
+            result: res.data.result[0],
+            question: sliderItems.map((item) => item.question),
+          },
+        });
+      }
+    }
   };
 
   const handleResponse = (slideId, inputValue) => {
