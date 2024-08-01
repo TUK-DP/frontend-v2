@@ -7,11 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { HOME_PAGE_PATH } from "../Home";
 import userStore from "../../stores/UserStore";
 import { useQueryClient } from "@tanstack/react-query";
+import RecentDiagnosisGraph from "../../components/mypage/RecentDiagnosisGraph";
+import useFetchRecentDiagnosis from "../../hooks/Diagnosis/queries/useFetchRecentDiagnosis";
 
 export const MY_PAGE_PATH = "/mypage";
 
 const MyPage = () => {
   const { user } = useFetchUser();
+  const { record, isCanRender } = useFetchRecentDiagnosis();
 
   const [isOpen, setIsOpen] = useState({
     fontSize: false,
@@ -30,7 +33,9 @@ const MyPage = () => {
       <h1 className={"text-5xl font-bold"}>{user?.username}</h1>
       <LogoutButton />
       <h2 className={"text-3xl mt-10 font-bold"}>최근 진단 결과</h2>
-      <div className={"aspect-square border-2 rounded-xl"}></div>
+      <div className={"border-2 rounded-xl"}>
+        {isCanRender && <RecentDiagnosisGraph number={record[0].totalScore} />}
+      </div>
 
       <p className={"border-b-2 border-black my-6"} />
 
