@@ -1,5 +1,5 @@
-const ACCESS_TOKEN = "AccessToken";
-const REFRESH_TOKEN = "RefreshToken";
+export const ACCESS_TOKEN = "AccessToken";
+export const REFRESH_TOKEN = "RefreshToken";
 
 export const getUserInLocalStorage = () => ({
   userId: localStorage.getItem("userId"),
