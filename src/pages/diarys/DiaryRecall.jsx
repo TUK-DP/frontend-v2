@@ -63,8 +63,7 @@ const ExplainSection = () => {
 
 const GoRecallTestButton = () => {
   const navigate = useNavigate();
-  //196 -> diaryId로 바꿔야함
-  const { isFetching } = useFetchDiaryRecallQuiz(196);
+  const { isFetching } = useFetchDiaryRecallQuiz();
 
   const onClick = () => {
     if (isFetching) return;

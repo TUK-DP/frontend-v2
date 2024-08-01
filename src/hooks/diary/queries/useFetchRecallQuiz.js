@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import DiaryRecallController from "../../../apis/diary.recall.controller";
-const useFetchDiaryRecallQuiz = (diaryId) => {
+import useFetchDiary from "./useFetchDiary";
+
+const useFetchDiaryRecallQuiz = () => {
+  const { diary } = useFetchDiary();
+  const { diaryId } = diary;
   const { data, isFetching, isSuccess } = useQuery({
     queryKey: ["diaryRecallQuiz", diaryId],
     queryFn: async () => {
-      //TODO: diaryId 바꿔야 함
-      const res = await DiaryRecallController.quiz({ diaryId: 196 });
+      const res = await DiaryRecallController.quiz({ diaryId: diaryId });
       return res.data.result;
     },
   });
