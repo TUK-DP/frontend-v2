@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import DiaryController from "../../../apis/diary.controller";
 import { dateToDashString, HOUR } from "../../../utils/api/dateConverter";
 import { useCalendarStore } from "../../../stores/CalendarStore";
-import useGetUserId from "../../auth/useGetUserId";
+import useRequireAuth from "../../auth/useRequireAuth";
 
 /**
  * @return {{diary: Diary, isFetching: boolean, isDiaryExist: boolean, isCanRender: boolean}}
@@ -11,7 +11,7 @@ import useGetUserId from "../../auth/useGetUserId";
 const useFetchDiary = () => {
   const { selectedDate } = useCalendarStore((state) => state);
   const { isDiaryExist } = useFetchDiaryChecks();
-  const { userId, isLogin } = useGetUserId();
+  const { userId, isLogin } = useRequireAuth();
 
   const {
     isFetching,

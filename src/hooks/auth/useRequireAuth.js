@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SIGNIN_PAGE_PATH } from "../../pages/auths/Signin";
 import { useEffect } from "react";
 
-const useGetUserId = () => {
+const useRequireAuth = () => {
   const navigate = useNavigate();
   const { isLogin, userId } = useUserStore((state) => state);
   useEffect(() => {
@@ -15,4 +15,4 @@ const useGetUserId = () => {
   return { userId: isLogin ? userId : 0, isLogin };
 };
 
-export default useGetUserId;
+export default useRequireAuth;
