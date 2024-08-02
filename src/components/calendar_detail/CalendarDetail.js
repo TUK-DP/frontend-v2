@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/DiaryRecall";
 import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
+import useFetchDiaryRecallQuiz from "../../hooks/diary/queries/useFetchRecallQuiz";
+import { NO_DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/NoDiaryRecall";
 
 export const CalendarDetail = () => {
   const { isCanRender } = useFetchDiary();
@@ -30,12 +32,16 @@ export const CalendarDetail = () => {
 
 const WhatHappenSection = () => {
   let navigate = useNavigate();
+  const { quizData } = useFetchDiaryRecallQuiz();
 
   const buttons = [
     {
       title: "회상하러 가기",
       icon: GoRememoryIcon,
-      onClick: () => navigate(DIARY_RECALL_PAGE_PATH),
+      onClick: () => {
+        if (quizData.length === 0) navigate(NO_DIARY_RECALL_PAGE_PATH);
+        if (quizData.length != 0) navigate(DIARY_RECALL_PAGE_PATH);
+      },
     },
     {
       title: "일기 확인하기",

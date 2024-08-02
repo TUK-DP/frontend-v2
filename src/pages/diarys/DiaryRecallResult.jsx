@@ -1,8 +1,9 @@
-import { range } from "../../utils/array/range";
 import AccordionWrapper from "../../components/wrapper/AccordionWrapper";
 import CollectIcon from "../../assets/diaryRecall/collect_icon.png";
 import FaultIcon from "../../assets/diaryRecall/fault_icon.png";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import useGoHome from "../../hooks/home/useGoHome";
 
 export const DIARY_RECALL_RESULT_PAGE_PATH = "/diary/recall/result";
 /**
@@ -23,33 +24,16 @@ export const DIARY_RECALL_RESULT_PAGE_PATH = "/diary/recall/result";
  *   answer : string,
  * }} Check
  */
+
 const DiaryRecallResult = () => {
-  const score = 2;
-  const total = 3;
+  const { state } = useLocation();
+  const score = state.result.score;
+  const total = state.result.totalQuestionSize;
 
-  // 서버에서 받아온 퀴즈 목록
-  const questions = range(total).map((_, index) => ({
-    questionId: index,
-    question: "오늘 친구들과 __를 했다",
-    keywordId: index,
-  }));
+  const questions = state.question;
 
-  // 사용자가 응답한 답 목록
-  const userInputs = range(total).map((_, index) => ({
-    keywordId: index,
-    answer: "농구",
-  }));
-
-  // 서버에서 받아온 정답 목록
-  const check = {
-    totalQuestionSize: total,
-    score,
-    answerList: userInputs.map(({ answer: userInput }) => ({
-      isCorrected: false,
-      userInput,
-      answer: "공부",
-    })),
-  };
+  const check = state.result;
+  const { goHomePage } = useGoHome();
 
   return (
     <div
@@ -62,15 +46,18 @@ const DiaryRecallResult = () => {
         <span>{total}</span>
       </div>
       <div className={"flex flex-col flex-1 gap-6"}>
-        {questions.map((question, index) => (
+        {questions.map((quiz, index) => (
           <AnswerBox
             check={check.answerList[index]}
-            question={questions[index].question}
+            question={quiz}
             key={index}
           />
         ))}
       </div>
-      <button className={"block border-2 rounded-xl py-6 mb-20"}>
+      <button
+        className={"block border-2 rounded-xl py-6 mb-20"}
+        onClick={goHomePage}
+      >
         홈으로 가기
       </button>
     </div>
@@ -86,7 +73,7 @@ export default DiaryRecallResult;
  * @constructor
  */
 const AnswerBox = ({ check, question }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { isCorrected, answer, userInput } = check;
 

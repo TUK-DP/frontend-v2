@@ -1,6 +1,9 @@
 import React from "react";
 import NoDiaryRecallImg from "../../assets/diary/noDiaryRecall.png";
+import useGoDiary from "../../hooks/diary/useGoDiary";
+
 export const NO_DIARY_RECALL_PAGE_PATH = "/diary/norecall";
+
 const NoDiaryRecall = () => {
   return (
     <div className={"flex justify-center items-center my-auto h-full"}>
@@ -53,9 +56,11 @@ const WhyNoRecallSection = () => {
 };
 
 const GoBackToDiaryButton = () => {
+  const { goDiaryPage } = useGoDiary();
   return (
     <button
       className={"bg-primary-500 text-2xl text-white rounded-lg-xl h-14 w-full"}
+      onClick={goDiaryPage}
     >
       일기로 돌아가기
     </button>
