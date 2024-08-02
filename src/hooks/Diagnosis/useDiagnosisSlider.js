@@ -20,7 +20,7 @@ import useGetDiagnosisQuiz from "../../hooks/Diagnosis/queries/useGetDiagnosisQu
 import diagnosisController from "../../apis/diagnosis.controller";
 import { useNavigate } from "react-router-dom";
 import { DIAGNOSIS_RESULT_PAGE_PATH } from "../../pages/dementiaDiagnosis/DiagnosisResult";
-
+import useRequireAuth from "../auth/useRequireAuth";
 export const STEP_BAR_ICONS = [
   TbNumber1Small,
   TbNumber2Small,
@@ -71,6 +71,7 @@ const useDiagnosisSlider = () => {
   const sliderRef = useRef(null);
   const { diagnosisQuiz } = useGetDiagnosisQuiz();
   const navigate = useNavigate();
+  const { userId } = useRequireAuth();
 
   const [sliderItems, setSliderItems] = useState(
     diagnosisQuiz.map((diagQuiz, index) => ({
@@ -107,8 +108,7 @@ const useDiagnosisSlider = () => {
 
     // 모든 질문에 응답했을 경우 콜백 실행
     const res = await diagnosisController.saveDiagnosisResult({
-      // userId 나중에 바꿔야함
-      userId: 2,
+      userId: userId,
       diagAnswer: sliderItems.map((item) => item.selectedButtonId),
     });
     if (res.data.isSuccess)

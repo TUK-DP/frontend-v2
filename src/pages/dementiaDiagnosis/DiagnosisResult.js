@@ -6,6 +6,7 @@ import { HOME_PAGE_PATH } from "../Home";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DiagnosisController from "../../apis/diagnosis.controller";
+import useRequireAuth from "../../hooks/auth/useRequireAuth";
 
 export const DIAGNOSIS_RESULT_PAGE_PATH = "/diagnosis/result";
 
@@ -13,11 +14,13 @@ const DiagnosisResult = () => {
   const { state } = useLocation();
   const { text, textColor } = getDiagnosisState(state.totalScore);
   const [recentResult, setRecentResult] = useState(0);
+  const { userId } = useRequireAuth;
 
   useEffect(() => {
     const fetchResult = async () => {
-      //userId 바꿔야함
-      const res = await DiagnosisController.getRecentDiagnosis({ userId: 2 });
+      const res = await DiagnosisController.getRecentDiagnosis({
+        userId: userId,
+      });
       setRecentResult(res.data.result[1].totalScore ?? 0);
     };
     fetchResult();
