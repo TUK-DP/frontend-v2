@@ -1,4 +1,4 @@
-import useFetchDiary from "../../diary/queries/useFetchDiary";
+import useFetchDiary from "../diary/queries/useFetchDiary";
 
 const useFetchKeywords = () => {
   const { diary } = useFetchDiary();

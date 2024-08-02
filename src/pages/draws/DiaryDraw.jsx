@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import KeywordSlider from "../../components/draw/KeywordSlider";
-import Canvas from "../../components/draw/CanvasWrapper";
 import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 import showOtherDraw from "../../assets/draw/showOtherDraw.png";
 import useGoHelpWithAiPage from "../../hooks/HelpWithAi/useGoHelpWithAiPage";
 import useGoKeywordReference from "../../hooks/diary/useGoKeywordReference";
 import CanvasPalette from "../../components/draw/CanvasPalette";
 import CanvasWrapper from "../../components/draw/CanvasWrapper";
-import useFetchKeywords from "../../hooks/canvas/queries/useFetchKeyword";
+import useFetchKeywords from "../../hooks/canvas/useFetchKeyword";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
@@ -15,9 +14,6 @@ const DiaryDraw = () => {
   const [canvasSlider, setCanvasSlider] = useState(null);
   const { keywords } = useFetchKeywords();
 
-  useEffect(() => {
-    console.log(keywords);
-  }, []);
   return (
     <>
       <div className={"mobile:px-5 px-20 pb-5"}>
