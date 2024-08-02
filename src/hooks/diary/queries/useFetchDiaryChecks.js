@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import DiaryController from "../../../apis/diary.controller";
 import { HOUR, yearMonthToDashString } from "../../../utils/api/dateConverter";
 import { useCalendarStore } from "../../../stores/CalendarStore";
+import useRequireAuth from "../../auth/useRequireAuth";
 
 /**
  * @return {{
@@ -14,6 +15,7 @@ import { useCalendarStore } from "../../../stores/CalendarStore";
  */
 const useFetchDiaryChecks = () => {
   let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state);
+  const { userId, isLogin } = useRequireAuth();
   let {
     isFetching,
     isSuccess,
@@ -22,12 +24,13 @@ const useFetchDiaryChecks = () => {
     queryKey: diaryCheckQueryKey(selectedYearMonth),
     queryFn: async () => {
       const response = await DiaryController.findCheckDiaries({
-        userId: 2,
+        userId,
         ...selectedYearMonth,
       });
       return response.data.result;
     },
     staleTime: HOUR * 2,
+    enabled: isLogin,
   });
 
   const isCanRender = !isFetching && isSuccess;

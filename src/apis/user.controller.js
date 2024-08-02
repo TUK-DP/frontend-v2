@@ -86,6 +86,23 @@ class UserController extends Api {
       }
     );
   };
+
+  // 회원 조회
+  /**
+   * @return {Promise<AxiosResponse<ApiResponse<User>>>}
+   */
+  getUser = async ({ userId, accessToken, refreshToken }) => {
+    return await this.get(
+      `/users/${userId}`,
+      {},
+      {
+        headers: {
+          AccessToken: `${accessToken}`,
+          RefreshToken: `${refreshToken}`,
+        },
+      }
+    );
+  };
 }
 
 export default new UserController();
