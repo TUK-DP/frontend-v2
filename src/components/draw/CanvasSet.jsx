@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDrawEvents } from "../../hooks/canvas/useDrawEvents";
+import { useDrawStateStore } from "../../stores/DrawState";
 
 const CanvasSet = ({ canvasWidth, keyword, canvasRef }) => {
   return (
@@ -17,8 +18,13 @@ const CanvasSet = ({ canvasWidth, keyword, canvasRef }) => {
 export default CanvasSet;
 
 const DrawCanvas = ({ canvasWidth, canvasRef, keyword }) => {
-  const { startDrawing, endDrawing, draw } = useDrawEvents(canvasRef, keyword);
+  const { startDrawing, endDrawing, draw } = useDrawEvents(
+    canvasRef,
+    keyword.keywordId
+  );
 
+  const { drawState } = useDrawStateStore();
+  console.log(drawState);
   return (
     <canvas
       ref={canvasRef}

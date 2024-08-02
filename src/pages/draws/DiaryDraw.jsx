@@ -7,14 +7,12 @@ import useGoHelpWithAiPage from "../../hooks/HelpWithAi/useGoHelpWithAiPage";
 import useGoKeywordReference from "../../hooks/diary/useGoKeywordReference";
 import CanvasPalette from "../../components/draw/CanvasPalette";
 import CanvasWrapper from "../../components/draw/CanvasWrapper";
-// import { useKeywordStore } from "../../stores/Keyword";
 import useFetchKeywords from "../../hooks/canvas/queries/useFetchKeyword";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
   const [keywordSlider, setKeywordSlider] = useState(null);
   const [canvasSlider, setCanvasSlider] = useState(null);
-  // const { keywords } = useKeywordStore();
   const { keywords } = useFetchKeywords();
 
   useEffect(() => {
