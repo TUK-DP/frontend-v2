@@ -73,7 +73,7 @@ export default DiaryRecallResult;
  * @constructor
  */
 const AnswerBox = ({ check, question }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const { isCorrected, answer, userInput } = check;
 
