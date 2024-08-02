@@ -34,35 +34,35 @@ const FeatureSlider = () => {
       imgsrc: slider_diary,
       sentence1: "일기를 회상하고",
       sentence2: "나만의 그림을 그려보세요!",
-      color: "bg-[#6100C1]",
+      color: "bg-sliderBgDiary",
       url: DIARY_PAGE_PATH,
     },
     {
       imgsrc: slider_dementiacenter,
       sentence1: "치매센터가 어디있나요?",
       sentence2: "가까운 치매센터 찾기",
-      color: "bg-[#356DD9]",
+      color: "bg-sliderBgCenter",
       url: DEMENTIA_CENTER_PAGE_PATH,
     },
     {
       imgsrc: slider_gymnastics,
       sentence1: "간단하게 따라할 수 있는",
       sentence2: "체조들을 만나보세요!",
-      color: "bg-[#FF7D7D]",
+      color: "bg-sliderBgExercise",
       url: GYM_PAGE_PATH,
     },
     {
       imgsrc: slider_survey,
       sentence1: "간단한 치매 진단과",
       sentence2: "이전 결과들을 확인하세요!",
-      color: "bg-[#FF9B52]",
+      color: "bg-sliderBgResult",
       url: DIAGNOSIS_GUIDE_PAGE_PATH,
     },
     {
       imgsrc: slider_game,
       sentence1: "간단한 게임들을 통해",
       sentence2: "인지력을 강화시켜보세요!",
-      color: "bg-[#FFE68F]",
+      color: "bg-sliderBgGame",
       url: SELECT_GAMES_PAGE_PATH,
     },
   ];
@@ -99,7 +99,7 @@ const SliderItem = ({ color, sentence1, sentence2, imgsrc, url }) => {
       onClick={handleClick}
     >
       <div
-        className={`absolute top-6 sm:top-8 md:top-12 left-6 sm:left-8 md:left-12 text-2xl md:text-3xl font-bold ${color === "bg-[#FFE68F]" ? "text-black" : "text-white"}`}
+        className={`absolute top-6 sm:top-8 md:top-12 left-6 sm:left-8 md:left-12 text-2xl md:text-3xl font-bold ${color === "bg-sliderBgGame" ? "text-black" : "text-white"}`}
       >
         {sentence1}
         <br />
