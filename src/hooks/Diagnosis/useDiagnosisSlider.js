@@ -78,7 +78,7 @@ const useDiagnosisSlider = () => {
       id: index,
       question: diagQuiz.question,
       stepIcon: STEP_BAR_ICONS[index],
-      selectedButtonId: null,
+      selectedButtonId: -1,
     }))
   );
 
