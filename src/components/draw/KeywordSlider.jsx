@@ -29,7 +29,7 @@ const KeywordSlider = ({ keywords, setKeywordSlider, canvasSlider }) => {
       >
         {keywords.map((keyword, index) => (
           <div key={index} className="text-center mobile:text-3xl text-5xl">
-            {keyword}
+            {keyword.keyword}
           </div>
         ))}
       </Slider>
