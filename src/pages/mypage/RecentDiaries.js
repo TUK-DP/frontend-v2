@@ -3,10 +3,8 @@ import { range } from "../../utils/array/range";
 import { ResponseSkeleton } from "../../components/skeleton/ResponseSkeleton";
 import useFetchRecentDiary from "../../hooks/diary/queries/useFetchRecentDiary";
 import { useCalendarStore } from "../../stores/CalendarStore";
-import useNavBar from "../../hooks/navbar/useNavBar";
 import { useNavigate } from "react-router-dom";
 import { DIARY_PAGE_PATH } from "../diarys/Diary";
-import { DIARY_DETAIL_PAGE_PATH } from "../diaryDetails/DiaryDetail";
 
 export const RECENT_DIARIES_PAGE_PATH = "/recentdiaries";
 
@@ -69,7 +67,7 @@ const DiaryItem = ({ diary }) => {
   const onClick = () => {
     setSelectedYearMonth({ year, month });
     setSelectedDate({ year, month, day });
-    navigate(DIARY_DETAIL_PAGE_PATH);
+    navigate(DIARY_PAGE_PATH);
   };
 
   return (
