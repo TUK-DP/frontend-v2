@@ -2,6 +2,11 @@ import React from "react";
 import { range } from "../../utils/array/range";
 import { ResponseSkeleton } from "../../components/skeleton/ResponseSkeleton";
 import useFetchRecentDiary from "../../hooks/diary/queries/useFetchRecentDiary";
+import { useCalendarStore } from "../../stores/CalendarStore";
+import useNavBar from "../../hooks/navbar/useNavBar";
+import { useNavigate } from "react-router-dom";
+import { DIARY_PAGE_PATH } from "../diarys/Diary";
+import { DIARY_DETAIL_PAGE_PATH } from "../diaryDetails/DiaryDetail";
 
 export const RECENT_DIARIES_PAGE_PATH = "/recentdiaries";
 
@@ -52,12 +57,25 @@ const MonthlyTitle = ({ year, month }) => {
 };
 
 const DiaryItem = ({ diary }) => {
+  const { setSelectedYearMonth, setSelectedDate } = useCalendarStore(
+    (state) => state
+  );
+
+  const navigate = useNavigate();
+
   const { createDate } = diary;
-  const [year, month, day] = createDate.split("-");
+  const [year, month, day] = createDate.split("-").map((i) => Number(i));
+
+  const onClick = () => {
+    setSelectedYearMonth({ year, month });
+    setSelectedDate({ year, month, day });
+    navigate(DIARY_DETAIL_PAGE_PATH);
+  };
+
   return (
     <div className="text-xl md:text-3xl my-9 flex justify-between pr-5">
       {`${Number(month)}월 ${Number(day)}일의 일기`}
-      <button>확인하기 {">"} </button>
+      <button onClick={onClick}>확인하기 {">"} </button>
     </div>
   );
 };
