@@ -6,6 +6,7 @@ import {
 } from "../../../utils/auth/localStorageController";
 import { useQuery } from "@tanstack/react-query";
 import userStore from "../../../stores/UserStore";
+import { HOUR, MINUTE } from "../../../utils/api/dateConverter";
 
 const useAutoLogin = () => {
   const preLocalStorageData = getUserInLocalStorage();
@@ -33,13 +34,13 @@ const useAutoLogin = () => {
       return response.data.result;
     },
     retry: 0,
-    staleTime: 0,
+    staleTime: 2 * HOUR,
     gcTime: 0,
   });
 
   const isAutoLoginSuccess = isSuccess && !isFetching;
 
-  return { isAutoLoginSuccess };
+  return { isAutoLoginSuccess, isFetching };
 };
 
 export default useAutoLogin;
