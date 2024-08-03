@@ -7,7 +7,7 @@ import useFetchKeyword from "../../hooks/canvas/useFetchKeywords";
 
 const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
   const keywordSliderRef = useRef(null);
-  const { keywords } = useFetchKeyword();
+  const { keywords } = useFetchKeywords();
 
   const settings = {
     slidesToShow: 1,
