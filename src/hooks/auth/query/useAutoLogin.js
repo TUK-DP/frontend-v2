@@ -40,7 +40,7 @@ const useAutoLogin = () => {
 
   const isAutoLoginSuccess = isSuccess && !isFetching;
 
-  return { isAutoLoginSuccess, isFetching };
+  return { isAutoLoginSuccess, isLoggingIn: isFetching };
 };
 
 export default useAutoLogin;
