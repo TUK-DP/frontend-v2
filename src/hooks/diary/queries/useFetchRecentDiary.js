@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { MINUTE } from "../../../utils/api/dateConverter";
 import useScreenOn from "../../common/useScreenOn";
 import { useEffect } from "react";
-import { generateRecentMock } from "../../../utils/mock/diary/recent";
+import DiaryController from "../../../apis/diary.controller";
 
 const useFetchRecentDiary = () => {
   const { userId, isLogin } = useRequireAuth();
@@ -12,7 +12,11 @@ const useFetchRecentDiary = () => {
     useInfiniteQuery({
       queryKey: ["diary", "recent"],
       queryFn: async ({ pageParam }) => {
-        const response = await generateRecentMock(pageParam, 6);
+        const response = await DiaryController.recentDiaries({
+          userId,
+          page: pageParam,
+          pageSize: 10,
+        });
         return response.data.result;
       },
       initialPageParam: 1,

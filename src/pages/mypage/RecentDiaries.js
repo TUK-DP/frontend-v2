@@ -25,7 +25,10 @@ const RecentDiaries = () => {
       <div className={"flex flex-col gap-8"}>
         {isFetching &&
           range(6).map(() => (
-            <div className={"h-12 overflow-clip rounded-lg-xl"}>
+            <div
+              key={Math.random()}
+              className={"h-12 overflow-clip rounded-lg-xl"}
+            >
               <ResponseSkeleton />
             </div>
           ))}
@@ -59,11 +62,17 @@ const DiaryItem = ({ diary }) => {
   );
 };
 
+/**
+ * { pages: [[ {diaryId : 0, createDate: "", diaryList: [...], ...}, ... ]]}
+ * 위 데이터를
+ * { "2022-02": [{diaryId : 0, createDate: "", diaryList: [...], ...}, ...], "2022-01": [{diaryId : 0, createDate: "", diaryList: [...], ...}, ...] }
+ * 형태로 변환
+ */
 const convertData = (data) => {
   return Object.groupBy(
     data.pages
       .flat()
-      .map((response) => response.diaryList)
+      .map(({ diaryList }) => diaryList)
       .flat(),
     ({ createDate }) => createDate.slice(0, 7)
   );
