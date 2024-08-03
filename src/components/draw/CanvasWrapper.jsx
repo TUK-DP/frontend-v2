@@ -10,6 +10,8 @@ import CanvasSet from "./CanvasSet";
 import { useDrawStateStore } from "../../stores/DrawState";
 import { useKeywordStore } from "../../stores/KeywordStore";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeyword";
+import useSaveCanvas from "../../hooks/canvas/useSaveCanvas";
+import useGoDiary from "../../hooks/diary/useGoDiary";
 
 const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
@@ -126,16 +128,20 @@ const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
 
 const CompleteButton = ({ setIsError }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const handleClickCompleteButton = () => {
-    //완료버튼 누르면 스피너 돌아가감
-    //오류가 뜨면 오류메세지 출력
-    //오류 없으면 페이지 이동
+  const { saveCanvas } = useSaveCanvas();
+  const { goDiaryPage } = useGoDiary();
+  const handleClickCompleteButton = async () => {
     setIsLoading(true);
-    setTimeout(() => {
+    try {
+      await saveCanvas();
+    } catch {
       setIsError(true);
-      setIsLoading(false);
-    }, 3000);
+    }
+    setIsLoading(false);
+    //에러 발생시 이동안하도록
+    goDiaryPage();
   };
+
   return (
     <button
       className={
