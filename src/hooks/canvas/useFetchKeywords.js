@@ -1,6 +1,8 @@
 import useFetchDiary from "../diary/queries/useFetchDiary";
+import { useKeywordStore } from "../../stores/KeywordStore";
 
 const useFetchKeywords = () => {
+  const { selectedKeyword } = useKeywordStore((state) => state);
   const { diary } = useFetchDiary();
 
   const isKeywordEmpty = !diary?.keywords?.length;
