@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useDrawEvents } from "../../hooks/canvas/useDrawEvents";
 
 const CanvasSet = ({ canvasWidth, keyword, canvasRef }) => {
@@ -17,7 +17,10 @@ const CanvasSet = ({ canvasWidth, keyword, canvasRef }) => {
 export default CanvasSet;
 
 const DrawCanvas = ({ canvasWidth, canvasRef, keyword }) => {
-  const { startDrawing, endDrawing, draw } = useDrawEvents(canvasRef, keyword);
+  const { startDrawing, endDrawing, draw } = useDrawEvents(
+    canvasRef,
+    keyword.keywordId
+  );
 
   return (
     <canvas

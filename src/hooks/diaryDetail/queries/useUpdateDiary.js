@@ -11,6 +11,7 @@ import { diaryCheckQueryKey } from "../../diary/queries/useFetchDiaryChecks";
 import useFetchDiary, {
   diaryQueryKey,
 } from "../../diary/queries/useFetchDiary";
+import useRequireAuth from "../../auth/useRequireAuth";
 
 const useUpdateDiary = () => {
   const { selectedDate, selectedYearMonth } = useCalendarStore(
@@ -20,12 +21,13 @@ const useUpdateDiary = () => {
   let queryClient = useQueryClient();
 
   let { diary } = useFetchDiary();
+  const { userId } = useRequireAuth();
 
   const { mutate } = useMutation({
     mutationKey: ["diary", "update", selectedDate],
     mutationFn: async (content) => {
       return await DiaryController.updateDiary({
-        userId: 2,
+        userId,
         diaryId: diary.diaryId,
         content,
       });

@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import React from "react";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
 import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
+import useGoDiaryDraw from "../../hooks/canvas/useGoDiaryDraw";
 
 const settings = {
   infinite: false,
@@ -45,12 +46,16 @@ const DiaryKeywordImagesSlider = () => {
 export default DiaryKeywordImagesSlider;
 
 const NoDiaryImage = () => {
+  const { goDiaryDraw } = useGoDiaryDraw();
   return (
     <div className={"mx-auto font-bold h-auto"}>
       <span className={"text-2xl text-end tablet:text-4xl text-nowrap"}>
         그려진 그림이 없어요.. <span className={"ml-4"}>😢</span>
       </span>
-      <p className={"text-xl text-end mt-6 tablet:text-3xl cursor-pointer"}>
+      <p
+        className={"text-xl text-end mt-6 tablet:text-3xl cursor-pointer"}
+        onClick={goDiaryDraw}
+      >
         그림 그리러 가기 >
       </p>
     </div>

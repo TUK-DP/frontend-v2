@@ -12,19 +12,21 @@ import {
 import { diaryQueryKey } from "../../diary/queries/useFetchDiary";
 import { useCalendarStore } from "../../../stores/CalendarStore";
 import DiaryController from "../../../apis/diary.controller";
+import useRequireAuth from "../../auth/useRequireAuth";
 
 const useCreateDiary = () => {
   const { selectedDate, selectedYearMonth } = useCalendarStore(
     (state) => state
   );
 
+  const { userId } = useRequireAuth();
   let queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationKey: ["diary", "create", selectedDate],
     mutationFn: async (content) => {
       return await DiaryController.createDiary({
-        userId: 2,
+        userId,
         content,
         date: dateToDashString(selectedDate),
       });

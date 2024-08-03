@@ -3,9 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
+import useFetchKeyword from "../../hooks/canvas/useFetchKeyword";
 
-const KeywordSlider = ({ keywords, setKeywordSlider, canvasSlider }) => {
+const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
   const keywordSliderRef = useRef(null);
+  const { keywords } = useFetchKeyword();
 
   const settings = {
     slidesToShow: 1,
@@ -27,8 +29,11 @@ const KeywordSlider = ({ keywords, setKeywordSlider, canvasSlider }) => {
         ref={keywordSliderRef}
         className="w-full mobile:py-4 py-10"
       >
-        {keywords.map((keyword, index) => (
-          <div key={index} className="text-center mobile:text-3xl text-5xl">
+        {keywords.map(({ keyword, keywordId }) => (
+          <div
+            key={keywordId}
+            className="text-center mobile:text-3xl text-5xl break-keep"
+          >
             {keyword}
           </div>
         ))}

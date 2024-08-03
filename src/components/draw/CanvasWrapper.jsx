@@ -8,12 +8,14 @@ import "slick-carousel/slick/slick-theme.css";
 import Spinner from "../Spinner";
 import CanvasSet from "./CanvasSet";
 import { useDrawStateStore } from "../../stores/DrawState";
-import { useKeywordStore } from "../../stores/Keyword";
+import { useKeywordStore } from "../../stores/KeywordStore";
+import useFetchKeywords from "../../hooks/canvas/useFetchKeyword";
 
-const CanvasWrapper = ({ keywords, setCanvasSlider, canvasSlider }) => {
+const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
   const [index, setIndex] = useState(0);
   const { setSelectedKeyword } = useKeywordStore();
+  const { keywords } = useFetchKeywords();
 
   useEffect(() => {
     setSelectedKeyword(keywords[index]);
@@ -98,10 +100,10 @@ const CanvasSlider = ({
 const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
   const { undo, redo } = useDrawStateStore();
   const handleClickUndoButton = () => {
-    undo(keywords[index], canvasRefs[index]);
+    undo(keywords[index].keywordId, canvasRefs[index]);
   };
   const handleClickRedoButton = () => {
-    redo(keywords[index], canvasRefs[index]);
+    redo(keywords[index].keywordId, canvasRefs[index]);
   };
   return (
     <div className={"flex flex-row gap-10 justify-evenly items-center pt-10"}>

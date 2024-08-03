@@ -1,9 +1,9 @@
-import userStore from "../../../stores/UserStore";
 import { useQuery } from "@tanstack/react-query";
 import DiagnosisController from "../../../apis/diagnosis.controller";
+import useRequireAuth from "../../auth/useRequireAuth";
 
 const useFetchRecentDiagnosis = () => {
-  const { isLogin, userId } = userStore((state) => state);
+  const { isLogin, userId } = useRequireAuth();
   const {
     isFetching,
     isSuccess,
