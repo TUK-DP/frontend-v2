@@ -2,19 +2,24 @@ import useFetchDiary from "../diary/queries/useFetchDiary";
 
 const useFetchKeywords = () => {
   const { diary } = useFetchDiary();
-  let keywords = diary?.keywords ?? [];
-  let isKeywordEmpty = false;
+  console.log(diary.keywords.length);
 
-  if (diary.keywords.length === 0) {
-    keywords.push({
-      keyword: "자유롭게 그려보세요!",
-      keywordId: 0,
-      imgUrl: null,
-    });
-    isKeywordEmpty = true;
-  }
+  const keywords = diary?.keywords ?? [];
 
-  return { keywords, isKeywordEmpty };
+  const updatedKeywords =
+    keywords.length === 0
+      ? [
+          {
+            keyword: "자유롭게 그려보세요!",
+            keywordId: 0,
+            imgUrl: null,
+          },
+        ]
+      : [...keywords];
+
+  const isKeywordEmpty = diary?.keywords.length === 0;
+
+  return { keywords: updatedKeywords, isKeywordEmpty };
 };
 
 export default useFetchKeywords;
