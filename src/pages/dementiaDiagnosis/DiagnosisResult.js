@@ -19,7 +19,7 @@ const DiagnosisResult = () => {
   useEffect(() => {
     const fetchResult = async () => {
       const res = await DiagnosisController.getRecentDiagnosis({
-        userId: userId,
+        userId,
       });
       setRecentResult(res.data.result[1].totalScore ?? 0);
     };

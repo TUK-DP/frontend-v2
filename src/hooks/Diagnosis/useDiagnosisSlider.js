@@ -108,7 +108,7 @@ const useDiagnosisSlider = () => {
 
     // 모든 질문에 응답했을 경우 콜백 실행
     const res = await diagnosisController.saveDiagnosisResult({
-      userId: userId,
+      userId,
       diagAnswer: sliderItems.map((item) => item.selectedButtonId),
     });
     if (res.data.isSuccess)

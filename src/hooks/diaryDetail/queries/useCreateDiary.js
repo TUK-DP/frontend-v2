@@ -26,7 +26,7 @@ const useCreateDiary = () => {
     mutationKey: ["diary", "create", selectedDate],
     mutationFn: async (content) => {
       return await DiaryController.createDiary({
-        userId: userId,
+        userId,
         content,
         date: dateToDashString(selectedDate),
       });

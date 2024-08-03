@@ -27,7 +27,7 @@ const useUpdateDiary = () => {
     mutationKey: ["diary", "update", selectedDate],
     mutationFn: async (content) => {
       return await DiaryController.updateDiary({
-        userId: userId,
+        userId,
         diaryId: diary.diaryId,
         content,
       });
