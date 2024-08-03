@@ -2,8 +2,6 @@ import useFetchDiary from "../diary/queries/useFetchDiary";
 
 const useFetchKeywords = () => {
   const { diary } = useFetchDiary();
-  console.log(diary.keywords.length);
-
   const keywords = diary?.keywords ?? [];
 
   const updatedKeywords =
