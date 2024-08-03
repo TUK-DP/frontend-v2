@@ -23,6 +23,7 @@ module.exports = {
         sliderBgResult: "#FF9B52",
         sliderBgExercise: "#FF7D7D",
         sliderBgCenter: "#356DD9",
+        sliderBgDiary: "#6100C1",
         aiHelpButton: "#E5CEF2",
         showOtherDrawButton: "#D1D5F0",
       },
