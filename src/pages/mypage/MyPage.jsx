@@ -9,12 +9,14 @@ import userStore from "../../stores/UserStore";
 import { useQueryClient } from "@tanstack/react-query";
 import RecentDiagnosisGraph from "../../components/mypage/RecentDiagnosisGraph";
 import useFetchRecentDiagnosis from "../../hooks/Diagnosis/queries/useFetchRecentDiagnosis";
+import { RECENT_DIARIES_PAGE_PATH } from "./RecentDiaries";
 
 export const MY_PAGE_PATH = "/mypage";
 
 const MyPage = () => {
   const { user } = useFetchUser();
   const { record, isCanRender } = useFetchRecentDiagnosis();
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState({
     fontSize: false,
@@ -28,6 +30,10 @@ const MyPage = () => {
     });
   };
 
+  const goRecentDiaryPage = () => {
+    navigate(RECENT_DIARIES_PAGE_PATH);
+  };
+
   return (
     <div className={"relative pb-20 flex flex-col gap-4 px-4"}>
       <h1 className={"text-5xl font-bold"}>{user?.username}</h1>
@@ -39,7 +45,9 @@ const MyPage = () => {
 
       <p className={"border-b-2 border-black my-6"} />
 
-      <h1 className={"text-3xl"}>최근 일기</h1>
+      <h1 onClick={goRecentDiaryPage} className={"text-3xl cursor-pointer"}>
+        최근 일기
+      </h1>
       <FontSizeControl
         isOpen={isOpen.fontSize}
         onClick={() => onClick("fontSize")}

@@ -85,6 +85,10 @@ class DiaryController extends Api {
     });
   };
 
+  recentDiaries = async ({ userId, page, pageSize }) => {
+    return await this.get(`/diary/user`, { userId, page, pageSize });
+  };
+
   // 일기 삭제
   // deleteDiary = async (diaryId, diaryData) => {
   //   return await this.delete(`/diary/${diaryId}`);
