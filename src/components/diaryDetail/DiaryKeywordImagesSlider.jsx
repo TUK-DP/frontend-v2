@@ -23,22 +23,30 @@ const DiaryKeywordImagesSlider = () => {
     return null;
   }
 
-  const keywords = diary.keywords;
+  const { keywords, imgUrl: diaryImg } = diary;
 
-  if (!keywords.some(({ imgUrl }) => imgUrl)) {
+  if (!keywords.some(({ imgUrl }) => imgUrl) && !diaryImg) {
     return <NoDiaryImage />;
   }
 
   return (
     <Slider {...settings} className={"w-full rounded-xl overflow-clip"}>
-      {keywords.map(({ keywordId, imgUrl, keyword }, index) => (
+      {keywords &&
+        keywords.map(({ keywordId, imgUrl, keyword }, index) => (
+          <img
+            key={keywordId}
+            src={imgUrl}
+            alt={keyword}
+            className={`w-full bg-white aspect-square`}
+          />
+        ))}
+      {diaryImg && (
         <img
-          key={keywordId}
-          src={imgUrl}
-          alt={keyword}
+          src={diaryImg}
+          alt="일기 이미지"
           className={`w-full bg-white aspect-square`}
         />
-      ))}
+      )}
     </Slider>
   );
 };
