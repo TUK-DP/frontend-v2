@@ -12,4 +12,9 @@ export const useAiImageStore = create((set) => ({
       },
     }));
   },
+  resetAiImages: () => {
+    set((state) => ({
+      AiImages: {},
+    }));
+  },
 }));
