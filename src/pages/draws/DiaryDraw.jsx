@@ -11,6 +11,7 @@ export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
   const [keywordSlider, setKeywordSlider] = useState(null);
   const [canvasSlider, setCanvasSlider] = useState(null);
+  const [currentKeyword, setCurrentKeyword] = useState("");
 
   return (
     <>
@@ -18,13 +19,14 @@ const DiaryDraw = () => {
         <KeywordSlider
           setKeywordSlider={setKeywordSlider}
           canvasSlider={canvasSlider}
+          setCurrentKeyword={setCurrentKeyword}
         />
         <CanvasWrapper
           setCanvasSlider={setCanvasSlider}
           keywordSlider={keywordSlider}
         />
         <DrawHelpWrapper>
-          <DrawHelpButtons />
+          <DrawHelpButtons currentKeyword={currentKeyword} />
         </DrawHelpWrapper>
       </div>
       <CanvasPalette />
@@ -45,7 +47,7 @@ const DrawHelpWrapper = ({ children }) => {
   );
 };
 
-const DrawHelpButtons = () => {
+const DrawHelpButtons = ({ currentKeyword }) => {
   let { goHelpForAiPage } = useGoHelpWithAiPage();
   let { goKeywordReferencePage } = useGoKeywordReference();
 
@@ -61,7 +63,7 @@ const DrawHelpButtons = () => {
         content={"다른 사람\n그림 구경하기"}
         imgUrl={showOtherDraw}
         bgColor="bg-showOtherDrawButton"
-        onClick={goKeywordReferencePage}
+        onClick={() => goKeywordReferencePage(currentKeyword)}
       />
     </div>
   );

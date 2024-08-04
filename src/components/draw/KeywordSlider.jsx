@@ -5,7 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
 import useFetchKeyword from "../../hooks/canvas/useFetchKeywords";
 
-const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
+const KeywordSlider = ({
+  setKeywordSlider,
+  canvasSlider,
+  setCurrentKeyword,
+}) => {
   const keywordSliderRef = useRef(null);
   const { keywords } = useFetchKeyword();
 
@@ -14,11 +18,13 @@ const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
     slidesToScroll: 1,
     infinite: false,
     arrows: false, // 기본 화살표 비활성화
+    afterChange: (index) => setCurrentKeyword(keywords[index].keyword), // 슬라이드 변경 시 현재 키워드 업데이트
   };
 
   useEffect(() => {
     setKeywordSlider(keywordSliderRef);
-  }, [setKeywordSlider]);
+    setCurrentKeyword(keywords[0].keyword);
+  }, [setKeywordSlider, setCurrentKeyword]);
 
   return (
     <div className="relative px-16">
