@@ -4,6 +4,8 @@ import useChatLogStore from "../../../stores/ChatLogStore";
 import { delay } from "../../../utils/api/delay";
 import { useKeywordStore } from "../../../stores/KeywordStore";
 import useFetchKeywords from "../../canvas/useFetchKeywords";
+import useApiKeyStore from "../../../stores/ApiKeyStore";
+import { AxiosError } from "axios";
 
 export const IMAGE_STATE = {
   PENDING: "PENDING",
@@ -15,6 +17,7 @@ const useGenerateImage = () => {
   const { appendChatUserText, appendChatAiImage, appendChatAiText } =
     useChatLogStore((state) => state);
   const { selectedKeyword } = useKeywordStore((state) => state);
+  const { apiKey } = useApiKeyStore((state) => state);
   const { isKeywordEmpty } = useFetchKeywords();
 
   const {
@@ -29,7 +32,10 @@ const useGenerateImage = () => {
         throw new Error("키워드를 포함해서 입력해주세요.");
       }
 
-      let response = await ImageController.generateImage({
+      let response;
+
+      response = await ImageController.generateImage({
+        password: apiKey?.trim() ? apiKey : "쓰레기값",
         prompt: chatInput,
         n: 3,
       });
@@ -49,8 +55,6 @@ const useGenerateImage = () => {
           throw new Error();
         }
 
-        throw new Error();
-
         return response.data.result.result;
       }
     },
@@ -64,11 +68,12 @@ const useGenerateImage = () => {
     },
 
     onError: async (error) => {
-      await appendChatAiText({
-        text:
-          error.message ||
-          "이미지 생성에 실패했습니다. \n 잠시후 다시 시도해 주세요",
-      });
+      if (error instanceof AxiosError) {
+        error.message =
+          "이미지 생성에 실패했습니다. \n 잠시후 다시 시도해 주세요";
+      }
+      console.error(error);
+      await appendChatAiText({ text: error.message });
     },
   });
 
