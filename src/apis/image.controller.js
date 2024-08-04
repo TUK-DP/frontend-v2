@@ -16,6 +16,10 @@ class ImageController extends Api {
   generateImage = async ({ password = "쓰레기값", prompt, n }) => {
     return await this.post("/image/generate", { password, prompt, n });
   };
+
+  checkState = async ({ taskId }) => {
+    return await this.get("/image/generate", { taskId });
+  };
 }
 
 export default new ImageController();

@@ -64,8 +64,8 @@ const useChatLogStore = create((set, get) => ({
   },
 
   appendChatAiText: async ({ text }) => {
-    await set((state) => ({
-      chatLog: [...state.chatLog, { Comp: ChatAiText, text }],
+    await set(({ chatLog }) => ({
+      chatLog: [...chatLog.slice(0, -1), { Comp: ChatAiText, text }],
     }));
     get().chatScrollToBottom();
   },
