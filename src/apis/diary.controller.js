@@ -89,6 +89,13 @@ class DiaryController extends Api {
     return await this.get(`/diary/user`, { userId, page, pageSize });
   };
 
+  //키워드별 사진 페이징
+  getKeywordPhotos = async ({ keyword, page, pageSize }) => {
+    return await this.get(
+      `/image?keyword=${keyword}&page=${page}&pageSize=${pageSize}`
+    );
+  };
+
   // 일기 삭제
   // deleteDiary = async (diaryId, diaryData) => {
   //   return await this.delete(`/diary/${diaryId}`);
@@ -104,12 +111,6 @@ class DiaryController extends Api {
   // //일기별 키워드 조회
   // getKeyword = async (diaryId) => {
   //   return await this.get(`/keyword/diary/${diaryId}`);
-  // };
-  // //키워드별 사진 페이징
-  // getKeywordPhotos = async ({ keyword, page, pageSize }) => {
-  //   return await this.get(
-  //     `/image?keyword=${keyword}&page=${page}&pageSize=${pageSize}`
-  //   );
   // };
   // //키워드별 이미지 저장
   // saveKeywordImg = async (keywordId, imgUrl) => {

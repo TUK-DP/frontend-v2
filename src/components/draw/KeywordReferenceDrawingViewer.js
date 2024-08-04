@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import useFetchKeywordPhotos from "../../hooks/diary/queries/useFetchKeywordPhotos";
 import img1 from "../../assets/remembrance/noKeyword.png";
 import img2 from "../../assets/remembrance/questionMark.png";
 
@@ -7,6 +8,9 @@ const KeywordReferenceDrawingViewer = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const currentKeyword = queryParams.get("keyword");
+  const { imgUrls, isFetching, isSuccess, isError } =
+    useFetchKeywordPhotos(currentKeyword);
+
   const [selectedDrawing, setSelectedDrawing] = useState({
     id: 1,
     src: img1,
