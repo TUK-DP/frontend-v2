@@ -11,10 +11,8 @@ const KeywordReferenceDrawingViewer = () => {
   const { imgUrls, isFetching, isSuccess, isError } =
     useFetchKeywordPhotos(currentKeyword);
 
-  const [selectedDrawing, setSelectedDrawing] = useState({
-    id: 1,
-    src: img1,
-  });
+  const imgData = imgUrls.length > 0 ? imgUrls : [img1];
+  const [selectedDrawing, setSelectedDrawing] = useState(imgData[0]);
 
   return (
     <>
@@ -22,6 +20,7 @@ const KeywordReferenceDrawingViewer = () => {
       <DrawingListScroller
         selectedDrawing={selectedDrawing}
         setSelectedDrawing={setSelectedDrawing}
+        imgUrls={imgData}
       />
     </>
   );
@@ -34,7 +33,7 @@ const SelectedDrawingViewer = ({ selectedDrawing }) => {
     <div className="p-8 md:p-[6rem]">
       <div className="w-full aspect-square border-2 border-black rounded-xl overflow-hidden">
         <img
-          src={selectedDrawing.src}
+          src={selectedDrawing}
           alt="Selected Drawing"
           className="w-full h-full object-cover"
         />
@@ -43,27 +42,18 @@ const SelectedDrawingViewer = ({ selectedDrawing }) => {
   );
 };
 
-const DrawingListScroller = ({ selectedDrawing, setSelectedDrawing }) => {
-  const DrawingList = [
-    { id: 1, src: img1 },
-    { id: 2, src: img2 },
-    { id: 3, src: img1 },
-    { id: 4, src: img2 },
-    { id: 5, src: img1 },
-    { id: 6, src: img2 },
-    { id: 7, src: img1 },
-    { id: 8, src: img2 },
-    { id: 9, src: img1 },
-    { id: 10, src: img2 },
-  ];
-
+const DrawingListScroller = ({
+  selectedDrawing,
+  setSelectedDrawing,
+  imgUrls,
+}) => {
   const scrollerRef = useRef(null);
 
   useEffect(() => {
     if (scrollerRef.current) {
       //선택된 그림 요소 찾기
       const selectedElement = scrollerRef.current.querySelector(
-        `img[data-id='${selectedDrawing.id}']`
+        `img[src='${selectedDrawing.src}']`
       );
       if (selectedElement) {
         const containerWidth = scrollerRef.current.offsetWidth; //컨테이너 너비
@@ -81,25 +71,32 @@ const DrawingListScroller = ({ selectedDrawing, setSelectedDrawing }) => {
     }
   }, [selectedDrawing]);
 
+  const filteredImgUrls = imgUrls.filter((img) => img !== img1);
+
   return (
     <div
       ref={scrollerRef}
       className="flex overflow-x-scroll scrollbar-hide pt-10"
     >
-      {DrawingList.map((drawing) => (
-        <img
-          key={drawing.id}
-          data-id={drawing.id}
-          src={drawing.src}
-          className={`transition-transform duration-500 w-20 md:w-32 aspect-square ml-6 md:ml-10 cursor-pointer
-            ${
-              selectedDrawing.id === drawing.id
-                ? "-translate-y-10 border-2 border-[#6100C1]"
-                : "border border-black"
-            }`}
-          onClick={() => setSelectedDrawing(drawing)}
-        />
-      ))}
+      {filteredImgUrls.length > 0 ? (
+        filteredImgUrls.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            className={`transition-transform duration-500 w-20 md:w-32 aspect-square ml-6 md:ml-10 cursor-pointer
+              ${
+                selectedDrawing === img
+                  ? "-translate-y-10 border-2 border-[#6100C1]"
+                  : "border border-black"
+              }`}
+            onClick={() => setSelectedDrawing(img)}
+          />
+        ))
+      ) : (
+        <div className="flex items-center justify-center w-full h-full text-xl md:text-3xl">
+          <p>그려진 키워드 그림이 없습니다.</p>
+        </div>
+      )}
     </div>
   );
 };
