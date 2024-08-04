@@ -1,5 +1,5 @@
 import { Image } from "antd";
-import { AiImagesStore } from "../../../stores/AiImagesStore";
+import { useAiImageStore } from "../../../stores/AiImagesStore";
 import { useKeywordStore } from "../../../stores/KeywordStore";
 
 export const ImageBlock = ({
@@ -14,7 +14,7 @@ export const ImageBlock = ({
 };
 
 const SuggestImage = ({ imageSrc }) => {
-  const { setAiImages } = AiImagesStore();
+  const { setAiImages } = useAiImageStore();
   const { selectedKeyword } = useKeywordStore();
   const handleClickSelectButton = (imageSrc) => {
     setAiImages(selectedKeyword.keywordId, imageSrc);

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const AiImagesStore = create((set) => ({
+export const useAiImageStore = create((set) => ({
   //keywordId: { imageUrl }
   AiImages: {},
 
@@ -8,7 +8,7 @@ export const AiImagesStore = create((set) => ({
     set((state) => ({
       AiImages: {
         ...state.AiImages,
-        [keywordId]: imageUrl,
+        [keywordId]: { imageUrl },
       },
     }));
   },

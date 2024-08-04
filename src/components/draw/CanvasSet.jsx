@@ -1,9 +1,10 @@
 import React from "react";
 import { useDrawEvents } from "../../hooks/canvas/useDrawEvents";
+import useInitializeCanvas from "../../hooks/canvas/useInitializeCanvas";
 
 const CanvasSet = ({ canvasWidth, keyword, canvasRef, canvasBgRef }) => {
   return (
-    <div className="w-full aspect-square bg-white relative">
+    <div className="w-full aspect-square  relative">
       <DrawCanvas
         canvasWidth={canvasWidth}
         canvasRef={canvasRef}
@@ -33,19 +34,20 @@ const DrawCanvas = ({ canvasWidth, canvasRef, keyword }) => {
       onTouchStart={startDrawing}
       onTouchEnd={endDrawing}
       onTouchMove={draw}
-      className={"touch-none"}
+      className={"absolute top-0 left-0 touch-none z-10"}
     />
   );
 };
 
 const BackgroundCanvas = ({ canvasWidth, canvasBgRef }) => {
+  useInitializeCanvas({ canvasBgRef });
   return (
     <canvas
       ref={canvasBgRef}
       width={canvasWidth}
       height={canvasWidth}
       className={
-        "absolute top-0 left-0 box-content bg-cover -z-10 bg-no-repeat"
+        "absolute top-0 left-0 box-content bg-cover bg-no-repeat -z-10"
       }
     ></canvas>
   );
