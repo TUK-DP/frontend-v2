@@ -1,6 +1,6 @@
-import ImgController from "../../apis/image.controller";
+import ImageController from "../../apis/image.controller";
 import { useDrawStateStore } from "../../stores/DrawState";
-import useFetchKeywords from "./useFetchKeyword";
+import useFetchKeywords from "./useFetchKeywords";
 import useFetchDiary from "../diary/queries/useFetchDiary";
 
 const useSaveCanvas = () => {
@@ -56,18 +56,18 @@ const useSaveCanvas = () => {
   const uploadCanvasImgToUrl = async (blob) => {
     const formData = new FormData();
     formData.append("image", blob, "image.png");
-    const response = await ImgController.uploadImg(formData);
+    const response = await ImageController.uploadImg(formData);
     return response.data.result.imageUrl;
   };
 
   // 변환 된 이미지를 키워드/일기 아이디로 저장
   const saveCanvasToImg = async (imgUrlsOfCanvas) => {
     if (isKeywordEmpty)
-      ImgController.saveImgByDiaryId(diaryId, imgUrlsOfCanvas[0]);
+      ImageController.saveImgByDiaryId(diaryId, imgUrlsOfCanvas[0]);
     if (!isKeywordEmpty) {
       await Promise.all(
         keywords.map(({ keywordId }, index) => {
-          return ImgController.saveImgByKeyword(
+          return ImageController.saveImgByKeyword(
             keywordId,
             imgUrlsOfCanvas[index]
           );

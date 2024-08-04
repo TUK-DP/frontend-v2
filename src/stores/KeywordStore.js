@@ -1,8 +1,7 @@
 import { create } from "zustand";
 
 export const useKeywordStore = create((set) => ({
-  //{keyword, keywordId, imgUrl}
-  selectedKeyword: "",
+  selectedKeyword: { keyword: "", keywordId: 0, imgUrl: "" },
 
   setSelectedKeyword: (keyword) => {
     set((state) => ({

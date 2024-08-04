@@ -1,53 +1,40 @@
-import React, { useRef, useState } from "react";
-import ChatUserText from "../../components/helpWithAi/ChatUserText";
-import ChatAiText from "../../components/helpWithAi/ChatAiText";
-import ChatAiImage from "../../components/helpWithAi/ChatAiImage";
+import React, { useCallback, useEffect } from "react";
+import useChatLogStore from "../../stores/ChatLogStore";
+import useGenerateImage from "./query/useGenerateImage";
+import useFetchKeywords from "../canvas/useFetchKeywords";
+import { useKeywordStore } from "../../stores/KeywordStore";
 
-const useChatWithAi = ({ initChatLog }) => {
-  const [chatLog, setChatLog] = useState(initChatLog);
+const useChatWithAi = () => {
+  const { selectedKeyword } = useKeywordStore((state) => state);
+  const { isKeywordEmpty } = useFetchKeywords();
+  const { isMutating } = useGenerateImage();
+  const { chatLog, chatContainerRef, initialChatLog, chatScrollToBottom } =
+    useChatLogStore((state) => state);
 
-  const chatContainerRef = useRef(null);
-
-  const chatScrollToBottom = () => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  };
-
-  const chatScrollToTop = () => {
-    chatContainerRef.current.scrollTop = 0;
-  };
-
-  const ChatContainer = ({ className, ...props }) => {
-    return (
+  const ChatContainer = useCallback(
+    ({ className, ...props }) => (
       <div ref={chatContainerRef} className={`${className}`} {...props}>
         {chatLog.map(({ Comp, ...props }, index) => (
           <Comp key={index} {...props} />
         ))}
       </div>
-    );
-  };
+    ),
+    [chatLog]
+  );
 
-  const appendChatUserText = async ({ text }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatUserText, text }]);
-    chatScrollToBottom();
-  };
+  // 처음에만 실행 chatLog 초기화
+  useEffect(() => {
+    if (isMutating) return;
+    initialChatLog({ keyword: selectedKeyword, isKeywordEmpty });
+  }, [selectedKeyword]);
 
-  const appendChatAiText = async ({ text }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatAiText, text }]);
+  // chatLog이 업데이트 될 때마다 맨 아래로 이동
+  useEffect(() => {
     chatScrollToBottom();
-  };
-
-  const appendChatAiImage = async ({ urls = [] }) => {
-    await setChatLog((pre) => [...pre, { Comp: ChatAiImage, urls }]);
-    chatScrollToBottom();
-  };
+  }, [chatLog]);
 
   return {
     ChatContainer,
-    appendChatUserText,
-    appendChatAiText,
-    appendChatAiImage,
-    chatScrollToTop,
-    chatScrollToBottom,
   };
 };
 

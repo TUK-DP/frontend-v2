@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
-import useFetchKeyword from "../../hooks/canvas/useFetchKeyword";
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 
 const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
   const keywordSliderRef = useRef(null);
-  const { keywords } = useFetchKeyword();
+  const { keywords } = useFetchKeywords();
 
   const settings = {
     slidesToShow: 1,

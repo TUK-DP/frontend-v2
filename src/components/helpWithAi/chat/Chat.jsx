@@ -7,7 +7,7 @@ export const USER_CHAT = "USER";
 export const Chat = ({ id = AI_CHAT, children }) => {
   return (
     <div
-      className={`flex gap-4 items-start 
+      className={`whitespace-pre flex gap-4 items-start 
     ${id === USER_CHAT && "justify-end"}`}
     >
       {id === AI_CHAT && <AiProfile />}

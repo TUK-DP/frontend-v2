@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import CanvasSet from "./CanvasSet";
 import { useDrawStateStore } from "../../stores/DrawState";
 import { useKeywordStore } from "../../stores/KeywordStore";
-import useFetchKeywords from "../../hooks/canvas/useFetchKeyword";
+import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 import useSaveCanvas from "../../hooks/canvas/useSaveCanvas";
 import useGoDiary from "../../hooks/diary/useGoDiary";
 
@@ -22,6 +22,7 @@ const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   useEffect(() => {
     setSelectedKeyword(keywords[index]);
   }, [index]);
+
   return (
     <>
       <CanvasSlider
