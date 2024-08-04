@@ -23,7 +23,8 @@ const useChatLogStore = create((set, get) => ({
     }
   },
 
-  initialChatLog: ({ keyword, isKeywordEmpty }) => {
+  initialChatLog: ({ keyword: keywordObj, isKeywordEmpty }) => {
+    const { keyword } = keywordObj;
     // 이미 같은 키워드로 초기화 되어있으면 return
     // 키워드가 변경되었을 때만 초기화
     if (get().keyword === keyword) return;

@@ -2,6 +2,8 @@ import { useIsMutating, useMutation } from "@tanstack/react-query";
 import ImageController from "../../../apis/image.controller";
 import useChatLogStore from "../../../stores/ChatLogStore";
 import { delay } from "../../../utils/api/delay";
+import { useKeywordStore } from "../../../stores/KeywordStore";
+import useFetchKeywords from "../../canvas/useFetchKeywords";
 
 export const IMAGE_STATE = {
   PENDING: "PENDING",
@@ -12,6 +14,8 @@ export const IMAGE_STATE = {
 const useGenerateImage = () => {
   const { appendChatUserText, appendChatAiImage, appendChatAiText } =
     useChatLogStore((state) => state);
+  const { selectedKeyword } = useKeywordStore((state) => state);
+  const { isKeywordEmpty } = useFetchKeywords();
 
   const {
     data: urls,
@@ -20,11 +24,11 @@ const useGenerateImage = () => {
   } = useMutation({
     mutationKey: ["generating"],
     mutationFn: async (chatInput) => {
-      // throw new Error("AI 이미지 생성에 실패했습니다.");
+      // 키워드가 비어있지 않고, 입력한 문장에 키워드가 포함되어 있지 않으면 에러 발생
+      if (!isKeywordEmpty && !chatInput.includes(selectedKeyword.keyword)) {
+        throw new Error("키워드를 포함해서 입력해주세요.");
+      }
 
-      await delay(1000);
-
-      // await delay();
       let response = await ImageController.generateImage({
         prompt: chatInput,
         n: 3,
@@ -41,10 +45,11 @@ const useGenerateImage = () => {
           await delay(500);
           continue;
         }
-        throw new Error("AI 이미지 생성에 실패했습니다.");
-        // if (state === IMAGE_STATE.FAILURE) {
-        //   throw new Error("AI 이미지 생성에 실패했습니다.");
-        // }
+        if (state === IMAGE_STATE.FAILURE) {
+          throw new Error();
+        }
+
+        throw new Error();
 
         return response.data.result.result;
       }
@@ -59,7 +64,11 @@ const useGenerateImage = () => {
     },
 
     onError: async (error) => {
-      await appendChatAiText({ text: "오류입니다 잠시후 다시 시도해 주세요" });
+      await appendChatAiText({
+        text:
+          error.message ||
+          "이미지 생성에 실패했습니다. \n 잠시후 다시 시도해 주세요",
+      });
     },
   });
 
