@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
-import useFetchKeyword from "../../hooks/canvas/useFetchKeyword";
+import useFetchKeyword from "../../hooks/canvas/useFetchKeywords";
 
 const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
   const keywordSliderRef = useRef(null);

@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import CanvasSet from "./CanvasSet";
 import { useDrawStateStore } from "../../stores/DrawState";
 import { useKeywordStore } from "../../stores/KeywordStore";
-import useFetchKeywords from "../../hooks/canvas/useFetchKeyword";
+import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 
 const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
@@ -20,6 +20,7 @@ const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   useEffect(() => {
     setSelectedKeyword(keywords[index]);
   }, [index]);
+
   return (
     <>
       <CanvasSlider
