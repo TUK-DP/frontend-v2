@@ -56,7 +56,7 @@ const DrawingListScroller = ({
     if (scrollerRef.current) {
       //선택된 그림 요소 찾기
       const selectedElement = scrollerRef.current.querySelector(
-        `img[src='${selectedDrawing.src}']`
+        `img[src='${selectedDrawing}']`
       );
       if (selectedElement) {
         const containerWidth = scrollerRef.current.offsetWidth; //컨테이너 너비
@@ -73,8 +73,6 @@ const DrawingListScroller = ({
       }
     }
   }, [selectedDrawing]);
-
-  const filteredImgUrls = imgUrls.filter((img) => img !== noDrawImg);
 
   return (
     <div
