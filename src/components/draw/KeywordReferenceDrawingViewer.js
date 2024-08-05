@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import useFetchKeywordPhotos from "../../hooks/diary/queries/useFetchKeywordPhotos";
-import img1 from "../../assets/remembrance/noKeyword.png";
+import noDrawImg from "../../assets/remembrance/noKeyword.png";
 import img2 from "../../assets/remembrance/questionMark.png";
 
 const KeywordReferenceDrawingViewer = () => {
@@ -11,7 +11,8 @@ const KeywordReferenceDrawingViewer = () => {
   const { imgUrls, isFetching, isSuccess, isError } =
     useFetchKeywordPhotos(currentKeyword);
 
-  const imgData = imgUrls.length > 0 ? imgUrls : [img1];
+  const imgData = imgUrls.length > 0 ? imgUrls : [noDrawImg];
+  const noImages = imgData.length === 1 && imgData[0] === noDrawImg;
   const [selectedDrawing, setSelectedDrawing] = useState(imgData[0]);
 
   return (
@@ -21,6 +22,7 @@ const KeywordReferenceDrawingViewer = () => {
         selectedDrawing={selectedDrawing}
         setSelectedDrawing={setSelectedDrawing}
         imgUrls={imgData}
+        noImages={noImages}
       />
     </>
   );
@@ -46,6 +48,7 @@ const DrawingListScroller = ({
   selectedDrawing,
   setSelectedDrawing,
   imgUrls,
+  noImages,
 }) => {
   const scrollerRef = useRef(null);
 
@@ -71,15 +74,15 @@ const DrawingListScroller = ({
     }
   }, [selectedDrawing]);
 
-  const filteredImgUrls = imgUrls.filter((img) => img !== img1);
+  const filteredImgUrls = imgUrls.filter((img) => img !== noDrawImg);
 
   return (
     <div
       ref={scrollerRef}
       className="flex overflow-x-scroll scrollbar-hide pt-10"
     >
-      {filteredImgUrls.length > 0 ? (
-        filteredImgUrls.map((img, index) => (
+      {!noImages ? (
+        imgUrls.map((img, index) => (
           <img
             key={index}
             src={img}
@@ -94,7 +97,7 @@ const DrawingListScroller = ({
         ))
       ) : (
         <div className="flex items-center justify-center w-full h-full text-xl md:text-3xl">
-          <p>그려진 키워드 그림이 없습니다.</p>
+          <p>키워드 그림이 존재하지 않습니다.</p>
         </div>
       )}
     </div>
