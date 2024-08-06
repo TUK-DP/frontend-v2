@@ -12,6 +12,7 @@ import { useKeywordStore } from "../../stores/KeywordStore";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 import useSaveCanvas from "../../hooks/canvas/useSaveCanvas";
 import useGoDiary from "../../hooks/diary/useGoDiary";
+import { merge } from "antd/es/theme/util/statistic";
 
 const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
@@ -94,13 +95,20 @@ const CanvasSlider = ({
         setIsError={setIsError}
         index={index}
         canvasRefs={canvasRefs.current}
+        canvasBgRefs={canvasBgRefs.current}
         keywords={keywords}
       />
     </>
   );
 };
 
-const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
+const CanvasTools = ({
+  setIsError,
+  canvasRefs,
+  canvasBgRefs,
+  index,
+  keywords,
+}) => {
   const { undo, redo } = useDrawStateStore();
   const handleClickUndoButton = () => {
     undo(keywords[index].keywordId, canvasRefs[index]);
@@ -116,7 +124,11 @@ const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
         className={"cursor-pointer"}
         onClick={handleClickUndoButton}
       />
-      <CompleteButton setIsError={setIsError} />
+      <CompleteButton
+        setIsError={setIsError}
+        canvasRefs={canvasRefs}
+        canvasBgRefs={canvasBgRefs}
+      />
       <HiMiniArrowUturnRight
         size={44}
         color="#838383"
@@ -127,14 +139,18 @@ const CanvasTools = ({ setIsError, canvasRefs, index, keywords }) => {
   );
 };
 
-const CompleteButton = ({ setIsError }) => {
+const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { saveCanvas } = useSaveCanvas();
+  const { saveCanvas, mergeCanvas } = useSaveCanvas();
   const { goDiaryPage } = useGoDiary();
+  useEffect(() => {
+    console.log(canvasRefs, canvasBgRefs);
+  }, []);
   const handleClickCompleteButton = async () => {
     setIsLoading(true);
     try {
-      await saveCanvas();
+      await mergeCanvas(canvasRefs, canvasBgRefs);
+      // await saveCanvas();
     } catch {
       setIsError(true);
     }

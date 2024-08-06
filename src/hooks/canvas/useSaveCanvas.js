@@ -7,6 +7,28 @@ const useSaveCanvas = () => {
   const { drawState } = useDrawStateStore();
   const { keywords, isKeywordEmpty } = useFetchKeywords();
   const { diaryId } = useFetchDiary().diary;
+  const mergedCanvas = [];
+
+  // 그림 그리는 캔버스와 ai 도움 받기 사진 올리는 캔버스 합치기
+  const mergeCanvas = async (canvasRefs, canvasBgRefs) => {
+    console.log(canvasRefs, canvasBgRefs);
+    const width = canvasRefs[0].current.width;
+    for (let i = 0; i < canvasRefs.length; i++) {
+      const resultCanvas = document.createElement("canvas");
+      resultCanvas.width = width;
+      resultCanvas.height = width;
+
+      const resultCtx = resultCanvas.getContext("2d");
+
+      resultCtx.drawImage(canvasBgRefs[i].current, 0, 0, width, width);
+      resultCtx.drawImage(canvasRefs[i].current, 0, 0, width, width);
+
+      const blob = await canvasToBlob(resultCanvas);
+      const imgUrl = await uploadCanvasImgToUrl(blob);
+      console.log("blob : ", blob);
+      console.log("imgUrl : ", imgUrl);
+    }
+  };
 
   // 캔버스 저장
   const saveCanvas = async () => {
@@ -75,7 +97,7 @@ const useSaveCanvas = () => {
       );
     }
   };
-  return { saveCanvas };
+  return { mergeCanvas, saveCanvas };
 };
 
 export default useSaveCanvas;
