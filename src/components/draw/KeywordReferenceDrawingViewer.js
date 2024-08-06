@@ -2,22 +2,16 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import useFetchKeywordPhotos from "../../hooks/diary/queries/useFetchKeywordPhotos";
 import noDrawImg from "../../assets/remembrance/noKeyword.png";
-import Spiner from "../../components/Spinner";
+import Spinner from "../../components/Spinner";
 
 const KeywordReferenceDrawingViewer = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const currentKeyword = queryParams.get("keyword") || "default";
-  const {
-    imgUrls,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isSuccess,
-    isError,
-  } = useFetchKeywordPhotos(currentKeyword);
+  const currentKeyword = queryParams.get("keyword");
 
-  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const { imgUrls, fetchNextPage, hasNextPage, isFetching, isSuccess } =
+    useFetchKeywordPhotos(currentKeyword);
+
   const imgData = imgUrls.length > 0 ? imgUrls : [noDrawImg];
   const noImages = imgData.length === 1 && imgData[0] === noDrawImg;
   const [selectedDrawing, setSelectedDrawing] = useState(imgData[0]);
@@ -28,23 +22,10 @@ const KeywordReferenceDrawingViewer = () => {
     }
   }, [imgUrls, selectedDrawing]);
 
-  useEffect(() => {
-    if (isFetching) {
-      if (isInitialLoading) {
-        return;
-      }
-      setIsInitialLoading(false);
-    } else {
-      if (isInitialLoading) {
-        setIsInitialLoading(false);
-      }
-    }
-  }, [isFetching]);
-
-  if (isInitialLoading) {
+  if (isFetching && !isSuccess) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <Spiner color="#000000" />
+        <Spinner color="#000000" />
       </div>
     );
   }
@@ -99,7 +80,7 @@ const DrawingListScroller = ({
       if (observerRef.current) observerRef.current.disconnect();
       observerRef.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasNextPage) {
-          console.log("Fetching next page...");
+          //마지막 이미지가 뷰포트에 들어오면 다음페이지 가져옴
           fetchNextPage();
         }
       });
