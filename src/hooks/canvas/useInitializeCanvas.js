@@ -2,19 +2,15 @@ import { useEffect } from "react";
 import { useAiImageStore } from "../../stores/AiImagesStore";
 import { useKeywordStore } from "../../stores/KeywordStore";
 
-const useInitializeCanvas = ({ canvasBgRef }) => {
+const useInitializeCanvas = ({ canvasBgRef, keyword }) => {
   const { AiImages } = useAiImageStore();
-  const { selectedKeyword } = useKeywordStore();
 
   useEffect(() => {
     if (canvasBgRef && canvasBgRef.current) {
       const bgCanvas = canvasBgRef.current;
       const bgCtx = canvasBgRef.current.getContext("2d");
 
-      bgCtx.fillStyle = "white";
-      bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
-
-      const matchingImageUrl = AiImages[selectedKeyword.keywordId]?.imageUrl;
+      const matchingImageUrl = AiImages[keyword.keywordId]?.imageUrl;
 
       if (matchingImageUrl) {
         const backgroundImage = new Image();
@@ -29,9 +25,12 @@ const useInitializeCanvas = ({ canvasBgRef }) => {
             bgCanvas.height
           );
         };
+      } else {
+        bgCtx.fillStyle = "white";
+        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
       }
     }
-  }, [canvasBgRef.current, AiImages, selectedKeyword.keywordId]);
+  }, [canvasBgRef, AiImages, keyword]);
 
   return {};
 };

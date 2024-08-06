@@ -141,7 +141,7 @@ const CanvasTools = ({
 
 const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { saveCanvas, mergeCanvas } = useSaveCanvas();
+  const { saveCanvas } = useSaveCanvas();
   const { goDiaryPage } = useGoDiary();
   useEffect(() => {
     console.log(canvasRefs, canvasBgRefs);
@@ -149,8 +149,7 @@ const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const handleClickCompleteButton = async () => {
     setIsLoading(true);
     try {
-      await mergeCanvas(canvasRefs, canvasBgRefs);
-      // await saveCanvas();
+      await saveCanvas(canvasRefs, canvasBgRefs);
     } catch {
       setIsError(true);
     }

@@ -10,7 +10,11 @@ const CanvasSet = ({ canvasWidth, keyword, canvasRef, canvasBgRef }) => {
         canvasRef={canvasRef}
         keyword={keyword}
       />
-      <BackgroundCanvas canvasWidth={canvasWidth} canvasBgRef={canvasBgRef} />
+      <BackgroundCanvas
+        canvasWidth={canvasWidth}
+        canvasBgRef={canvasBgRef}
+        keyword={keyword}
+      />
     </div>
   );
 };
@@ -39,8 +43,8 @@ const DrawCanvas = ({ canvasWidth, canvasRef, keyword }) => {
   );
 };
 
-const BackgroundCanvas = ({ canvasWidth, canvasBgRef }) => {
-  useInitializeCanvas({ canvasBgRef });
+const BackgroundCanvas = ({ canvasWidth, canvasBgRef, keyword }) => {
+  useInitializeCanvas({ canvasBgRef, keyword });
   return (
     <canvas
       ref={canvasBgRef}
