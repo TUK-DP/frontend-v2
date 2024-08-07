@@ -6,12 +6,13 @@ import useGoHelpWithAiPage from "../../hooks/HelpWithAi/useGoHelpWithAiPage";
 import useGoKeywordReference from "../../hooks/diary/useGoKeywordReference";
 import CanvasPalette from "../../components/draw/CanvasPalette";
 import CanvasWrapper from "../../components/draw/CanvasWrapper";
+import { useKeywordStore } from "../../stores/KeywordStore";
 
 export const DIARY_DRAW_PAGE_PATH = "/diary/draw";
 const DiaryDraw = () => {
   const [keywordSlider, setKeywordSlider] = useState(null);
   const [canvasSlider, setCanvasSlider] = useState(null);
-  const [currentKeyword, setCurrentKeyword] = useState("");
+  const { selectedKeyword, setSelectedKeyword } = useKeywordStore();
 
   return (
     <>
@@ -19,14 +20,14 @@ const DiaryDraw = () => {
         <KeywordSlider
           setKeywordSlider={setKeywordSlider}
           canvasSlider={canvasSlider}
-          setCurrentKeyword={setCurrentKeyword}
+          setCurrentKeyword={setSelectedKeyword}
         />
         <CanvasWrapper
           setCanvasSlider={setCanvasSlider}
           keywordSlider={keywordSlider}
         />
         <DrawHelpWrapper>
-          <DrawHelpButtons currentKeyword={currentKeyword} />
+          <DrawHelpButtons />
         </DrawHelpWrapper>
       </div>
       <CanvasPalette />
@@ -47,7 +48,7 @@ const DrawHelpWrapper = ({ children }) => {
   );
 };
 
-const DrawHelpButtons = ({ currentKeyword }) => {
+const DrawHelpButtons = () => {
   let { goHelpForAiPage } = useGoHelpWithAiPage();
   let { goKeywordReferencePage } = useGoKeywordReference();
 
@@ -63,7 +64,7 @@ const DrawHelpButtons = ({ currentKeyword }) => {
         content={"다른 사람\n그림 구경하기"}
         imgUrl={showOtherDraw}
         bgColor="bg-showOtherDrawButton"
-        onClick={() => goKeywordReferencePage(currentKeyword)}
+        onClick={() => goKeywordReferencePage()}
       />
     </div>
   );

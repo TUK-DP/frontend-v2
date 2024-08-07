@@ -1,16 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useKeywordStore } from "../../stores/KeywordStore";
 import useFetchKeywordPhotos from "../../hooks/diary/queries/useFetchKeywordPhotos";
 import noDrawImg from "../../assets/remembrance/noKeyword.png";
 import Spinner from "../../components/Spinner";
 
 const KeywordReferenceDrawingViewer = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const currentKeyword = queryParams.get("keyword");
+  const { selectedKeyword } = useKeywordStore();
 
   const { imgUrls, fetchNextPage, hasNextPage, isFetching, isSuccess } =
-    useFetchKeywordPhotos(currentKeyword);
+    useFetchKeywordPhotos(selectedKeyword.keyword);
 
   const imgData = imgUrls.length > 0 ? imgUrls : [noDrawImg];
   const noImages = imgData.length === 1 && imgData[0] === noDrawImg;
