@@ -3,10 +3,8 @@ import { KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH } from "../../pages/draws/Ke
 
 const useGoKeywordReference = () => {
   let navigate = useNavigate();
-  const goKeywordReferencePage = (currentKeyword) => {
-    navigate(
-      `${KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH}?keyword=${currentKeyword}`
-    );
+  const goKeywordReferencePage = () => {
+    navigate(KEYWORD_REFERENCE_DRAWING_VIEWER_PAGE_PATH);
   };
   return { goKeywordReferencePage };
 };
