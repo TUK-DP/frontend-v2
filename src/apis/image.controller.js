@@ -1,14 +1,6 @@
 import { Api } from "./common.controller";
 
 class ImageController extends Api {
-  // // 이미지 업로드
-  // uploadImg = async (imgData) => {
-  //   return await this.post("/image", {
-  //     data: imgData,
-  //     content_type: "multipart/form-data",
-  //   });
-  // };
-
   //AI 이미지 생성
   /**
    * @return {Promise<AxiosResponse<ApiResponse<AiImageList>>>}
@@ -19,6 +11,28 @@ class ImageController extends Api {
 
   checkState = async ({ taskId }) => {
     return await this.get("/image/generate", { taskId });
+  };
+
+  // 이미지 업로드
+  uploadImg = async (formData) => {
+    return await this.post("/image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  };
+
+  // 키워드 별 이미지 저장
+  saveImgByKeyword = async (keywordId, imgUrl) => {
+    return await this.post(`/keyword/${keywordId}/image`, {
+      imgUrl,
+    });
+  };
+  // 키워드가 없을 때
+  saveImgByDiaryId = async (diaryId, imgUrl) => {
+    return await this.post(`/diary/${diaryId}/image`, {
+      imgUrl,
+    });
   };
 }
 

@@ -16,7 +16,10 @@ export const useDrawEvents = (canvasRef, keyword) => {
     if (canvasRef && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
-      setContext(ctx);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      setTimeout(() => {
+        setContext(ctx);
+      }, 0);
     }
   }, [canvasRef]);
 
