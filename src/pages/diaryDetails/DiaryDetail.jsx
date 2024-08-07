@@ -7,7 +7,7 @@ import DiaryControlButton from "./DiaryControlButton";
 import useDiaryControl from "../../hooks/diaryDetail/useDiaryControl";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
 import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
-import { useAiImageStore } from "../../stores/AiImagesStore";
+import useResetAiImages from "../../hooks/canvas/useResetAiIamges";
 
 export const DIARY_DETAIL_PAGE_PATH = "/diary/detail";
 
@@ -18,11 +18,7 @@ const DiaryDetail = () => {
   const create = useCreateDiary();
   const update = useUpdateDiary();
   let isMutating = create.isMutating || update.isMutating;
-
-  const { resetAiImages } = useAiImageStore();
-  useEffect(() => {
-    resetAiImages();
-  }, []);
+  useResetAiImages();
 
   return (
     <div className={"flex flex-col gap-10 px-10 pb-10"}>
