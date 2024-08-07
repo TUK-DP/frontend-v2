@@ -91,9 +91,7 @@ class DiaryController extends Api {
 
   //키워드별 사진 페이징
   getKeywordPhotos = async ({ keyword, page, pageSize }) => {
-    return await this.get(
-      `/image?keyword=${keyword}&page=${page}&pageSize=${pageSize}`
-    );
+    return await this.get(`/image`, { keyword, page, pageSize });
   };
 
   // 일기 삭제
