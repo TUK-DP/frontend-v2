@@ -17,4 +17,12 @@ export const useAiImageStore = create((set) => ({
       AiImages: {},
     }));
   },
+  removeAiImage: (keywordId) => {
+    set((state) => {
+      const { [keywordId]: _, ...remainingAiImages } = state.AiImages;
+      return {
+        AiImages: remainingAiImages,
+      };
+    });
+  },
 }));

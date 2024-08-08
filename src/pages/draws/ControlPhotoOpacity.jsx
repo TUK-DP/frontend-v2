@@ -4,6 +4,7 @@ import { AiProfile } from "../../components/helpWithAi/chat/Chat";
 import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 import { useAiImageStore } from "../../stores/AiImagesStore";
 import { useKeywordStore } from "../../stores/KeywordStore";
+import { useNavigate } from "react-router-dom";
 
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";
 
@@ -17,9 +18,10 @@ const OPACITY_BUTTON = [
 const ControlPhotoOpacity = () => {
   const [selectedOpacity, setSelectedOpacity] = useState(0);
   const { AiImages } = useAiImageStore();
-  const { selectedKeyword } = useKeywordStore((state) => state);
+  const { selectedKeyword } = useKeywordStore();
 
   useEffect(() => {
+    console.log(AiImages);
     console.log(AiImages[selectedKeyword.keywordId]);
   }, []);
   return (
@@ -31,7 +33,7 @@ const ControlPhotoOpacity = () => {
       >
         <CustomChat />
         <ControlOpacity
-          imgUrl={AiImages[selectedKeyword.keywordId].imageUrl}
+          imgUrl={AiImages[selectedKeyword.keywordId]?.imageUrl}
           opacity={OPACITY_BUTTON[selectedOpacity].opacity}
         />
         <ControlOpacityButton
@@ -39,6 +41,7 @@ const ControlPhotoOpacity = () => {
           setSelectedOpacity={setSelectedOpacity}
         />
       </div>
+      <Buttons />
     </div>
   );
 };
@@ -88,6 +91,39 @@ const ControlOpacityButton = ({ selectedOpacity, setSelectedOpacity }) => {
           {button.text}
         </button>
       ))}
+    </div>
+  );
+};
+
+const Buttons = () => {
+  const navigate = useNavigate();
+  const { selectedKeyword } = useKeywordStore();
+
+  const { AiImages, setAiImages, removeAiImage } = useAiImageStore();
+
+  const handleClickCancelButton = () => {
+    removeAiImage(selectedKeyword.keywordId);
+    navigate(-1);
+  };
+  const handleClickConfirmButton = () => {};
+  return (
+    <div className={"w-11/12 flex gap-8 items-center py-10 text-xl  font-bold"}>
+      <button
+        onClick={handleClickConfirmButton}
+        className={
+          "w-full border-2 border-primary-600 h-12 tablet:h-20 rounded-lg-xl text-white bg-primary-600"
+        }
+      >
+        확인
+      </button>
+      <button
+        onClick={handleClickCancelButton}
+        className={
+          "w-full border-2 border-primary-600 h-12 tablet:h-20 rounded-lg-xl text-primary-300"
+        }
+      >
+        취소
+      </button>
     </div>
   );
 };
