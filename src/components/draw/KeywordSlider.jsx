@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
+import useGoSelectedKeyword from "../../hooks/canvas/useGoSelectedKeyword";
 
 const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
   const keywordSliderRef = useRef(null);
@@ -13,12 +14,14 @@ const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
-    arrows: false, // 기본 화살표 비활성화
+    arrows: false,
   };
 
   useEffect(() => {
     setKeywordSlider(keywordSliderRef);
   }, [setKeywordSlider]);
+
+  useGoSelectedKeyword(keywordSliderRef);
 
   return (
     <div className="relative px-16">

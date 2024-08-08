@@ -12,12 +12,10 @@ import { useKeywordStore } from "../../stores/KeywordStore";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 import useSaveCanvas from "../../hooks/canvas/useSaveCanvas";
 import useGoDiary from "../../hooks/diary/useGoDiary";
-import { merge } from "antd/es/theme/util/statistic";
 
 const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
-  const [index, setIndex] = useState(0);
-  const { setSelectedKeyword } = useKeywordStore();
+  const { setSelectedKeyword, setIndex, index } = useKeywordStore();
   const { keywords } = useFetchKeywords();
 
   useEffect(() => {
