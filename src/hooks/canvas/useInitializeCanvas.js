@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useAiImageStore } from "../../stores/AiImagesStore";
-import { useKeywordStore } from "../../stores/KeywordStore";
 
 const useInitializeCanvas = ({ canvasBgRef, keyword }) => {
   const { AiImages } = useAiImageStore();
@@ -11,12 +10,15 @@ const useInitializeCanvas = ({ canvasBgRef, keyword }) => {
       const bgCtx = canvasBgRef.current.getContext("2d");
 
       const matchingImageUrl = AiImages[keyword.keywordId]?.imageUrl;
+      const opacity = AiImages[keyword.keywordId]?.opacity;
 
       if (matchingImageUrl) {
         const backgroundImage = new Image();
         backgroundImage.crossOrigin = "anonymous";
         backgroundImage.src = matchingImageUrl + `?v=${new Date().getTime()}`;
         backgroundImage.onload = () => {
+          bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+          bgCtx.globalAlpha = opacity;
           bgCtx.drawImage(
             backgroundImage,
             0,

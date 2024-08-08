@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { TextBlock } from "../../components/helpWithAi/chat/TextBlock";
 import { AiProfile } from "../../components/helpWithAi/chat/Chat";
-import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 import { useAiImageStore } from "../../stores/AiImagesStore";
 import { useKeywordStore } from "../../stores/KeywordStore";
 import { useNavigate } from "react-router-dom";
+import useGoDiaryDraw from "../../hooks/canvas/useGoDiaryDraw";
 
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";
 
 const OPACITY_BUTTON = [
-  { text: "없음", opacity: "opacity-100" },
-  { text: "30%", opacity: "opacity-70" },
-  { text: "50%", opacity: "opacity-50" },
-  { text: "70%", opacity: "opacity-30" },
+  { text: "없음", opacity: "opacity-100", value: 1 },
+  { text: "30%", opacity: "opacity-70", value: 0.7 },
+  { text: "50%", opacity: "opacity-50", value: 0.5 },
+  { text: "70%", opacity: "opacity-30", value: 0.3 },
 ];
 
 const ControlPhotoOpacity = () => {
@@ -20,10 +20,6 @@ const ControlPhotoOpacity = () => {
   const { AiImages } = useAiImageStore();
   const { selectedKeyword } = useKeywordStore();
 
-  useEffect(() => {
-    console.log(AiImages);
-    console.log(AiImages[selectedKeyword.keywordId]);
-  }, []);
   return (
     <div className={"w-full h-full flex flex-col items-center "}>
       <div
@@ -41,7 +37,7 @@ const ControlPhotoOpacity = () => {
           setSelectedOpacity={setSelectedOpacity}
         />
       </div>
-      <Buttons />
+      <Buttons selectedOpacity={selectedOpacity} />
     </div>
   );
 };
@@ -95,17 +91,25 @@ const ControlOpacityButton = ({ selectedOpacity, setSelectedOpacity }) => {
   );
 };
 
-const Buttons = () => {
+const Buttons = ({ selectedOpacity }) => {
   const navigate = useNavigate();
   const { selectedKeyword } = useKeywordStore();
 
   const { AiImages, setAiImages, removeAiImage } = useAiImageStore();
+  const { goDiaryDraw } = useGoDiaryDraw();
 
   const handleClickCancelButton = () => {
     removeAiImage(selectedKeyword.keywordId);
     navigate(-1);
   };
-  const handleClickConfirmButton = () => {};
+  const handleClickConfirmButton = () => {
+    setAiImages(
+      selectedKeyword.keywordId,
+      AiImages[selectedKeyword.keywordId].imageUrl,
+      OPACITY_BUTTON[selectedOpacity].value
+    );
+    goDiaryDraw();
+  };
   return (
     <div className={"w-11/12 flex gap-8 items-center py-10 text-xl  font-bold"}>
       <button
