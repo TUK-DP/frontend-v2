@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextBlock } from "../../components/helpWithAi/chat/TextBlock";
 import { AiProfile } from "../../components/helpWithAi/chat/Chat";
 import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
+import { useAiImageStore } from "../../stores/AiImagesStore";
+import { useKeywordStore } from "../../stores/KeywordStore";
 
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";
 
@@ -14,6 +16,12 @@ const OPACITY_BUTTON = [
 
 const ControlPhotoOpacity = () => {
   const [selectedOpacity, setSelectedOpacity] = useState(0);
+  const { AiImages } = useAiImageStore();
+  const { selectedKeyword } = useKeywordStore((state) => state);
+
+  useEffect(() => {
+    console.log(AiImages[selectedKeyword.keywordId]);
+  }, []);
   return (
     <div className={"w-full h-full flex flex-col items-center "}>
       <div
@@ -23,7 +31,7 @@ const ControlPhotoOpacity = () => {
       >
         <CustomChat />
         <ControlOpacity
-          imgUrl={aiHelpRobot}
+          imgUrl={AiImages[selectedKeyword.keywordId].imageUrl}
           opacity={OPACITY_BUTTON[selectedOpacity].opacity}
         />
         <ControlOpacityButton
@@ -71,12 +79,11 @@ const ControlOpacityButton = ({ selectedOpacity, setSelectedOpacity }) => {
     >
       {OPACITY_BUTTON.map((button, index) => (
         <button
-          className={`min-w-16 w-full h-10 rounded-lg-xl tablet:h-20 tablet:text-3xl ${
-            index === selectedOpacity
-              ? "bg-primary-600 text-white"
-              : "bg-white border-primary-600 border-2"
+          className={`min-w-16 w-full h-10 rounded-lg-xl tablet:h-20 tablet:text-3xl  border-primary-600 border-2 ${
+            index === selectedOpacity ? "bg-primary-600 text-white" : "bg-white"
           }`}
           onClick={() => handleChangeOpacity(index)}
+          key={index}
         >
           {button.text}
         </button>

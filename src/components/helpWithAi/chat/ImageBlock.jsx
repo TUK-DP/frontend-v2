@@ -1,6 +1,7 @@
 import { Image } from "antd";
 import { useAiImageStore } from "../../../stores/AiImagesStore";
 import { useKeywordStore } from "../../../stores/KeywordStore";
+import useGoControlPhotoOpacity from "../../../hooks/canvas/useGoControlPhotoOpacity";
 
 export const ImageBlock = ({
   suggestImageSrcList = [
@@ -16,8 +17,11 @@ export const ImageBlock = ({
 const SuggestImage = ({ imageSrc }) => {
   const { setAiImages } = useAiImageStore();
   const { selectedKeyword } = useKeywordStore();
+  const { goControlPhotoOpacity } = useGoControlPhotoOpacity();
+
   const handleClickSelectButton = (imageSrc) => {
     setAiImages(selectedKeyword.keywordId, imageSrc);
+    goControlPhotoOpacity();
   };
   return (
     <div className={"w-[250px] border-[1px] rounded-lg-xl overflow-clip"}>
