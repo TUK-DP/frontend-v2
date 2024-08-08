@@ -53,7 +53,6 @@ const CanvasSlider = ({
     slidesToShow: 1,
     infinite: false,
     arrows: false,
-    dots: true,
     swipe: false,
     beforeChange: (oldIndex, newIndex) => {
       setIndex(newIndex);

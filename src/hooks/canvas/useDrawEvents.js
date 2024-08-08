@@ -4,7 +4,7 @@ import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 export const useDrawEvents = (canvasRef, keyword) => {
   const { setDrawState } = useDrawStateStore();
-  const { drawingTools } = useDrawingToolStore();
+  const { drawingTools, initDrawingTools } = useDrawingToolStore();
 
   const { brushSize, color, drawingMode } = drawingTools;
 
@@ -16,6 +16,8 @@ export const useDrawEvents = (canvasRef, keyword) => {
     if (canvasRef && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
+      initDrawingTools();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       setTimeout(() => {
         setContext(ctx);
