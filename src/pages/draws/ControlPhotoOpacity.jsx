@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import AiProfileIcon from "../../components/helpWithAi/icon/AiProfileIcon";
 import { TextBlock } from "../../components/helpWithAi/chat/TextBlock";
-import { Chat, AiProfile } from "../../components/helpWithAi/chat/Chat";
+import { AiProfile } from "../../components/helpWithAi/chat/Chat";
 import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";

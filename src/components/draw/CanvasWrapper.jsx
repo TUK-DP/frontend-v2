@@ -143,9 +143,7 @@ const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { saveCanvas } = useSaveCanvas();
   const { goDiaryPage } = useGoDiary();
-  useEffect(() => {
-    console.log(canvasRefs, canvasBgRefs);
-  }, []);
+
   const handleClickCompleteButton = async () => {
     setIsLoading(true);
     try {
