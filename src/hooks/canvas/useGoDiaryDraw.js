@@ -4,7 +4,7 @@ import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 const useGoDiaryDraw = () => {
   const navigate = useNavigate();
-  const { initDrawingTools } = useDrawingToolStore;
+  const { initDrawingTools } = useDrawingToolStore();
   const goDiaryDraw = () => {
     initDrawingTools();
     navigate(DIARY_DRAW_PAGE_PATH);
