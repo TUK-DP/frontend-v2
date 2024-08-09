@@ -22,6 +22,7 @@ const useFetchRecentDiagnosis = () => {
     isFetching,
     isSuccess,
     isCanRender: isSuccess && !isFetching,
+    isRecordExist: isSuccess && !isFetching && record?.length !== 0,
   };
 };
 

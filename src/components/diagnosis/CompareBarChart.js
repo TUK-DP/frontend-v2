@@ -11,7 +11,7 @@ const CompareBarChart = ({ pre, now, className, ...props }) => {
   let isMobileScreen = window.innerWidth < 768;
 
   const data = {
-    labels: ["이전 진단", "현재 진단."],
+    labels: ["이전 진단", "현재 진단"],
     datasets: [
       {
         data: [pre, now, 32],

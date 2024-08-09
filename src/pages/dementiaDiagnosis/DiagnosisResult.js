@@ -14,17 +14,19 @@ const DiagnosisResult = () => {
   const { state } = useLocation();
   const { text, textColor } = getDiagnosisState(state.totalScore);
   const [recentResult, setRecentResult] = useState(0);
-  const { userId } = useRequireAuth;
+  const { userId, isAutoLoginSuccess } = useRequireAuth();
 
   useEffect(() => {
+    if (!isAutoLoginSuccess) return;
     const fetchResult = async () => {
       const res = await DiagnosisController.getRecentDiagnosis({
         userId,
       });
+      console.log(res.data.result[1].totalScore);
       setRecentResult(res.data.result[1].totalScore ?? 0);
     };
     fetchResult();
-  }, []);
+  }, [isAutoLoginSuccess]);
 
   return (
     <div className={"text-5xl px-32 pb-10 mobile:px-4 mobile:text-2xl"}>
@@ -46,7 +48,13 @@ const DiagnosisResult = () => {
         <span>전문가와의 상담을 권장합니다.</span>
       </div>
       <div className={"my-20 font-bold"}>진단 결과 비교</div>
-      <CompareBarChart pre={recentResult} now={state.totalScore} />
+      <CompareBarChart
+        key={
+          "이친구들 변경되면 리렌더링 됨" + (recentResult + state.totalScore)
+        }
+        pre={recentResult}
+        now={state.totalScore}
+      />
       <GoHomeButton />
     </div>
   );
