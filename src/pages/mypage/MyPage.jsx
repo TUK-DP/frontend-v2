@@ -10,12 +10,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import RecentDiagnosisGraph from "../../components/mypage/RecentDiagnosisGraph";
 import useFetchRecentDiagnosis from "../../hooks/Diagnosis/queries/useFetchRecentDiagnosis";
 import { RECENT_DIARIES_PAGE_PATH } from "./RecentDiaries";
+import SurveyIcon from "../../assets/home/button/btn_survey.png";
+import useGoDiagnosisGuide from "../../hooks/Diagnosis/useGoDiagnosisGuide";
 
 export const MY_PAGE_PATH = "/mypage";
 
 const MyPage = () => {
   const { user } = useFetchUser();
-  const { record, isCanRender } = useFetchRecentDiagnosis();
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState({
@@ -36,14 +37,10 @@ const MyPage = () => {
 
   return (
     <div className={"relative pb-20 flex flex-col gap-4 px-4"}>
-      <h1 className={"text-5xl font-bold"}>{user?.username}</h1>
+      <h1 className={"text-5xl font-bold mb-10"}>{user?.username}</h1>
       <LogoutButton />
-      <h2 className={"text-3xl mt-10 font-bold"}>최근 진단 결과</h2>
-      <div className={"border-2 rounded-xl"}>
-        {isCanRender && <RecentDiagnosisGraph number={record[0].totalScore} />}
-      </div>
 
-      <p className={"border-b-2 border-black my-6"} />
+      <RecentDiagnosisSection />
 
       <h1 onClick={goRecentDiaryPage} className={"text-3xl cursor-pointer"}>
         최근 일기
@@ -55,6 +52,44 @@ const MyPage = () => {
       <ApiKeyInput isOpen={isOpen.apiKey} onClick={() => onClick("apiKey")} />
     </div>
   );
+};
+
+const RecentDiagnosisSection = ({ ...props }) => {
+  const { record, isCanRender, isRecordExist } = useFetchRecentDiagnosis();
+
+  const { goDiagnosisGuide } = useGoDiagnosisGuide();
+
+  if (isCanRender && isRecordExist) {
+    return (
+      <>
+        <h2 className={"text-3xl font-bold"}>최근 진단 결과</h2>
+        <div className={"border-2 rounded-xl"}>
+          <RecentDiagnosisGraph number={record[0].totalScore} />
+        </div>
+        <p className={"border-b-2 border-black my-6"} />
+      </>
+    );
+  }
+  if (isCanRender && !isRecordExist) {
+    return (
+      <div
+        className={
+          "p-4 rounded-lg font-bold border-2 mb-4 text-xl h-20 box-content bg-secondary-600 cursor-pointer"
+        }
+        onClick={goDiagnosisGuide}
+      >
+        <img
+          className={"h-full aspect-square float-right "}
+          src={SurveyIcon}
+          alt="사진"
+        />
+        <div className={"flex-col flex h-full"}>
+          <div className={""}>치매 진단 기록이 없습니다!</div>
+          <div className={"mt-auto"}>진단하러 가볼까요?</div>
+        </div>
+      </div>
+    );
+  }
 };
 
 const LogoutButton = () => {
