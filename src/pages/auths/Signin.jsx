@@ -12,6 +12,7 @@ import { useInput } from "../../hooks/inputs/useInput";
 import { SignInOrUpInput } from "../../components/signup/SignInOrUpInput";
 import useSignIn from "../../hooks/auth/query/useSignIn";
 import Spinner from "../../components/Spinner";
+import useGoHome from "../../hooks/home/useGoHome";
 
 export const SIGNIN_PAGE_PATH = "/signin";
 
@@ -32,11 +33,16 @@ const Signin = () => {
   });
 
   const { mutate, isMutating } = useSignIn();
+  const { goHomePage } = useGoHome();
 
   return (
     <div className={"w-full h-full flex flex-col items-center justify-center"}>
       <div className={"w-5/6 h-full flex flex-col justify-center items-center"}>
-        <img src={AppLogo} className={"mt-12 w-3/4"} />
+        <img
+          src={AppLogo}
+          className={"mt-12 w-3/4 cursor-pointer"}
+          onClick={goHomePage}
+        />
         <div className={"flex-1 flex flex-col justify-center w-full"}>
           {SIGN_IN_INPUT_LIST.map(({ inputTagName, ...props }) => (
             <SignInOrUpInput
