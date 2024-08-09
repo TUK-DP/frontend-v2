@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import KeywordSlider from "../../components/draw/KeywordSlider";
 import aiHelpRobot from "../../assets/draw/aiHelpRobot.png";
 import showOtherDraw from "../../assets/draw/showOtherDraw.png";
