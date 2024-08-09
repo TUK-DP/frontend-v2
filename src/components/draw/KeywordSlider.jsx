@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
+import { useKeywordStore } from "../../stores/KeywordStore";
 import useGoSelectedKeyword from "../../hooks/canvas/useGoSelectedKeyword";
 
 const KeywordSlider = ({
@@ -13,6 +14,12 @@ const KeywordSlider = ({
 }) => {
   const keywordSliderRef = useRef(null);
   const { keywords } = useFetchKeywords();
+  const { selectedKeyword } = useKeywordStore((state) => state);
+
+  const isFirstKeyword =
+    selectedKeyword?.keywordId === keywords?.[0]?.keywordId;
+  const isLastKeyword =
+    selectedKeyword?.keywordId === keywords?.at(-1)?.keywordId;
 
   const settings = {
     slidesToShow: 1,
@@ -45,8 +52,12 @@ const KeywordSlider = ({
           </div>
         ))}
       </Slider>
-      <NextArrow onClick={() => keywordSliderRef.current.slickNext()} />
-      <PrevArrow onClick={() => keywordSliderRef.current.slickPrev()} />
+      {!isFirstKeyword && (
+        <PrevArrow onClick={() => keywordSliderRef.current.slickPrev()} />
+      )}
+      {!isLastKeyword && (
+        <NextArrow onClick={() => keywordSliderRef.current.slickNext()} />
+      )}
     </div>
   );
 };
