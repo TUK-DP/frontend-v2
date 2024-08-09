@@ -51,7 +51,6 @@ const CanvasSlider = ({
     slidesToShow: 1,
     infinite: false,
     arrows: false,
-    dots: true,
     swipe: false,
     beforeChange: (oldIndex, newIndex) => {
       setIndex(newIndex);
@@ -141,9 +140,7 @@ const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { saveCanvas } = useSaveCanvas();
   const { goDiaryPage } = useGoDiary();
-  useEffect(() => {
-    console.log(canvasRefs, canvasBgRefs);
-  }, []);
+
   const handleClickCompleteButton = async () => {
     setIsLoading(true);
     try {

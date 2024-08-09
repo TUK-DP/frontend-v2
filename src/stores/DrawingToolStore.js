@@ -13,4 +13,11 @@ export const useDrawingToolStore = create((set) => ({
       return { drawingTools: updatedDrawingTools };
     });
   },
+  initDrawingTools: () => {
+    set((state) => {
+      return {
+        drawingTools: { brushSize: 3, color: "#000000", drawingMode: true },
+      };
+    });
+  },
 }));

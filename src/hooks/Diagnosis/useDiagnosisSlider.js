@@ -97,7 +97,7 @@ const useDiagnosisSlider = () => {
 
     // 마지막 슬라이드일 경우 응답하지 않은 질문이 있는지 확인
     const firstUncheckedSlideIndex = sliderItems.findIndex(
-      ({ selectedButtonId }) => selectedButtonId === null
+      ({ selectedButtonId }) => selectedButtonId === -1
     );
 
     // 응답 안한 질문이 있을 경우 해당 질문으로 이동
