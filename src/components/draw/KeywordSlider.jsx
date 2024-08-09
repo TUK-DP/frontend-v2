@@ -6,7 +6,11 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 import useGoSelectedKeyword from "../../hooks/canvas/useGoSelectedKeyword";
 
-const KeywordSlider = ({ setKeywordSlider, canvasSlider }) => {
+const KeywordSlider = ({
+  setKeywordSlider,
+  canvasSlider,
+  setCurrentKeyword,
+}) => {
   const keywordSliderRef = useRef(null);
   const { keywords } = useFetchKeywords();
 
