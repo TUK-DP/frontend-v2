@@ -3,6 +3,7 @@ import FeatureSlider from "../components/home/FeatureSlider";
 import MainDementiaPreventionSection from "../components/home/MainDementiaPreventionSection";
 import SubDementiaPreventionSection from "../components/home/SubDementiaPreventionSection";
 import btn_centerMap from "../assets/home/button/btn_centerMap.png";
+import useGoDementiaCenter from "../hooks/DementiaCenter/useGoDementiaCenter";
 
 export const HOME_PAGE_PATH = "/";
 
@@ -23,8 +24,12 @@ export default Home;
 
 //치매센터 버튼 컴포넌트
 const DementiaCenterButton = () => {
+  const { goDementiaCenterPage } = useGoDementiaCenter();
   return (
-    <div className="my-7 flex justify-between items-center border-2 py-5 px-3 md:px-8 rounded-xl cursor-pointer">
+    <div
+      className="my-7 flex justify-between items-center border-2 py-5 px-3 md:px-8 rounded-xl cursor-pointer"
+      onClick={goDementiaCenterPage}
+    >
       <div>
         <span className="text-md sm:text-lg md:text-xl font-bold">
           가까운 치매센터 찾기 {">"}
