@@ -1,14 +1,20 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetchDiary from "../diary/queries/useFetchDiary";
 import { useInput } from "../inputs/useInput";
 
 const useDiaryControl = () => {
-  let { isDiaryExist, diary } = useFetchDiary();
+  let { isDiaryExist, diary, isFetching } = useFetchDiary();
   const textAreaRef = useRef(null);
 
-  let { form, handleChangeInput } = useInput({
-    content: diary?.content || "",
-  });
+  let { form, handleChangeInput } = useInput({ content: "" });
+
+  // 일기 가져오고 난 후에 일기 내용 초기화 하기
+  useEffect(() => {
+    if (isFetching) return;
+    handleChangeInput({
+      target: { name: "content", value: diary?.content ?? "" },
+    });
+  }, [isFetching]);
 
   const [controlState, setControlState] = useState({
     isEditActive: !isDiaryExist,
