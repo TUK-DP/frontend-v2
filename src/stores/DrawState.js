@@ -123,4 +123,11 @@ export const useDrawStateStore = create((set) => ({
   resetCanvasState: () => {
     set({ drawState: {} });
   },
+
+  resetOneCavnasState: (keyword) => {
+    set((state) => {
+      const { [keyword]: _, ...newDrawState } = state.drawState; // keyword를 제외한 나머지 속성으로 새로운 객체를 생성합니다.
+      return { drawState: newDrawState };
+    });
+  },
 }));

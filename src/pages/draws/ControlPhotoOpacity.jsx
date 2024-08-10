@@ -4,6 +4,7 @@ import { AiProfile } from "../../components/helpWithAi/chat/Chat";
 import { useAiImageStore } from "../../stores/AiImagesStore";
 import { useKeywordStore } from "../../stores/KeywordStore";
 import { useNavigate } from "react-router-dom";
+import { useDrawStateStore } from "../../stores/DrawState";
 import useGoDiaryDraw from "../../hooks/canvas/useGoDiaryDraw";
 
 export const CONTROL_PHOTO_OPACITY_PAGE_PATH = "/diary/draw/ai/edit";
@@ -97,6 +98,7 @@ const Buttons = ({ selectedOpacity }) => {
 
   const { AiImages, setAiImages, removeAiImage } = useAiImageStore();
   const { goDiaryDraw } = useGoDiaryDraw();
+  const { resetOneCavnasState } = useDrawStateStore();
 
   const handleClickCancelButton = () => {
     removeAiImage(selectedKeyword.keywordId);
@@ -108,6 +110,7 @@ const Buttons = ({ selectedOpacity }) => {
       AiImages[selectedKeyword.keywordId].imageUrl,
       OPACITY_BUTTON[selectedOpacity].value
     );
+    resetOneCavnasState(selectedKeyword.keywordId);
     goDiaryDraw();
   };
   return (
