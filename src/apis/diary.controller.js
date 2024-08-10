@@ -85,6 +85,11 @@ class DiaryController extends Api {
     });
   };
 
+  // 일기 삭제
+  deleteDiary = async ({ diaryId }) => {
+    return await this.delete(`/diary/${diaryId}`, {});
+  };
+
   recentDiaries = async ({ userId, page, pageSize }) => {
     return await this.get(`/diary/user`, { userId, page, pageSize });
   };
@@ -94,10 +99,6 @@ class DiaryController extends Api {
     return await this.get(`/image`, { keyword, page, pageSize });
   };
 
-  // 일기 삭제
-  // deleteDiary = async (diaryId, diaryData) => {
-  //   return await this.delete(`/diary/${diaryId}`);
-  // };
   // //일기회상 퀴즈
   // getQuiz = async ({ diaryId }) => {
   //   return await this.get(`/quiz?diaryId=${diaryId}`);
