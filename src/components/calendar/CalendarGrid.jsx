@@ -1,6 +1,7 @@
 import {
   CALENDAR_HEADER,
   getCalendarDaysInMonth,
+  getNow,
   isEqualDate,
   isSaturday,
   isSunday,
@@ -42,10 +43,16 @@ const CalenderBody = () => {
     });
   };
 
+  const isCanWriteDiaryDay = (day) => {
+    const { year, month } = selectedDate;
+    const { year: nowYear, month: nowMonth, day: nowDay } = getNow();
+    return !(year >= nowYear && month >= nowMonth && day > nowDay);
+  };
+
   return days.map((day, index) => (
     <CalendarBodyCell
       key={dateToDashString({ ...selectedDate, day: index })}
-      {...{ day, handleClickCell }}
+      {...{ day, handleClickCell, isCanWrite: isCanWriteDiaryDay(day) }}
     />
   ));
 };
@@ -66,7 +73,7 @@ const CalendarHeaderCell = ({ index, day, className }) => {
   );
 };
 
-const CalendarBodyCell = ({ handleClickCell, day, index }) => {
+const CalendarBodyCell = ({ handleClickCell, day, index, isCanWrite }) => {
   let { selectedDate } = useCalendarStore((state) => state); // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
 
   let { isCanRender, isDiaryExistDay } = useFetchDiaryChecks();
@@ -79,8 +86,9 @@ const CalendarBodyCell = ({ handleClickCell, day, index }) => {
   };
 
   return (
-    <div className={`flex justify-center items-center w-full`}>
+    <div className={`flex justify-center items-center w-full ${!isCanWrite && "text-gray-300"}`}>
       <div
+        onClick={() => isCanWrite && handleClickCell(day)}
         className={
           "relative flex justify-center w-16 h-16  mobile:w-10 mobile:h-10"
         }
@@ -88,9 +96,7 @@ const CalendarBodyCell = ({ handleClickCell, day, index }) => {
         {!isCanRender && <ResponseSkeleton />}
         {isCanRender && (
           <>
-            <CellWithCircle
-              {...{ isSelectedCell, index, day, handleClickCell }}
-            />
+            <CellWithCircle {...{ isSelectedCell, index, day }} />
             <Dot
               isVisible={isDiaryExistDay(day)}
               isSelected={isSelectedCell(day)}
@@ -102,10 +108,9 @@ const CalendarBodyCell = ({ handleClickCell, day, index }) => {
   );
 };
 
-const CellWithCircle = ({ day, index, isSelectedCell, handleClickCell }) => {
+const CellWithCircle = ({ day, index, isSelectedCell }) => {
   return (
     <div
-      onClick={() => handleClickCell(day)}
       className={`flex flex-col justify-center aspect-square items-center rounded-full cursor-pointer px-1          
           ${isSunday(index) && "text-red-600"}
           ${isSaturday(index) && "text-blue-600"}
