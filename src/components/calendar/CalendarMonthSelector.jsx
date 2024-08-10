@@ -4,16 +4,14 @@ import { useCalendarStore } from "../../stores/CalendarStore";
 import { yearMonthToKoreanString } from "../../utils/api/dateConverter";
 
 export const CalendarMonthSelector = () => {
-  let { selectedYearMonth, setSelectedYearMonth } = useCalendarStore(
-    (state) => state
-  );
+  let { selectedDate, setSelectedDate } = useCalendarStore((state) => state);
 
   const goPreMonth = () => {
-    setSelectedYearMonth(getPreYearMonth(selectedYearMonth));
+    setSelectedDate({ ...getPreYearMonth(selectedDate), day: 1 });
   };
 
   const goNextMonth = () => {
-    setSelectedYearMonth(getNextYearMonth(selectedYearMonth));
+    setSelectedDate({ ...getNextYearMonth(selectedDate), day: 1 });
   };
 
   return (
@@ -32,7 +30,7 @@ export const CalendarMonthSelector = () => {
           "font-bold flex justify-center items-center text-nowrap  w-0"
         }
       >
-        {yearMonthToKoreanString(selectedYearMonth)}
+        {yearMonthToKoreanString(selectedDate)}
       </span>
       <IoIosArrowForward
         size={50}

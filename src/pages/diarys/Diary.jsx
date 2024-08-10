@@ -29,7 +29,7 @@ const Diary = () => {
 };
 
 const useBottomSheetPosition = () => {
-  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state);
+  let { selectedDate } = useCalendarStore((state) => state);
 
   const [position, setPosition] = useState(BOTTOM_POSITION);
 
@@ -47,7 +47,7 @@ const useBottomSheetPosition = () => {
   // 달이 변경되면 BottomSheet 의 위치를 초기화
   useEffect(() => {
     setPosition(BOTTOM_POSITION);
-  }, [selectedYearMonth]);
+  }, [selectedDate.month]);
 
   return { position, setPosition, isDiaryExistDay };
 };

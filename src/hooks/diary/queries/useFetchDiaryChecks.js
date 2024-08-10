@@ -14,18 +14,20 @@ import useRequireAuth from "../../auth/useRequireAuth";
  * }}
  */
 const useFetchDiaryChecks = () => {
-  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state);
+  let { selectedDate } = useCalendarStore((state) => state);
+  const { year, month } = selectedDate;
   const { userId, isLogin } = useRequireAuth();
   let {
     isFetching,
     isSuccess,
     data: diaryChecks,
   } = useQuery({
-    queryKey: diaryCheckQueryKey(selectedYearMonth),
+    queryKey: diaryCheckQueryKey({ year, month }),
     queryFn: async () => {
       const response = await DiaryController.findCheckDiaries({
         userId,
-        ...selectedYearMonth,
+        year,
+        month,
       });
       return response.data.result;
     },
@@ -36,7 +38,7 @@ const useFetchDiaryChecks = () => {
   const isCanRender = !isFetching && isSuccess;
 
   const isDiaryExistDay = (day) => {
-    return diaryChecks?.[yearMonthToDashString({ ...selectedYearMonth })]?.[day]
+    return diaryChecks?.[yearMonthToDashString({ year, month })]?.[day]
       ?.isExist;
   };
 
@@ -51,8 +53,7 @@ const useFetchDiaryChecks = () => {
   };
 };
 
-export const diaryCheckQueryKey = (selectedYearMonth) => {
-  const { year, month } = selectedYearMonth;
+export const diaryCheckQueryKey = ({ year, month }) => {
   return ["diary", year, month];
 };
 

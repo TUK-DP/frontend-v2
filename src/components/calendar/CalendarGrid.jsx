@@ -28,25 +28,23 @@ const CalendarHeader = () => {
 };
 
 const CalenderBody = () => {
-  let { setSelectedDate, selectedYearMonth } = useCalendarStore(
-    (state) => state
-  );
+  let { setSelectedDate, selectedDate } = useCalendarStore((state) => state);
 
   // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
-  const days = getCalendarDaysInMonth({ ...selectedYearMonth });
+  const days = getCalendarDaysInMonth({ ...selectedDate });
 
   const handleClickCell = (day) => {
     if (!day) return;
 
     setSelectedDate({
-      ...selectedYearMonth,
+      ...selectedDate,
       day,
     });
   };
 
   return days.map((day, index) => (
     <CalendarBodyCell
-      key={dateToDashString({ ...selectedYearMonth, day: index })}
+      key={dateToDashString({ ...selectedDate, day: index })}
       {...{ day, handleClickCell }}
     />
   ));
@@ -69,13 +67,13 @@ const CalendarHeaderCell = ({ index, day, className }) => {
 };
 
 const CalendarBodyCell = ({ handleClickCell, day, index }) => {
-  let { selectedDate, selectedYearMonth } = useCalendarStore((state) => state); // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
+  let { selectedDate } = useCalendarStore((state) => state); // 선택된 달의 길이가 42인 날짜 배열 => ["", "" ,1 , 2, ... , "" ]
 
   let { isCanRender, isDiaryExistDay } = useFetchDiaryChecks();
 
   const isSelectedCell = (day) => {
     return isEqualDate(selectedDate, {
-      ...selectedYearMonth,
+      ...selectedDate,
       day,
     });
   };
