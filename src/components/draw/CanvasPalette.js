@@ -43,9 +43,13 @@ const PaletteToggle = ({ isOpen, setIsOpen }) => {
   return (
     <div
       onClick={toggleOpen}
-      className="bg-[#d9d9d9] flex justify-center items-center py-2 rounded-ss-2xl rounded-se-2xl cursor-pointer"
+      className="md:h-12 bg-[#d9d9d9] flex justify-center items-center py-2 rounded-ss-2xl rounded-se-2xl cursor-pointer"
     >
-      {isOpen ? <TbTriangleInvertedFilled /> : <TbTriangleFilled />}
+      {isOpen ? (
+        <TbTriangleInvertedFilled className="md:text-2xl" />
+      ) : (
+        <TbTriangleFilled className="md:text-2xl" />
+      )}
     </div>
   );
 };
