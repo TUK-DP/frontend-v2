@@ -24,7 +24,7 @@ const ColorPickerComp = ({ setColorPickerOpen }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[20rem] md:w-[35rem] md:h-[30rem]">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[20rem] md:w-[35rem] h-fit">
         <div className="w-full font-bold text-xl md:text-3xl flex justify-center mb-3">
           원하는 색상을 선택하세요
         </div>
