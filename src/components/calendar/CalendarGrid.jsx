@@ -125,7 +125,7 @@ const CellWithCircle = ({ day, index, isSelectedCell }) => {
 const Dot = ({ isVisible, isSelected }) => {
   return (
     <span
-      className={`absolute bottom-0 w-2 h-2 bg-primary-600 rounded-full invisible ${isVisible && "!visible"} ${isSelected && "!bg-white"}`}
+      className={`absolute bottom-[2px] w-2 h-2 bg-primary-600 rounded-full invisible ${isVisible && "!visible"} ${isSelected && "!bg-white"}`}
     />
   );
 };
