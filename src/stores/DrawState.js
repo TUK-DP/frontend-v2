@@ -119,4 +119,8 @@ export const useDrawStateStore = create((set) => ({
       };
     });
   },
+
+  resetCanvasState: () => {
+    set({ drawState: {} });
+  },
 }));
