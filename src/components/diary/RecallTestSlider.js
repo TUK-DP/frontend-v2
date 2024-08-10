@@ -24,7 +24,7 @@ const RecallTestSlider = ({
           key={index}
           className="text-3xl md:text-5xl break-keep font-extrabold flex items-center justify-center"
         >
-          <p className="w-full h-[15rem] md:h-[30rem] flex justify-center items-center text-center">
+          <p className="w-full h-[15rem] md:h-[30rem] flex justify-center items-center text-center tracking-widest">
             {slide.question}
           </p>
           <ResponseInput
