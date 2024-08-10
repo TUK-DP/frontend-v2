@@ -65,7 +65,7 @@ export const GameButtonList = () => {
       {games.map((game, index) => (
         <div
           key={index}
-          className="h-[4rem] flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg md:text-2xl cursor-pointer"
+          className="h-[4rem] tablet:h-20 flex justify-between items-center border-2 rounded-xl px-4 mb-5 text-lg md:text-2xl cursor-pointer"
           onClick={game.onClick}
         >
           <img src={game.imgsrc} alt={game.name} width={"50px"} />

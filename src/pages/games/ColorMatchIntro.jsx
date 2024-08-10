@@ -13,9 +13,11 @@ const ColorMatchIntro = () => {
 
   return (
     <>
-      <div className={"flex flex-col gap-10 px-14 items-center"}>
-        <div className={"font-bold text-3xl text-center"}>컬러매치</div>
-        <img src={ColorMatchIcon} />
+      <div className={"flex flex-col gap-10 px-14 items-center h-full py-16"}>
+        <Title />
+        <div className={"grow flex items-center justify-center"}>
+          <img src={ColorMatchIcon} />
+        </div>
         <GameButtons handleModalState={handleModalState} />
       </div>
       {isGameModalOpen && (
@@ -31,13 +33,21 @@ const ColorMatchIntro = () => {
 
 export default ColorMatchIntro;
 
+const Title = () => {
+  return (
+    <div className={"font-bold text-6xl tablet:text-8xl text-center"}>
+      컬러매치
+    </div>
+  );
+};
+
 const GameButtons = ({ handleModalState }) => {
   const navigate = useNavigate();
   const goPlayGame = () => {
     navigate(COLOR_MTACH_PAGE_PATH);
   };
   return (
-    <div className="w-full flex flex-col gap-8 mt-5 items-center">
+    <div className="w-full flex flex-col gap-8 mt-5 items-center ">
       <PurpleButton
         buttonName="설명 보기"
         handleClickButton={handleModalState}
