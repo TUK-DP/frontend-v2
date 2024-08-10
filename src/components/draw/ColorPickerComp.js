@@ -3,6 +3,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 import { pickerHeight, mdPickerHeight } from "../../constants/size";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 const ColorPickerComp = ({ setColorPickerOpen }) => {
   const { drawingTools, setDrawingTools } = useDrawingToolStore();
@@ -19,6 +20,10 @@ const ColorPickerComp = ({ setColorPickerOpen }) => {
     };
 
     updateHeight();
+    disableBodyScroll(document.body);
+    return () => {
+      enableBodyScroll(document.body);
+    };
   }, []);
   console.log(colorPickerHeight);
 
