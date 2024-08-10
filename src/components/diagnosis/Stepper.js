@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { TbCircleCheck } from "react-icons/tb";
-import { STEP_BAR_ICONS } from "../../hooks/diary/useRecallTestSlider";
+import { STEP_BAR_ICONS } from "../../hooks/Diagnosis/useDiagnosisSlider";
 
 /**
  * @param currentSlide {SliderItem}
@@ -42,7 +42,7 @@ const Stepper = ({ currentSlide, sliderItems, handleStepClick }) => {
         <div key={index} className="flex items-center">
           <StepperIcon
             index={index}
-            isSelected={slide.selectedButtonId !== null}
+            isSelected={slide.selectedButtonId !== -1}
             onClick={handleStepClick}
           />
           {index < sliderItems.length - 1 && (
