@@ -31,8 +31,6 @@ export const Calendar = () => {
     );
   }, [selectedDate]);
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <CalendarMonthSelector />
