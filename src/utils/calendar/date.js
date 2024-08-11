@@ -2,8 +2,9 @@ import { range } from "../array/range";
 
 export const CALENDAR_HEADER = ["일", "월", "화", "수", "목", "금", "토"];
 
+const now = new Date();
+
 export const getNow = () => {
-  const now = new Date();
   return {
     year: now.getFullYear(),
     month: now.getMonth() + 1,
