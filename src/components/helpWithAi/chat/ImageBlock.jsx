@@ -29,6 +29,13 @@ const SuggestImage = ({ imageSrc }) => {
         preview={{
           mask: <span className={"text-xl font-bold"}>크게 보기</span>,
           toolbarRender: () => {},
+          imageRender: (_, { image }) => (
+            <img
+              className={"scale-150 tablet:scale-[2]"}
+              src={image.url}
+              alt=""
+            />
+          ),
         }}
         className={"object-cover"}
         rootClassName={"block"}
