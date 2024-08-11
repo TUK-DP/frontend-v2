@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
+import "../../styles/colorPicker.css";
 import { pickerHeight, mdPickerHeight } from "../../constants/size";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { IoClose } from "react-icons/io5";
 
 const ColorPickerComp = ({ setColorPickerOpen }) => {
   const { drawingTools, setDrawingTools } = useDrawingToolStore();
@@ -30,10 +32,10 @@ const ColorPickerComp = ({ setColorPickerOpen }) => {
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white rounded-lg shadow-lg w-[20rem] md:w-[35rem]">
         <button
-          className="text-[#6100C1] font-semibold text-lg md:text-2xl w-full text-end pr-4 pt-2 md:pt-4"
+          className="text-[#6100C1] font-semibold w-full flex justify-end pr-2 md:pr-4 pt-2 md:pt-4"
           onClick={() => setColorPickerOpen(false)}
         >
-          취소
+          <IoClose className="text-lg md:text-4xl" />
         </button>
         <div className="pt-3 p-6">
           <div className="w-full font-bold text-xl md:text-3xl flex justify-center mb-3">
