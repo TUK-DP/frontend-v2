@@ -1,19 +1,30 @@
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { getNextYearMonth, getPreYearMonth } from "../../utils/calendar/date";
+import {
+  getNextYearMonth,
+  getNow,
+  getPreYearMonth,
+} from "../../utils/calendar/date";
 import { useCalendarStore } from "../../stores/CalendarStore";
 import { yearMonthToKoreanString } from "../../utils/api/dateConverter";
 
 export const CalendarMonthSelector = () => {
-  let { selectedYearMonth, setSelectedYearMonth } = useCalendarStore(
-    (state) => state
-  );
+  let { selectedDate, setSelectedDate } = useCalendarStore((state) => state);
+
+  const { year: nextYear, month: nextMonth } = getNextYearMonth(selectedDate);
+  const { year: nowYear, month: nowMonth } = getNow();
+  const isCanGoNextMonth =
+    nextYear < nowYear || (nextYear === nowYear && nextMonth <= nowMonth);
 
   const goPreMonth = () => {
-    setSelectedYearMonth(getPreYearMonth(selectedYearMonth));
+    setSelectedDate({ ...getPreYearMonth(selectedDate), day: 1 });
   };
 
   const goNextMonth = () => {
-    setSelectedYearMonth(getNextYearMonth(selectedYearMonth));
+    if (!isCanGoNextMonth) return;
+
+    const { year: nextYear, month: nextMonth } = getNextYearMonth(selectedDate);
+
+    setSelectedDate({ year: nextYear, month: nextMonth, day: 1 });
   };
 
   return (
@@ -32,11 +43,11 @@ export const CalendarMonthSelector = () => {
           "font-bold flex justify-center items-center text-nowrap  w-0"
         }
       >
-        {yearMonthToKoreanString(selectedYearMonth)}
+        {yearMonthToKoreanString(selectedDate)}
       </span>
       <IoIosArrowForward
         size={50}
-        className={"cursor-pointer"}
+        className={`cursor-pointer ${isCanGoNextMonth ? "" : "invisible"}`}
         onClick={goNextMonth}
       />
     </div>

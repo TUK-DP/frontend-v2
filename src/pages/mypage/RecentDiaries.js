@@ -55,7 +55,7 @@ const MonthlyTitle = ({ year, month }) => {
 };
 
 const DiaryItem = ({ diary }) => {
-  const { setSelectedYearMonth, setSelectedDate } = useCalendarStore(
+  const { setSelectedDate } = useCalendarStore(
     (state) => state
   );
 
@@ -65,7 +65,6 @@ const DiaryItem = ({ diary }) => {
   const [year, month, day] = createDate.split("-").map((i) => Number(i));
 
   const onClick = () => {
-    setSelectedYearMonth({ year, month });
     setSelectedDate({ year, month, day });
     navigate(DIARY_PAGE_PATH);
   };

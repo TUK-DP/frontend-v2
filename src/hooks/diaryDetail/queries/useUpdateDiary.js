@@ -4,7 +4,6 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { delay } from "../../../utils/api/delay";
 import DiaryController from "../../../apis/diary.controller";
 import { yearMonthToDashString } from "../../../utils/api/dateConverter";
 import { diaryCheckQueryKey } from "../../diary/queries/useFetchDiaryChecks";
@@ -14,9 +13,7 @@ import useFetchDiary, {
 import useRequireAuth from "../../auth/useRequireAuth";
 
 const useUpdateDiary = () => {
-  const { selectedDate, selectedYearMonth } = useCalendarStore(
-    (state) => state
-  );
+  const { selectedDate } = useCalendarStore((state) => state);
 
   let queryClient = useQueryClient();
 
@@ -33,15 +30,12 @@ const useUpdateDiary = () => {
       });
     },
     onMutate: async (content) => {
-      queryClient.setQueryData(
-        diaryCheckQueryKey(selectedYearMonth),
-        (old) => ({
-          [yearMonthToDashString(selectedYearMonth)]: {
-            ...old[yearMonthToDashString(selectedYearMonth)],
-            [selectedDate.day]: { isExist: true },
-          },
-        })
-      );
+      queryClient.setQueryData(diaryCheckQueryKey(selectedDate), (old) => ({
+        [yearMonthToDashString(selectedDate)]: {
+          ...old[yearMonthToDashString(selectedDate)],
+          [selectedDate.day]: { isExist: true },
+        },
+      }));
 
       queryClient.setQueryData(diaryQueryKey(selectedDate), (old) => ({
         ...old,
