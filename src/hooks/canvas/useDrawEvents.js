@@ -3,7 +3,7 @@ import { useDrawStateStore } from "../../stores/DrawState";
 import { useDrawingToolStore } from "../../stores/DrawingToolStore";
 
 export const useDrawEvents = (canvasRef, keyword) => {
-  const { setDrawState } = useDrawStateStore();
+  const { setDrawState, drawState } = useDrawStateStore();
   const { drawingTools } = useDrawingToolStore();
 
   const { brushSize, color, drawingMode } = drawingTools;
@@ -20,6 +20,11 @@ export const useDrawEvents = (canvasRef, keyword) => {
       setTimeout(() => {
         setContext(ctx);
       }, 0);
+    }
+    if (drawState[keyword]) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      ctx.putImageData(drawState[keyword].canvasState, 0, 0);
     }
   }, [canvasRef]);
 
