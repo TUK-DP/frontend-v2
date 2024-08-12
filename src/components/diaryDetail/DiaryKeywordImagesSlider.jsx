@@ -4,6 +4,7 @@ import React from "react";
 import useCreateDiary from "../../hooks/diaryDetail/queries/useCreateDiary";
 import useUpdateDiary from "../../hooks/diaryDetail/queries/useUpdateDiary";
 import useGoDiaryDraw from "../../hooks/canvas/useGoDiaryDraw";
+import "../../styles/diarySliderDots.css";
 
 const settings = {
   infinite: false,
