@@ -1,0 +1,13 @@
+.rcp {
+  background-color: #e2e2e2 !important;
+}
+
+.rcp-hue {
+  height: 30px; /* 높이를 20px로 설정 */
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.rcp-alpha {
+  height: 30px; /* 높이를 20px로 설정 */
+}
