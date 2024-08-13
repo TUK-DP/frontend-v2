@@ -12,7 +12,7 @@ import useFetchDiary, {
 } from "../../diary/queries/useFetchDiary";
 
 const useDeleteDiary = () => {
-  const { selectedDate, selectedYearMonth } = useCalendarStore(
+  const { selectedDate } = useCalendarStore(
     (state) => state
   );
 
@@ -28,10 +28,10 @@ const useDeleteDiary = () => {
     },
     onMutate: async (content) => {
       queryClient.setQueryData(
-        diaryCheckQueryKey(selectedYearMonth),
+        diaryCheckQueryKey(selectedDate),
         (old) => ({
-          [yearMonthToDashString(selectedYearMonth)]: {
-            ...old[yearMonthToDashString(selectedYearMonth)],
+          [yearMonthToDashString(selectedDate)]: {
+            ...old[yearMonthToDashString(selectedDate)],
             [selectedDate.day]: { isExist: false },
           },
         })
