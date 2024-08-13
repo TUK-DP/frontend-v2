@@ -10,6 +10,7 @@ import { DIARY_DETAIL_PAGE_PATH } from "../../pages/diaryDetails/DiaryDetail";
 import useFetchDiary from "../../hooks/diary/queries/useFetchDiary";
 import useFetchDiaryRecallQuiz from "../../hooks/diary/queries/useFetchRecallQuiz";
 import { NO_DIARY_RECALL_PAGE_PATH } from "../../pages/diarys/NoDiaryRecall";
+import useFetchDiaryChecks from "../../hooks/diary/queries/useFetchDiaryChecks";
 
 export const CalendarDetail = () => {
   const { isCanRender } = useFetchDiary();
@@ -64,6 +65,10 @@ const WhatHappenSection = () => {
 };
 
 const GoDrawingSection = () => {
+  const { isDiaryImageExist } = useFetchDiaryChecks();
+
+  if (isDiaryImageExist) return;
+
   return (
     <>
       <div className={"text-3xl text-white font-bold"}>
