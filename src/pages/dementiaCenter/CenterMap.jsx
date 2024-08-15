@@ -26,7 +26,7 @@ export default CenterMap;
 
 const CenterInfo = ({ address, callnumber }) => {
   return (
-    <div className="text-xl tablet:text-3xl mt-5 tablet:mt-8">
+    <div className="text-xl tablet:text-3xl mt-5 tablet:mt-8 pb-8 md:pb-12">
       <div className="flex items-center mb-3 tablet:mb-6">
         <FaRegBuilding className="mr-3" />
         {address}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CenterList from "../../components/dementiaCenter/CenterList";
 import Search from "../../assets/dementiaCenter/search.png";
 import { useGetNearByCenter } from "../../hooks/DementiaCenter/useGetNearByCenter";
@@ -19,6 +20,27 @@ const DementiaCenter = () => {
   });
 
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === DEMENTIA_CENTER_PAGE_PATH) {
+      sessionStorage.removeItem("inputRadius");
+      sessionStorage.removeItem("centers");
+    }
+
+    const savedRadius = sessionStorage.getItem("inputRadius");
+    if (savedRadius) {
+      onRadiusChange({ target: { value: savedRadius } });
+    }
+  }, [location.pathname, onRadiusChange]);
+
+  useEffect(() => {
+    sessionStorage.setItem("inputRadius", inputRadius);
+  }, [inputRadius]);
+
+  useEffect(() => {
+    sessionStorage.setItem("centers", JSON.stringify(centers));
+  }, [centers]);
 
   const handleSearch = () => {
     setIsSearchClicked(true);

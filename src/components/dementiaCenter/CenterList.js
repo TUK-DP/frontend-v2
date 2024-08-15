@@ -33,7 +33,7 @@ const NoneCentersComp = ({
   if (!isPositionFetchingDone) {
     return null;
   }
-  if (!isSearchClicked) {
+  if (!isSearchClicked && centers.length === 0) {
     return (
       <div className={"text-center mt-4 md:text-2xl"}>
         치매 센터를 검색해 주세요

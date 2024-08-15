@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Center from "../../apis/center.controller";
 
 export const useGetNearByCenter = ({ latitude, longitude }) => {
   const [position, setPosition] = useState({
-    latitude: latitude, //  위도
-    longitude: longitude, // 경도
+    latitude: latitude,
+    longitude: longitude,
   });
 
-  // position 객체의 latitude, longitude가 정상적으로 설정되었는지 여부
   const [isPositionFetchingDone, setIsPositionFetchingDone] = useState(false);
   const [isCenterDataFetchingDone, setIsCenterDataFetchingDone] =
     useState(true);
+  const [inputRadius, setInputRadius] = useState(() => {
+    return sessionStorage.getItem("inputRadius") || "";
+  });
+  const [centers, setCenters] = useState(() => {
+    const savedCenters = sessionStorage.getItem("centers");
+    return savedCenters ? JSON.parse(savedCenters) : [];
+  });
 
-  // 사용자가 입력한 반경
-  const [inputRadius, setInputRadius] = useState(""); //입력받은 거리(반경)
   const onRadiusChange = (event) => {
     setInputRadius(event.target.value);
   };
 
-  const [centers, setCenters] = useState([]); //주변 센터 목록
-
-  const fetchNearbyCenters = async () => {
+  const fetchNearbyCenters = useCallback(async () => {
     if (!isPositionFetchingDone) {
-      // 위치 정보를 가져오는 중이라면, fetchNearbyCenters 함수를 실행하지 않음
       return;
     }
 
@@ -45,7 +46,6 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
 
     const { isSuccess, message, result } = response.data;
 
-    // isSuccess가 false라면, 에러 메시지를 출력하고 함수를 종료
     if (isSuccess === false) {
       console.error("Error fetching nearby centers:", message);
       return;
@@ -62,7 +62,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
 
     centerList.sort((a, b) => a.distance - b.distance);
     setCenters(centerList);
-  };
+  }, [inputRadius, isPositionFetchingDone, position]);
 
   const updatePosition = () => {
     setInputRadius("");
@@ -73,8 +73,6 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
         latitude: Number(window.position.latitude),
         longitude: Number(window.position.longitude),
       };
-      console.log(newPosition);
-      // flutter web에서 위치 정보를 가져왔다면, 해당 위치 정보를 사용
       setPosition(newPosition);
       setIsPositionFetchingDone(true);
       return;
@@ -103,6 +101,14 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
   useEffect(() => {
     updatePosition();
   }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("inputRadius", inputRadius);
+  }, [inputRadius]);
+
+  useEffect(() => {
+    sessionStorage.setItem("centers", JSON.stringify(centers));
+  }, [centers]);
 
   return {
     isPositionFetchingDone,
