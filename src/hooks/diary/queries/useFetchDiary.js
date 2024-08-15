@@ -4,6 +4,7 @@ import DiaryController from "../../../apis/diary.controller";
 import { dateToDashString, HOUR } from "../../../utils/api/dateConverter";
 import { useCalendarStore } from "../../../stores/CalendarStore";
 import useRequireAuth from "../../auth/useRequireAuth";
+import { useEffect } from "react";
 
 /**
  * @return {{diary: Diary, isFetching: boolean, isDiaryExist: boolean, isCanRender: boolean}}
@@ -17,6 +18,7 @@ const useFetchDiary = () => {
     isFetching,
     isSuccess,
     data: diary,
+    refetch,
   } = useQuery({
     queryKey: diaryQueryKey(selectedDate),
     queryFn: async () => {
@@ -31,7 +33,7 @@ const useFetchDiary = () => {
 
   const isCanRender = !isFetching && isSuccess;
 
-  return { isFetching, isCanRender, diary, isDiaryExist };
+  return { isFetching, isCanRender, diary, isDiaryExist, refetch };
 };
 
 export const diaryQueryKey = (selectedDate) => {
