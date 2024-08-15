@@ -20,6 +20,7 @@ import { Api } from "./common.controller";
  * @typedef{{
  *  isExist : boolean,
  *  diaryId :number | null,
+ *  imgExist : boolean,
  * }} CheckDiary
  *
  * @typedef {{

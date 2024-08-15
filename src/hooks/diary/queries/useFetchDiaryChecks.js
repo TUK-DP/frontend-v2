@@ -11,6 +11,7 @@ import useRequireAuth from "../../auth/useRequireAuth";
  *    isCanRender: boolean,
  *    isDiaryExistDay : (day : number) => boolean
  *    isDiaryExist: boolean
+ *    isDiaryImageExist: boolean
  * }}
  */
 const useFetchDiaryChecks = () => {
@@ -43,12 +44,14 @@ const useFetchDiaryChecks = () => {
   };
 
   const isDiaryExist = isDiaryExistDay(selectedDate.day);
+  const isDiaryImageExist = diaryChecks?.[yearMonthToDashString({ year, month })]?.[selectedDate.day]?.imgExist;
 
   return {
     isFetching,
     isCanRender,
     diaryChecks,
     isDiaryExist,
+    isDiaryImageExist,
     isDiaryExistDay,
   };
 };
