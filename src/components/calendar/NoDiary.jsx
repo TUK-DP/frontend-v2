@@ -10,7 +10,7 @@ const NoDiary = ({ isExist }) => {
   return (
     <div
       className={
-        "px-4 flex font-bold flex-col gap-4 mt-4 text-2xl tablet:text-4xl tablet:gap-10 tablet:mt-10"
+        "px-4 flex font-bold flex-col mobile:gap-4 mobile:mt-4 mobile:text-2xl text-4xl gap-10 mt-10"
       }
     >
       <div>직접 쓴 일기로 그림을 그리고</div>
@@ -28,11 +28,11 @@ const GoWriteDiaryButton = () => {
         navigate(DIARY_DETAIL_PAGE_PATH);
       }}
       className={
-        "flex items-center border-2 rounded-xl h-40 p-4 bg-secondary-600 tablet:h-64 cursor-pointer"
+        "flex items-center border-2 rounded-xl mobile:h-28 p-4 bg-secondary-600 h-48 cursor-pointer mb-5"
       }
     >
-      <img src={btn_diary} className={"h-full"} />
-      <div className={"text-3xl text-[#5B5B5B] tablet:text-5xl"}>
+      <img src={btn_diary} className={"h-full mr-5"} />
+      <div className={"mobile:text-2xl text-[#5B5B5B] text-4xl"}>
         일기 쓰러 가기
       </div>
     </div>
