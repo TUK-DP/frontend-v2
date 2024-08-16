@@ -22,6 +22,13 @@ class ImageController extends Api {
     });
   };
 
+  // 이미지 여러개 한 번에 업로드
+  uploadImgs = async (formData) => {
+    return await this.post("/image/all", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  };
+
   // 키워드 별 이미지 저장
   saveImgByKeyword = async (keywordId, imgUrl) => {
     return await this.post(`/keyword/${keywordId}/image`, {

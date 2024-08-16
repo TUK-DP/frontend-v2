@@ -1,0 +1,16 @@
+.slick-dots li button::before {
+  width: 10px;
+  height: 10px;
+  content: "";
+  background-color: #fff;
+  border-radius: 999px;
+  border: 1px solid #000;
+}
+
+.slick-dots > li {
+  opacity: 50%;
+}
+
+.slick-dots > li.slick-active {
+  opacity: 1;
+}
