@@ -7,11 +7,10 @@ export const USER_CHAT = "USER";
 export const Chat = ({ id = AI_CHAT, children }) => {
   return (
     <div
-      className={`whitespace-pre flex gap-4 items-start 
-    ${id === USER_CHAT && "justify-end"}`}
+      className={`whitespace-pre flex gap-4 items-start`}
     >
       {id === AI_CHAT && <AiProfile />}
-      <div className={"flex flex-col gap-6"}>{children}</div>
+      <div className={`flex flex-col gap-6 flex-1 ${id === USER_CHAT && "items-end"}`}>{children}</div>
     </div>
   );
 };
