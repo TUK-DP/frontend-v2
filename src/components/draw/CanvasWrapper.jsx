@@ -12,6 +12,9 @@ import { useKeywordStore } from "../../stores/KeywordStore";
 import useFetchKeywords from "../../hooks/canvas/useFetchKeywords";
 import useSaveCanvas from "../../hooks/canvas/useSaveCanvas";
 import useGoDiary from "../../hooks/diary/useGoDiary";
+import { useQueryClient } from "@tanstack/react-query";
+import { diaryCheckQueryKey } from "../../hooks/diary/queries/useFetchDiaryChecks";
+import { useCalendarStore } from "../../stores/CalendarStore";
 
 const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
   const [isError, setIsError] = useState(false);
@@ -140,6 +143,8 @@ const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { saveCanvas } = useSaveCanvas();
   const { goDiaryPage } = useGoDiary();
+  const queryClient = useQueryClient();
+  const { selectedDate } = useCalendarStore((state) => state);
 
   const handleClickCompleteButton = async () => {
     setIsLoading(true);
@@ -149,6 +154,10 @@ const CompleteButton = ({ setIsError, canvasRefs, canvasBgRefs }) => {
       setIsError(true);
     }
     setIsLoading(false);
+
+    // 일기 그림 저장시 다이러리 관련 쿼리 캐시 무효와
+    await queryClient.invalidateQueries(diaryCheckQueryKey(selectedDate));
+
     //에러 발생시 이동안하도록
     goDiaryPage();
   };
