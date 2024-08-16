@@ -12,7 +12,7 @@ const useDiaryControl = () => {
   useEffect(() => {
     if (isFetching) return;
     handleChangeInput({
-      target: { name: "content", value: diary?.content ?? "" },
+      target: { name: "content", value: isDiaryExist ? diary.content : "" },
     });
   }, [isFetching]);
 
