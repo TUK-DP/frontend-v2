@@ -7,6 +7,7 @@ const CenterList = ({
   isSearchClicked,
   isPositionFetchingDone,
   isCenterDataFetchingDone,
+  errorMessage,
 }) => {
   return (
     <>
@@ -15,6 +16,7 @@ const CenterList = ({
         isSearchClicked={isSearchClicked}
         isPositionFetchingDone={isPositionFetchingDone}
         isCenterDataFetchingDone={isCenterDataFetchingDone}
+        errorMessage={errorMessage}
       />
       <div className="overflow-scroll scrollbar-hide">
         {centers.length > 0 && <CenterComp centers={centers} />}
@@ -29,9 +31,17 @@ const NoneCentersComp = ({
   isSearchClicked,
   isPositionFetchingDone,
   isCenterDataFetchingDone,
+  errorMessage,
 }) => {
   if (!isPositionFetchingDone) {
     return null;
+  }
+  if (errorMessage) {
+    return (
+      <div className={"text-center mt-4 md:text-2xl text-red-600"}>
+        {errorMessage}
+      </div>
+    );
   }
   if (!isSearchClicked && centers.length === 0) {
     return (
