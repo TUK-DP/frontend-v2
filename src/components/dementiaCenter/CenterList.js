@@ -35,9 +35,7 @@ const NoneCentersComp = ({
   }
   if (!isSearchClicked && centers.length === 0) {
     return (
-      <div className={"text-center mt-4 md:text-2xl"}>
-        치매 센터를 검색해 주세요
-      </div>
+      <div className={"text-center mt-4 md:text-2xl"}>거리를 검색해 주세요</div>
     );
   }
   if (isSearchClicked && isCenterDataFetchingDone && centers.length === 0) {
