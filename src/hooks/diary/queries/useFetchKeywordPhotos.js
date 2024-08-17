@@ -13,8 +13,8 @@ const useFetchKeywordPhotos = (keyword) => {
         });
         return response.data.result;
       },
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.imgUrls.length > 0 ? allPages.length + 1 : undefined;
+      getNextPageParam: (lastPage) => {
+        return lastPage.hasNextPage;
       },
       enabled: !!keyword,
     });
