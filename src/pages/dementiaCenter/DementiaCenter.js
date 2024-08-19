@@ -79,7 +79,7 @@ const SearchBar = ({
         value={value}
         onChange={onRadiusChange}
         className="border-none flex-1 text-lg md:text-2xl outline-none"
-        type={"number"}
+        type="number"
         placeholder={
           !isPositionFetchingDone
             ? "위치 정보를 가져오는 중입니다..."

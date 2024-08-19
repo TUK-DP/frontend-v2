@@ -18,12 +18,19 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
     return savedCenters ? JSON.parse(savedCenters) : [];
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const onRadiusChange = (event) => {
     setInputRadius(event.target.value);
   };
 
   const fetchNearbyCenters = useCallback(async () => {
     if (!isPositionFetchingDone) {
+      return;
+    }
+
+    if (!position.latitude || !position.longitude) {
+      setErrorMessage("위치 정보를 불러오지 못했습니다.");
       return;
     }
 
@@ -39,6 +46,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
       });
     } catch (e) {
       console.log("Error fetching nearby centers:", e.message);
+      setErrorMessage("센터 정보를 불러오는 중 오류가 발생했습니다.");
       return;
     }
 
@@ -48,6 +56,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
 
     if (isSuccess === false) {
       console.error("Error fetching nearby centers:", message);
+      setErrorMessage("센터 정보를 불러오지 못했습니다");
       return;
     }
 
@@ -67,6 +76,7 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
   const updatePosition = () => {
     setInputRadius("");
     setIsPositionFetchingDone(false);
+    setErrorMessage("");
 
     if (window.position) {
       let newPosition = {
@@ -89,11 +99,13 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
         },
         (error) => {
           console.log("위치를 가져오는데 실패함 :", error);
+          setErrorMessage("위치를 가져오는데 실패했습니다.");
           setIsPositionFetchingDone(true);
         }
       );
     } else {
       console.log("지원되지 않는 브라우저 입니다.");
+      setErrorMessage("브라우저에서 위치 정보를 지원하지 않습니다.");
       setIsPositionFetchingDone(true);
     }
   };
@@ -117,5 +129,6 @@ export const useGetNearByCenter = ({ latitude, longitude }) => {
     onRadiusChange,
     centers,
     fetchNearbyCenters,
+    errorMessage,
   };
 };
