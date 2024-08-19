@@ -43,7 +43,7 @@ const MyPage = () => {
       <RecentDiagnosisSection />
 
       <h1 onClick={goRecentDiaryPage} className={"text-3xl cursor-pointer"}>
-        최근 일기
+        최근 일기 {">"}
       </h1>
       <FontSizeControl
         isOpen={isOpen.fontSize}
