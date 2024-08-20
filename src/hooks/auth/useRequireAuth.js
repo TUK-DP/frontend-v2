@@ -9,10 +9,10 @@ const useRequireAuth = () => {
   const navigate = useNavigate();
   const { isLogin, userId } = useUserStore((state) => state);
   useEffect(() => {
-    if (isLoggingIn) return;
+    if (isLoggingIn || window.location.pathname === SIGNIN_PAGE_PATH) return;
 
     if (!isLogin || userId === 0 || !isAutoLoginSuccess) {
-      navigate(SIGNIN_PAGE_PATH);
+      navigate(SIGNIN_PAGE_PATH, { replace: true });
     }
   }, [isAutoLoginSuccess, isLoggingIn, isLogin, userId]);
 

@@ -43,9 +43,9 @@ const ChatBar = () => {
       <input
         name={"chatInput"}
         value={chatInput}
-        placeholder={placeholder}
+        // placeholder={placeholder}
         onChange={handleChangeInput}
-        className={"flex-1 rounded-bl-lg-xl outline-none pl-2 text-2xl "}
+        className={"flex-1 rounded-bl-lg-xl outline-none pl-2 text-2xl min-w-0.5"}
         type="text"
       />
       <button
