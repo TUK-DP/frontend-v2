@@ -15,8 +15,9 @@ import useGoDiary from "../../hooks/diary/useGoDiary";
 import { useQueryClient } from "@tanstack/react-query";
 import { diaryCheckQueryKey } from "../../hooks/diary/queries/useFetchDiaryChecks";
 import { useCalendarStore } from "../../stores/CalendarStore";
+import useGoSelectedKeyword from "../../hooks/canvas/useGoSelectedKeyword";
 
-const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
+const CanvasWrapper = ({ setCanvasSlider, keywordSlider }) => {
   const [isError, setIsError] = useState(false);
   const { setSelectedKeyword, setIndex, index } = useKeywordStore();
   const { keywords } = useFetchKeywords();
@@ -30,7 +31,7 @@ const CanvasWrapper = ({ setCanvasSlider, canvasSlider }) => {
       <CanvasSlider
         keywords={keywords}
         setCanvasSlider={setCanvasSlider}
-        canvasSlider={canvasSlider}
+        keywordSlider={keywordSlider}
         setIndex={setIndex}
         setIsError={setIsError}
         index={index}
@@ -61,8 +62,9 @@ const CanvasSlider = ({
   };
 
   let canvasSliderRef = useRef(null);
+
   useEffect(() => {
-    setCanvasSlider(canvasSliderRef);
+    setCanvasSlider(canvasSliderRef.current);
   }, []);
 
   // 캔버스 ref들 생성
@@ -73,12 +75,15 @@ const CanvasSlider = ({
     window.innerWidth > 640
       ? `${window.innerWidth - 160}px`
       : `${window.innerWidth - 40}px`;
+
+  useGoSelectedKeyword(canvasSliderRef);
+
   return (
     <>
       <Slider
         {...settings}
         asNavFor={keywordSlider}
-        ref={(slider) => (canvasSliderRef = slider)}
+        ref={canvasSliderRef}
         className={"w-full"}
       >
         {keywords.map((keyword, index) => (

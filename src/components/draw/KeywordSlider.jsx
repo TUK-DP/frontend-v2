@@ -12,7 +12,6 @@ const KeywordSlider = ({
   canvasSlider,
   setCurrentKeyword,
 }) => {
-  const keywordSliderRef = useRef(null);
   const { keywords } = useFetchKeywords();
   const { selectedKeyword } = useKeywordStore((state) => state);
 
@@ -27,10 +26,11 @@ const KeywordSlider = ({
     infinite: false,
     arrows: false,
   };
+  let keywordSliderRef = useRef(null);
 
   useEffect(() => {
-    setKeywordSlider(keywordSliderRef);
-  }, [setKeywordSlider]);
+    setKeywordSlider(keywordSliderRef.current);
+  }, []);
 
   useGoSelectedKeyword(keywordSliderRef);
 
