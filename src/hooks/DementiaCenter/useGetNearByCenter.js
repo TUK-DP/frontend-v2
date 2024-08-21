@@ -1,134 +1,60 @@
-import { useEffect, useState, useCallback } from "react";
 import Center from "../../apis/center.controller";
+import useGetPosition from "./useGetPosition";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { HOUR } from "../../utils/api/dateConverter";
+import useDebounce from "../common/useDebounce";
 
-export const useGetNearByCenter = ({ latitude, longitude }) => {
-  const [position, setPosition] = useState({
-    latitude: latitude,
-    longitude: longitude,
-  });
+export const useGetNearByCenter = () => {
+  const { data: position } = useGetPosition();
 
-  const [isPositionFetchingDone, setIsPositionFetchingDone] = useState(false);
-  const [isCenterDataFetchingDone, setIsCenterDataFetchingDone] =
-    useState(true);
-  const [inputRadius, setInputRadius] = useState(() => {
-    return sessionStorage.getItem("inputRadius") || "";
-  });
-  const [centers, setCenters] = useState(() => {
-    const savedCenters = sessionStorage.getItem("centers");
-    return savedCenters ? JSON.parse(savedCenters) : [];
-  });
+  const [query, setQuery] = useSearchParams();
+  const { inputRadius } = Object.fromEntries(query.entries());
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const { debouncedValue } = useDebounce(inputRadius, 300);
 
-  const onRadiusChange = (event) => {
-    setInputRadius(event.target.value);
-  };
-
-  const fetchNearbyCenters = useCallback(async () => {
-    if (!isPositionFetchingDone) {
-      return;
-    }
-
-    if (!position.latitude || !position.longitude) {
-      setErrorMessage("위치 정보를 불러오지 못했습니다.");
-      return;
-    }
-
-    setIsCenterDataFetchingDone(false);
-
-    let response;
-
-    try {
-      response = await Center.searchCenter({
-        lat: position.latitude,
-        lon: position.longitude,
-        radius: parseInt(inputRadius),
+  const {
+    isFetching,
+    isSuccess,
+    data: centerList,
+    error,
+  } = useQuery({
+    queryKey: ["centers", position, debouncedValue],
+    queryFn: async () => {
+      const response = await Center.searchCenter({
+        lat: position?.latitude,
+        lon: position?.longitude,
+        radius: Number(debouncedValue),
       });
-    } catch (e) {
-      console.log("Error fetching nearby centers:", e.message);
-      setErrorMessage("센터 정보를 불러오는 중 오류가 발생했습니다.");
-      return;
-    }
 
-    setIsCenterDataFetchingDone(true);
+      const { result } = response.data;
 
-    const { isSuccess, message, result } = response.data;
+      const centerList = result.map((center) => ({
+        name: center["치매센터명"],
+        latitude: center["위도"],
+        longitude: center["경도"],
+        address: center["소재지도로명주소"],
+        code: center["제공기관코드"],
+        distance: parseFloat(center["나와의거리"]).toFixed(1),
+        callnumber: center["운영기관전화번호"],
+      }));
 
-    if (isSuccess === false) {
-      console.error("Error fetching nearby centers:", message);
-      setErrorMessage("센터 정보를 불러오지 못했습니다");
-      return;
-    }
+      centerList.sort((a, b) => a.distance - b.distance);
 
-    const centerList = result.map((center) => ({
-      name: center["치매센터명"],
-      latitude: center["위도"],
-      longitude: center["경도"],
-      address: center["소재지도로명주소"],
-      distance: parseFloat(center["나와의거리"]).toFixed(1),
-      callnumber: center["운영기관전화번호"],
-    }));
-
-    centerList.sort((a, b) => a.distance - b.distance);
-    setCenters(centerList);
-  }, [inputRadius, isPositionFetchingDone, position]);
-
-  const updatePosition = () => {
-    setInputRadius("");
-    setIsPositionFetchingDone(false);
-    setErrorMessage("");
-
-    if (window.position) {
-      let newPosition = {
-        latitude: Number(window.position.latitude),
-        longitude: Number(window.position.longitude),
-      };
-      setPosition(newPosition);
-      setIsPositionFetchingDone(true);
-      return;
-    }
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setPosition({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          setIsPositionFetchingDone(true);
-        },
-        (error) => {
-          console.log("위치를 가져오는데 실패함 :", error);
-          setErrorMessage("위치를 가져오는데 실패했습니다.");
-          setIsPositionFetchingDone(true);
-        }
-      );
-    } else {
-      console.log("지원되지 않는 브라우저 입니다.");
-      setErrorMessage("브라우저에서 위치 정보를 지원하지 않습니다.");
-      setIsPositionFetchingDone(true);
-    }
-  };
-
-  useEffect(() => {
-    updatePosition();
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("inputRadius", inputRadius);
-  }, [inputRadius]);
-
-  useEffect(() => {
-    sessionStorage.setItem("centers", JSON.stringify(centers));
-  }, [centers]);
+      return centerList;
+    },
+    enabled: !!debouncedValue,
+    staleTime: 2 * HOUR,
+  });
 
   return {
-    isPositionFetchingDone,
-    isCenterDataFetchingDone,
-    inputRadius,
-    onRadiusChange,
-    centers,
-    fetchNearbyCenters,
-    errorMessage,
+    isFetching,
+    isSuccess,
+    centerList,
+    error,
+    inputRadius: inputRadius ?? 0,
+    setInputRadius: (i) => {
+      setQuery({ inputRadius: i }, { replace: true });
+    },
   };
 };
