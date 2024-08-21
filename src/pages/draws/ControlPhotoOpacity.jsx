@@ -97,7 +97,6 @@ const Buttons = ({ selectedOpacity }) => {
   const { selectedKeyword } = useKeywordStore();
 
   const { AiImages, setAiImages, removeAiImage } = useAiImageStore();
-  const { goDiaryDraw } = useGoDiaryDraw();
   const { resetOneCavnasState } = useDrawStateStore();
 
   const handleClickCancelButton = () => {
@@ -111,7 +110,7 @@ const Buttons = ({ selectedOpacity }) => {
       OPACITY_BUTTON[selectedOpacity].value
     );
     resetOneCavnasState(selectedKeyword.keywordId);
-    goDiaryDraw();
+    navigate(-2, { replace: true });
   };
   return (
     <div className={"w-11/12 flex gap-8 items-center py-10 text-xl  font-bold"}>
