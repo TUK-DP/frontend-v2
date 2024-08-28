@@ -15,11 +15,14 @@ import MainPageFeatureRoutes from "./routes/MainPageFeatureRoutes";
 import MyPageFeatureRoutes from "./routes/MyPageFeatureRoutes";
 import DementiaCenterRoutes from "./routes/DementiaCenterRoutes";
 import useAutoLogin from "./hooks/auth/query/useAutoLogin";
+import useSetFlutterPosition from "./hooks/DementiaCenter/useSetFlutterPostion";
 
 function App() {
   const fontSize = useFontSizeStore((state) => state.fontSize);
 
   useAutoLogin();
+  // Flutter 앱일때 페이지 로드 시 위치 설정
+  useSetFlutterPosition();
 
   useEffect(() => {
     // 페이지 로드 시 폰트 크기 설정
