@@ -20,7 +20,9 @@ const useGetAddress = () => {
         },
       });
 
-      return response.data.documents[0].road_address.address_name;
+      const { road_address, address } = response.data.documents[0];
+
+      return road_address.address_name || address.address_name;
     },
     staleTime: 2 * HOUR,
     enabled: !!position,
