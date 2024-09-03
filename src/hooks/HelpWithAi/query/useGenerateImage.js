@@ -26,7 +26,7 @@ const useGenerateImage = () => {
     error,
   } = useMutation({
     mutationKey: ["generating"],
-    mutationFn: async (chatInput) => {
+    mutationFn: async ([chatInput, n]) => {
       // 키워드가 비어있지 않고, 입력한 문장에 키워드가 포함되어 있지 않으면 에러 발생
       if (!isKeywordEmpty && !chatInput.includes(selectedKeyword.keyword)) {
         throw new Error("키워드를 포함해서 입력해주세요.");
@@ -37,7 +37,7 @@ const useGenerateImage = () => {
       response = await ImageController.generateImage({
         password: apiKey?.trim() ? apiKey : "쓰레기값",
         prompt: chatInput,
-        n: 3,
+        n,
       });
 
       const taskId = response.data.result.taskId;
@@ -59,7 +59,7 @@ const useGenerateImage = () => {
       }
     },
 
-    onMutate: async (chatInput) => {
+    onMutate: async ([chatInput, n]) => {
       await appendChatUserText({ text: chatInput });
     },
 
