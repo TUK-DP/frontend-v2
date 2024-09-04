@@ -11,10 +11,17 @@ const useFetchKeywordPhotos = (keyword) => {
           page: pageParam,
           pageSize: 6,
         });
-        return response.data.result;
+        return {
+          imgUrls: response.data.result.imgUrls,
+          hasNextPage: response.data.result.hasNext,
+          currentPage: response.data.result.currentPage,
+          totalPage: response.data.result.totalPage,
+        };
       },
       getNextPageParam: (lastPage) => {
-        return lastPage.hasNextPage;
+        return lastPage.hasNextPage && lastPage.currentPage < lastPage.totalPage
+          ? lastPage.currentPage + 1
+          : undefined;
       },
       enabled: !!keyword,
     });
