@@ -25,27 +25,39 @@ const ChatBar = () => {
 
   let { form, handleChangeInput, setForm } = useInput({
     chatInput: "",
+    n: 1,
   });
 
-  let { chatInput } = form;
+  let { chatInput, n } = form;
 
   const { isMutating, mutate } = useGenerateImage();
 
   const onSend = async () => {
     if (chatInput === "") return;
 
-    mutate(chatInput);
-    await setForm({ chatInput: "" });
+    mutate([chatInput, n]);
+    await setForm({ chatInput: "", n: 1 });
   };
 
   return (
     <div className={"mb-4 flex h-14"}>
       <input
+        type="number"
+        name={"n"}
+        max={3}
+        min={1}
+        value={n}
+        onChange={handleChangeInput}
+        className={"w-12 border-2 border-black"}
+      />
+      <input
         name={"chatInput"}
         value={chatInput}
         // placeholder={placeholder}
         onChange={handleChangeInput}
-        className={"flex-1 rounded-bl-lg-xl outline-none pl-2 text-2xl min-w-0.5"}
+        className={
+          "flex-1 rounded-bl-lg-xl outline-none pl-2 text-2xl min-w-0.5"
+        }
         type="text"
       />
       <button

@@ -11,7 +11,7 @@ const BrushSizeControl = () => {
     <div className="flex items-center mx-3">
       <input
         type="range"
-        min="10"
+        min="3"
         max="40"
         step={1}
         value={drawingTools.brushSize}
