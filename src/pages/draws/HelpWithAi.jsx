@@ -25,7 +25,7 @@ const ChatBar = () => {
 
   let { form, handleChangeInput, setForm } = useInput({
     chatInput: "",
-    n: 1,
+    n: 2,
   });
 
   let { chatInput, n } = form;
@@ -36,12 +36,13 @@ const ChatBar = () => {
     if (chatInput === "") return;
 
     mutate([chatInput, n]);
-    await setForm({ chatInput: "", n: 1 });
+    await setForm({ chatInput: "", n: 2 });
   };
 
   return (
     <div className={"mb-4 flex h-14"}>
       <input
+        hidden
         type="number"
         name={"n"}
         max={3}
